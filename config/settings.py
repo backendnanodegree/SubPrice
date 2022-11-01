@@ -143,3 +143,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# 사용자 인증 등을 진행할 때 사용할 모델 선언
+AUTH_USER_MODEL = 'users.User'
