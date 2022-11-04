@@ -1,181 +1,156 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubPrice</title>
-    <link rel="stylesheet" href="/static/css/header.css">
-    <link rel="stylesheet" href="/static/css/main.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <header class="header">
-        <nav class="nav">
-            <div class="left-section">
-                <img class="logo-img" src="/static/img/SubPrice.png" alt="logo">
-            </div>
-            <div class="middle-section"></div>
-            <div class="right-section">
-                <button class="main-button">MAIN</button>
-                <button class="history-button">HISTORY</button>
-                <img class="profile-img" src="/static/img/profile.png" alt="profile">
-                <img class="logout-img" src="/static/img/logout.png" alt="logout">
-            </div>
-        </nav>
-    </header>
-    <main class="main">
-        <div class="subscription-title">
-            <h2 class="subscription-title-text">구독 중인 서비스</h2>
-            <div class="subscription-title-empty"></div>
-        </div>
-        <div>
-            <table class="subscription-table">
-                <thead>
-                    <tr>
-                        <th>카테고리</th>
-                        <th>서비스</th>
-                        <th>서비스 유형</th>
-                        <th>결제예정일</th>
-                        <th>만료예정일</th>
-                        <th>결제금액</th>
-                        <th>결제사</th>
-                        <th>결제수단</th>
-                        <th>알림여부</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="subscription-table-control">
-            <div class="subscription-table-paging"></div>
-            <button type="button" class="subscription-table-button">구독 등록</button>
-        </div>
-        
-        <div class="subscription-title">
-            <h2 class="subscription-title-text">구독 만료 서비스</h2>
-            <div class="subscription-title-empty"></div>
-        </div>
-        <div>
-            <table class="subscription-table">
-                <thead>
-                    <tr>
-                        <th>카테고리</th>
-                        <th>서비스</th>
-                        <th>서비스 유형</th>
-                        <th>만료일</th>
-                        <th>결제금액</th>
-                        <th>결제사</th>
-                        <th>결제수단</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                    <tr>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                        <td class=""></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </main>
-</body>
-</html>
+{% extends "base.html" %}  
+
+{% block head_css %}
+{% endblock head_css %}
+
+{% block content %}
+<div class="subscription-title">
+    <h2 class="subscription-title-text">구독 중인 서비스</h2>
+    <div class="subscription-title-empty"></div>
+</div>
+<div>
+    <table class="subscription-table">
+        <thead>
+            <tr>
+                <th>카테고리</th>
+                <th>서비스</th>
+                <th>서비스 유형</th>
+                <th>결제예정일</th>
+                <th>만료예정일</th>
+                <th>결제금액</th>
+                <th>결제사</th>
+                <th>결제수단</th>
+                <th>알림여부</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="subscription-table-control">
+    <div class="subscription-table-paging"></div>
+    <button type="button" class="subscription-table-button">구독 등록</button>
+</div>
+
+<div class="subscription-title">
+    <h2 class="subscription-title-text">구독 만료 서비스</h2>
+    <div class="subscription-title-empty"></div>
+</div>
+<div>
+    <table class="subscription-table">
+        <thead>
+            <tr>
+                <th>카테고리</th>
+                <th>서비스</th>
+                <th>서비스 유형</th>
+                <th>만료일</th>
+                <th>결제금액</th>
+                <th>결제사</th>
+                <th>결제수단</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+            <tr>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+                <td class=""></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endblock content %}
