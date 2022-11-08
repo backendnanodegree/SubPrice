@@ -7,10 +7,17 @@ from dateutil.relativedelta import relativedelta
 
 @admin.register(Alarm)
 class AlarmAdmin(admin.ModelAdmin):
+    """
+    최선우 : Alarm Model을 Admin Site에 등록
+    """
     list_display = ["subscription", "get_billing_at", "get_dday", "get_date"]
     
     @admin.display(description="다음 결제 예정일")
     def get_billing_at(self, obj):
+        """
+        결제 예정일 : 구독 시작일로부터 갱신일자를 추출 후, 현재 날짜와 비교하여 계산
+                      - 발송 예정일 계산을 위해 'next_billing_at'을 전역 변수로 선언
+        """
         global next_billing_at
         renewal_day = obj.subscription.started_at.day
         today = datetime.now() + relativedelta(hours=9)
@@ -37,6 +44,9 @@ class AlarmAdmin(admin.ModelAdmin):
 
 @admin.register(AlarmHistory)
 class AlarmHistoryAdmin(admin.ModelAdmin):
+    """
+    최선우 : AlarmHistory Model을 Admin Site에 등록
+    """
     list_display = ["alarm", "get_date", "get_content", "is_success", "traceback"]
     
     

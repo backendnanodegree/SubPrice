@@ -1,0 +1,141 @@
+html, body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    font-family: 'Noto Sans KR';
+}
+
+.container {
+    position: absolute;
+    top: calc(50% - 250px);
+    left: calc(50% - 194px);
+    margin: auto;
+    width: 388px;
+    height: 500px;
+    border-top: 10px solid #81CAB5;
+    border-bottom: 10px solid #81CAB5;
+}
+
+
+.login-logo {
+    margin: auto;
+    text-align: center;
+}
+
+.logo-image {
+    margin-top: 39px;
+    width: 217px;
+    height: 48px;
+}
+
+
+.login-title-wrap {
+    margin-top: 30px;
+    display: grid;
+    align-items: center;
+    grid-template-columns : 100px, 144px, 144px;
+    grid-template-rows: 40px 60px 60px;
+}
+
+.login-title {
+    grid-column : 1 / 1;
+    grid-row: 1 / 1;
+    margin-left: 16px;
+
+    font-weight: 500;
+    font-size: 24px;
+    text-align: left;
+    height: 29.26px;
+}
+
+.form-error {
+    grid-column : span 2;
+    grid-row: 1 / 1;
+    text-align: right;
+}
+
+.form-item-error > ul {
+    list-style: none;
+    margin-right: 16px;
+
+    color: red;
+    font-family: 'Noto Sans KR';
+    font-weight: 300;
+    font-size: 14px;
+}
+
+
+.form-item-wrap {
+    grid-column : span 3;
+    text-align: center;
+}
+
+.form-item input {
+    border: 1px solid lightgrey;
+    width: 354px;
+    height: 41px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    color: gray;
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    font-size: 16px;
+}
+
+
+.button-submit-wrap {
+    width: 500px;
+    display: table-cell; 
+    vertical-align: middle;
+    text-align: center;
+    height: 60px;
+}
+
+.button-submit {
+    border: #555555;
+    width: 354px;
+    height: 41px;
+    background: #555555;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    color: #FFFFFF;
+    font-family: 'Noto Sans KR';
+    font-weight: 300;
+    font-size: 16px;
+}
+
+
+.login-bottom {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    height: 50px;
+    align-items: center;
+}
+
+.txt-signup {
+    font-family: 'Noto Sans KR';
+    font-weight: 300;
+    font-size: 16px;
+    color: #B2B2B2;
+    margin: 0 5px;
+}
+
+.button-move {
+    font-family: 'Noto Sans KR';
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+a.signup-btn:link {
+    color: #008078;
+    text-decoration: none;
+}
+
+a.signup-btn:visited {
+    color: #008078;
+    text-decoration: none;
+}
