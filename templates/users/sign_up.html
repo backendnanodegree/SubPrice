@@ -2,13 +2,13 @@
 {% load static %}
 
 {% block head_css %}
-<link rel="stylesheet" href="/static/css/sign_up.css">
+<link rel="stylesheet" href="/static/css/user.css">
 {% endblock head_css %}
 
 {% block content %}
 <div class="container">
     <div class="signup-logo">
-        <img class="logo-image" src="/static/img/SubPrice.PNG" alt="">
+        <img class="logo-image" src="/static/img/SubPrice.png" alt="">
     </div>
     <form class="singup-form" action="{% url 'sign_up' %}" method="post">
         {% csrf_token %}
