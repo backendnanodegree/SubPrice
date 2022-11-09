@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_css %}
+<link rel="stylesheet" href="/static/css/sign_up.css">
+{% endblock head_css %}
+
+{% block content %}
+<div class="container">
+    <div class="signup-logo">
+        <img class="logo-image" src="/static/img/SubPrice.PNG" alt="">
+    </div>
+    <form class="singup-form" action="{% url 'sign_up' %}" method="post">
+        {% csrf_token %}
+        <div class="signup-title-wrap">
+            <div class="signup-title">SignUp</div>
+            <div class="form-error">
+                <div class="form-item-error" id="errors_email">{{form.email.errors}}</div>
+                <div class="form-item-error" id="errors_password">{{form.password.errors}}</div>
+                <div class="form-item-error" id="errors_password_confirm">{{form.password_confirm.errors}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-fullname">{{form.fullname}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-email">{{form.email}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-password">{{form.password}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-password">{{form.password_confirm}}</div>
+            </div>
+        </div>
+        <div class="button-submit-wrap">
+            <button class="button-submit" type="submit">회원가입</button>
+        </div>
+    </form>
+    <div class="signup-bottom">
+        <div class="txt-login">이미 회원이신가요?</div>
+        <div class="button-move">
+            <a href="{% url 'login' %}" class="login-btn">로그인</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
