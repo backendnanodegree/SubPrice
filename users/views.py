@@ -9,7 +9,7 @@ from users.models import User
 # Create your views here.
 
 
-class SignUpView(TemplateView):
+class SignUpView(FormView):
     template_name = "users/sign_up.html"
     form_class = SignUpForm
     success_url = "/subscriptions/main/"
