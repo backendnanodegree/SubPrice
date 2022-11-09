@@ -67,7 +67,8 @@ class LoginView(FormView):
         return super().form_invalid(form)
 
 def logout_view(request):
-    pass
+    logout(request)
+    return redirect("index")
 
 def index(request):
     return redirect("login")
