@@ -9,8 +9,6 @@ html, body {
     top:0;
     margin: auto;
     background-color: #fff;
-    display: flex;
-    flex-direction: row;
     border-bottom: 1px solid #555555;
 }
 
