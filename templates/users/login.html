@@ -1,48 +1,40 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+{% extends "base.html" %}
+{% load static %}
 
-    <link rel="stylesheet" href="/static/css/login.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+{% block head_css %}
+<link rel="stylesheet" href="/static/css/login.css">
+{% endblock head_css %}
 
-</head>
-<body>
-    <div class="container">
-        <div class="login-logo">
-            <img class="logo-image" src="/static/img/SubPrice.PNG" alt="">
+{% block content %}
+<div class="container">
+    <div class="login-logo">
+        <img class="logo-image" src="/static/img/SubPrice.PNG" alt="">
+    </div>
+    <form class="login-form" action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="login-title-wrap">
+            <div class="login-title">Login</div>
+            <div class="form-error">
+                <div class="form-item-error error_email" id="errors_email">{{form.email.errors}}</div>
+                <div class="form-item-error error_password" id="errors_password">{{form.password.errors}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-email">{{form.email}}</div>
+                
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-password">{{form.password}}</div>
+            </div>
         </div>
-        <form class="login-form" action="{% url 'login' %}" method="post">
-            {% csrf_token %}
-            <div class="login-title-wrap">
-                <div class="login-title">Login</div>
-                <div class="form-error">
-                    <div class="form-item-error error_email" id="errors_email">{{form.email.errors}}</div>
-                    <div class="form-item-error error_password" id="errors_password">{{form.password.errors}}</div>
-                </div>
-                <div class="form-item-wrap">
-                    <div class="form-item form-email">{{form.email}}</div>
-                    
-                </div>
-                <div class="form-item-wrap">
-                    <div class="form-item form-password">{{form.password}}</div>
-                </div>
-            </div>
-            <div class="button-submit-wrap">
-                <button class="button-submit" type="submit">로그인</button>
-            </div>
-        </form>
-        <div class="login-bottom">
-            <div class="txt-signup">아직 계정이 없나요?</div>
-            <div class="button-move">
-                <a href="{% url 'sign_up' %}" class="signup-btn">회원가입</a>
-            </div>
+        <div class="button-submit-wrap">
+            <button class="button-submit" type="submit">로그인</button>
+        </div>
+    </form>
+    <div class="login-bottom">
+        <div class="txt-signup">아직 계정이 없나요?</div>
+        <div class="button-move">
+            <a href="{% url 'sign_up' %}" class="signup-btn">회원가입</a>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock content %}

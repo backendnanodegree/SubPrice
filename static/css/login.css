@@ -5,6 +5,10 @@ html, body {
     font-family: 'Noto Sans KR';
 }
 
+.header {
+    display: none;
+}
+
 .container {
     position: absolute;
     top: calc(50% - 250px);
