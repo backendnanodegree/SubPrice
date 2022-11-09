@@ -4,6 +4,8 @@ html, body {
 
 /* HEADER */
 .header {
+    position: sticky;
+    top:0;
     margin: auto;
     background-color: #fff;
     display: flex;
