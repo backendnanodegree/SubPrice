@@ -1,15 +1,17 @@
 html, body {
     font-family: 'Noto Sans KR';
+    margin:0px;
 }
 
 /* HEADER */
 .header {
+    position: sticky;
+    top:0;
     margin: auto;
     background-color: #fff;
-    display: flex;
-    flex-direction: row;
     border-bottom: 1px solid #555555;
 }
+
 .nav {
     margin: auto;
     min-width: 820px;
@@ -19,6 +21,10 @@ html, body {
     background-color: #fff;
     display: flex;
     flex-direction: row;
+}
+
+.header-link:hover {
+    cursor: pointer;
 }
 
 .left-section {
