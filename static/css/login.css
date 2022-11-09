@@ -111,6 +111,11 @@ html, body {
     font-size: 16px;
 }
 
+.button-submit:hover {
+    background: #81CAB5;
+    cursor: pointer;
+}
+
 .login-bottom {
     display: flex;
     justify-content: center;
@@ -140,4 +145,9 @@ a.signup-btn:link {
 a.signup-btn:visited {
     color: #008078;
     text-decoration: none;
+}
+
+a.signup-btn:hover {
+    color: #0000ff;
+    text-decoration: underline;
 }
