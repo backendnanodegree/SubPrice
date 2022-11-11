@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     'users',
     'subscriptions',
     'alarms',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
