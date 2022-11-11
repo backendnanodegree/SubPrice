@@ -18,7 +18,7 @@ class Alarm(Baseclass):
         (FIVE, '5일전'), (SIX, '6일전'), (SEVEN, '7일전'),
     ]
     d_day = models.PositiveSmallIntegerField(verbose_name='카테고리 종류', choices=DDAY_TYPE, help_text='선택 시, 해당 일자에 메일이 발송됩니다.', null=True)
-    subscription = models.ForeignKey(Subscription, verbose_name='구독정보', on_delete=models.DO_NOTHING, null=True, related_name='alarm_subscription')
+    subscription = models.OneToOneField(Subscription, verbose_name='구독정보', on_delete=models.DO_NOTHING, null=True, related_name='alarm_subscription')
     is_active = models.BooleanField(verbose_name="메일 발송 여부", default=False)
 
     def __str__(self):
