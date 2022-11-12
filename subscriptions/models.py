@@ -114,9 +114,9 @@ class Subscription(Baseclass):
     """
     최선우 : 구독 정보 모델 생성 -> 유저가 직접 등록
     """
-    user = models.ForeignKey('users.User', verbose_name='사용자', on_delete=models.SET_NULL, null=True, related_name='subscription_user')
-    plan = models.ForeignKey(Plan, verbose_name='구독플랜', on_delete=models.SET_NULL, null=True, related_name='subscription_plan')
-    billing = models.ForeignKey(Billing, verbose_name='결제 정보', on_delete=models.SET_NULL, null=True, related_name='subscription_billing')
+    user = models.ForeignKey('users.User', verbose_name='사용자', on_delete=models.DO_NOTHING, null=True, related_name='subscription_user')
+    plan = models.ForeignKey(Plan, verbose_name='구독플랜', on_delete=models.DO_NOTHING, null=True, related_name='subscription_plan')
+    billing = models.ForeignKey(Billing, verbose_name='결제 정보', on_delete=models.DO_NOTHING, null=True, related_name='subscription_billing')
     started_at = models.DateField(verbose_name='최초 구독일')
     expire_at = models.DateField(verbose_name='구독 만료일', null=True, blank=True)
     is_active = models.BooleanField(verbose_name="활성 여부", default=True)
