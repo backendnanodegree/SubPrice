@@ -73,7 +73,10 @@ class MyInfoForm(forms.ModelForm):
     def clean(self):
         
         cleaned_data = super(MyInfoForm, self).clean()
-        
+
+        email = cleaned_data.get("email")
+        old_password = User.objects.get(email=email).password
+
         phone = cleaned_data.get("phone")
 
         password = cleaned_data.get("password")
@@ -83,14 +86,16 @@ class MyInfoForm(forms.ModelForm):
         
         match_pw = "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
         validation_pw = re.compile(match_pw)
-        print(f"password:{password}")
-        print(f"validation_ph.match(str(phone)):{validation_ph.match(str(phone))}")
-        print(f"validation_pw.match(str(password)):{validation_pw.match(str(password))}")
-        if validation_ph.match(str(phone)) is None:
+        
+        if not phone:
+            raise ValidationError({"phone":"전화번호를 입력해주세요."})
+        elif validation_ph.match(str(phone)) is None:
             raise ValidationError({"phone":"정확한 전화번호를 입력해주세요."})
         elif password:
             if validation_pw.match(str(password)) is None:
                 raise ValidationError({"password": "비밀번호는 하나 이상의 문자, 숫자, 특수문자를 포함하여 8자리 이상으로 작성해주세요."})
+            elif check_password(password, old_password):
+                raise ValidationError({"password": "기존의 비밀번호와 동일합니다."})
 
         return cleaned_data
     
