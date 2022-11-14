@@ -6,12 +6,9 @@ html, body {
     height: 100%;
 }
 
-.header {
-    display: none;
-}
-
 /* 공통 - 페이지 상단 */
 
+.content.myinfo .container,
 .content.sign_up .container,
 .content.login .container {
     position: absolute;
@@ -39,6 +36,7 @@ html, body {
 
 /* 공통 - 페이지 하단 */
 
+.content.myinfo .button-submit-wrap,
 .content.sign_up .button-submit-wrap,
 .content.login .button-submit-wrap {
     width: 500px;
@@ -48,6 +46,7 @@ html, body {
     text-align: center;
 }
 
+.content.myinfo .button-submit,
 .content.sign_up .button-submit,
 .content.login .button-submit {
     border: #555555;
@@ -69,6 +68,7 @@ html, body {
     cursor: pointer;
 }
 
+.content.myinfo .button-submit:hover,
 .content.sign_up .signup-bottom,
 .content.login .login-bottom {
     display: flex;
@@ -232,4 +232,129 @@ html, body {
     font-family: 'Noto Sans KR';
     font-weight: 400;
     font-size: 16px;
+}
+
+/* --- myinfo --- */
+
+/* 내정보 전체 영역 */
+
+.content.myinfo .container .myinfo-title-wrap {
+    display: grid;
+    align-items: center;
+    grid-template-columns : 100px 288px;
+    grid-template-rows: 60px 90px 50px 50px 50px 50px 50px;
+    margin-top: 10px;
+}
+
+.content.myinfo .myinfo-title {
+    grid-column: 1 / span 2;
+    grid-row: 1 / 1;
+    margin: 0 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content.myinfo .myinfo-word {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content.myinfo .myinfo-en {
+    height: 41px;
+    font-weight: 500;
+    font-size: 24px;
+    text-align: left;
+    height: 29.26px;
+}
+
+.content.myinfo .myinfo-ko {
+    border: #008078;
+    width: 176px;
+    height: 41px;
+    background: #008078;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    color: #FFFFFF;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.content.myinfo .myinfo-second {
+    grid-column: 1 / span 2;
+    grid-row: 2 / 2;
+    margin: 0 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content.myinfo .logo-image {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.content.myinfo .form-item-wrap {
+    grid-column : span 2;
+    text-align: center;
+}
+
+.content.myinfo .form-item input {
+    border: 1px solid lightgrey;
+    width: 354px;
+    height: 41px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    color: gray;
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    font-size: 16px;
+}
+
+#id_picture {
+    padding: 2% 10px;
+}
+
+input[type="file"]::file-selector-button {
+    width: 150px;
+    height: 22px;
+    color: #000;
+    background: #fff;
+    border: 1px solid #81CAB5;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+    color: #fff;
+    background: #81CAB5;
+}
+
+
+/* 회원 탈퇴 */
+
+.content.myinfo .is_active-btn-wrap {
+    margin: 60px 16px;
+}
+
+.content.myinfo .is_active-btn {
+    color: #b2b2b2;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.content.myinfo .is_active-btn:hover {
+    color: #0000ff;
+    text-decoration: underline;
 }
