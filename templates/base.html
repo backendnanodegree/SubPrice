@@ -15,9 +15,11 @@
     {% endblock head_css %}
 </head>
 <body>
-    <!--HEADER-->
-    {% include 'header.html' %}
-
+    {% if show_header == True %}
+        <!--HEADER-->
+        {% include 'header.html' %}
+    {% endif %}
+        
     <main class="content {{request.resolver_match.url_name}}">
         {% block content %}
         {% endblock content %}
