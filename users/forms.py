@@ -67,6 +67,7 @@ class MyInfoForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['email'].widget.attrs.update({'class':'email-area', 'value' : self.instance.email, 'readonly': True, 'title': '이메일은 수정할 수 없습니다.'})
         self.fields['email'].required=False
+        self.fields['phone'].required=True
         self.fields['password'].required=False
         self.fields['picture'].widget.attrs.update({'accept': 'image/gif, image/jpeg, image/png', })
     
@@ -87,9 +88,7 @@ class MyInfoForm(forms.ModelForm):
         match_pw = "^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
         validation_pw = re.compile(match_pw)
         
-        if not phone:
-            raise ValidationError({"phone":"전화번호를 입력해주세요."})
-        elif validation_ph.match(str(phone)) is None:
+        if validation_ph.match(str(phone)) is None:
             raise ValidationError({"phone":"정확한 전화번호를 입력해주세요."})
         elif password:
             if validation_pw.match(str(password)) is None:
