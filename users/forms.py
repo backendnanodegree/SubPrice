@@ -65,7 +65,7 @@ class MyInfoForm(forms.ModelForm):
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['email'].widget.attrs.update({'class':'email-area', 'value' : self.instance.email, 'readonly': True})
+        self.fields['email'].widget.attrs.update({'class':'email-area', 'value' : self.instance.email, 'readonly': True, 'title': '이메일은 수정할 수 없습니다.'})
         self.fields['email'].required=False
         self.fields['password'].required=False
         self.fields['picture'].widget.attrs.update({'accept': 'image/gif, image/jpeg, image/png', })
@@ -103,6 +103,8 @@ class MyInfoForm(forms.ModelForm):
         model=User
         fields=['email', 'fullname', 'phone', 'picture', 'password']
         widgets = {
+            'fullname': forms.TextInput(attrs={'placeholder': '이름'}),
+            'phone': forms.TextInput(attrs={'placeholder': '휴대폰'}),
             'picture' : forms.FileInput(attrs={'accept': 'image/gif, image/jpeg, image/png'}),
             'password' : forms.PasswordInput(attrs={'placeholder': '새로운 비밀번호를 입력해주세요.'})
         }

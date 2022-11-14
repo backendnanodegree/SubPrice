@@ -347,6 +347,10 @@ html, body {
     font-size: 16px;
 }
 
+.content.myinfo #id_email {
+    background-color : #f1fffb;
+}
+
 #id_picture {
     padding: 2% 10px;
 }
