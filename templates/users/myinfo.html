@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_css %}
+<link rel="stylesheet" href="/static/css/myinfo.css">
+{% endblock head_css %}
+
+{% block content %}
+<div class="container">
+    <form class="myinfo-form" action="{% url 'myinfo' %}" method="post" enctype="multipart/form-data" >
+        {% csrf_token %}
+        <div class="myinfo-title-wrap">
+            <div class="myinfo-title">
+                <div class="myinfo-word myinfo-en">My Page</div>
+                <div class="myinfo-word myinfo-ko">프로필 편집</div>
+            </div>
+            <div class="myinfo-second">
+                <div class="myinfo-logo">
+                    {% if request.user.picture %}
+                    <img class="profile-picture" onclick="location.href='{% url 'remove_picture' %}'" src="{{request.user.picture.url}}" alt="" title="클릭 시 이미지가 제거됩니다.">
+                    {% else %}
+                    <img class="logo-image" src="/static/img/profile.png" alt="">
+                    {% endif %}
+                </div>
+                <div class="form-error">
+                    {% if form.phone.errors or form.password.errors %}
+                        <div class="form-item-error" id="errors_phone">{{form.phone.errors}}</div>
+                        <div class="form-item-error" id="errors_password">{{form.password.errors}}</div>
+                    {% else %}
+                        <div class="form-item-announcement" id="announcement">
+                            <div>비밀번호 미작성 시,</div>
+                            <div>기존의 비밀번호를 유지합니다.</div>
+                        </div>    
+                    {% endif %}
+                </div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-fullname">{{form.fullname}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-email">{{form.email}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-phone">{{form.phone}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-picture">{{form.picture}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-password">{{form.password}}</div>
+            </div>
+        </div>
+        <div class="button-submit-wrap">
+            <button class="button-submit" type="submit">변경</button>
+        </div>
+    </form>
+    <div class="is_active-btn-wrap">
+        <div class="is_active-btn" onclick="location.href='{% url 'withdrawal' %}'">계정 삭제하기</div>
+    </div>
+</div>
+{% endblock content %}
