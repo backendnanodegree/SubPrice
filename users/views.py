@@ -96,6 +96,13 @@ def remove_picture(request):
         user.save()
         return redirect('myinfo') 
 
+@login_required(login_url="login")
+def withdrawal(request):
+    if request.method == 'GET':
+        user = User.objects.get(id=request.user.id)
+        user.is_active = 0
+        user.save()
+        return redirect('login')
 
 def logout_view(request):
     logout(request)
