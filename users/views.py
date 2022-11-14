@@ -88,6 +88,15 @@ def myinfo(request):
     context= {'form': form, 'show_header': True}
     return render(request, 'users/myinfo.html', context)
 
+@login_required(login_url="login")
+def remove_picture(request):
+    if request.method == 'GET':
+        user = User.objects.get(id=request.user.id)
+        user.picture = None
+        user.save()
+        return redirect('myinfo') 
+
+
 def logout_view(request):
     logout(request)
     return redirect("index")
