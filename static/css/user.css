@@ -62,13 +62,13 @@ html, body {
     font-size: 16px;
 }
 
+.content.myinfo .button-submit:hover,
 .content.sign_up .button-submit:hover,
 .content.login .button-submit:hover {
     background: #81CAB5;
     cursor: pointer;
 }
 
-.content.myinfo .button-submit:hover,
 .content.sign_up .signup-bottom,
 .content.login .login-bottom {
     display: flex;
@@ -145,6 +145,7 @@ html, body {
 .content.login .form-item-error > ul {
     list-style: none;
     margin-right: 16px;
+    padding-left: 0;
 
     color: red;
     font-weight: 300;
@@ -200,6 +201,7 @@ html, body {
 .content.sign_up #errors_email > ul {
     list-style: none;
     margin-right: 16px;
+    padding-left: 0;
 
     color: red;
     font-weight: 300;
@@ -293,13 +295,38 @@ html, body {
     align-items: center;
 }
 
-.content.myinfo .logo-image {
+.content.myinfo .logo-image, .profile-picture {
     width: 70px;
     height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
     
+}
+
+.content.myinfo .profile-picture:hover {
+    cursor: pointer;
+}
+
+.content.myinfo .form-error {
+    display: inline-block;
+    width: 270px;
+    text-align: right;
+}
+
+.content.myinfo #announcement {
+    color: #888787;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.content.myinfo .form-item-error > ul {
+    padding: 0px;
+    float: right;
+    list-style: none;
+    color: red;
+    font-weight: 300;
+    font-size: 14px;
 }
 
 .content.myinfo .form-item-wrap {
