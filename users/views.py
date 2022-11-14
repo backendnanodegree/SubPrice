@@ -82,7 +82,12 @@ def myinfo(request):
                 user.password = old_password
             user.save()
             update_session_auth_hash(request, user)
-            return redirect('myinfo')
+            form = MyInfoForm(instance=request.user)
+            context = {}
+            context['form'] = form
+            context['show_header'] = True
+            context['success_msg'] = '정보가 수정되었습니다.'
+            return render(request, 'users/myinfo.html', context)
     else:
         form = MyInfoForm(instance=request.user)
     context= {'form': form, 'show_header': True}
