@@ -369,19 +369,31 @@ input[type="file"]::file-selector-button:hover {
 
 /* 회원 탈퇴 */
 
-.content.myinfo .is_active-btn-wrap {
-    margin: 60px 16px;
+.content.myinfo .myinfo-bottom {
+    margin: 0 16px;
 }
 
 .content.myinfo .is_active-btn {
+    float: left;
+    margin-top: 60px;
+
     color: #b2b2b2;
     font-weight: 700;
     font-size: 16px;
-    cursor: pointer;
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
 }
 
 .content.myinfo .is_active-btn:hover {
+    cursor: pointer;
+
     color: #0000ff;
     text-decoration: underline;
+}
+
+.content.myinfo .success_msg {
+    float: right;
+
+    font-weight: 400;
+    font-size: 13px;
+    color : #008078;
 }

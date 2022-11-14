@@ -54,8 +54,9 @@
             <button class="button-submit" type="submit">변경</button>
         </div>
     </form>
-    <div class="is_active-btn-wrap">
+    <div class="myinfo-bottom">
         <div class="is_active-btn" onclick="location.href='{% url 'withdrawal' %}'">계정 삭제하기</div>
+        <div class="success_msg">{{success_msg}}</div>
     </div>
 </div>
 {% endblock content %}
