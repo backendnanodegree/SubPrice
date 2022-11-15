@@ -24,6 +24,19 @@
             </tr>
         </thead>
         <tbody>
+            {% for subscription in subscription_qs %}
+            <tr>
+                <td>{{subscription.plan.service.category}}</td>
+                <td>{{subscription.plan.service.name}}</td>
+                <td>{{subscription.plan.name}}</td>
+                <td>{{subscription.started_at|date:'Y.m.d'}}</td>
+                <td>{{subscription.expire_at|date:'Y.m.d'}}</td>
+                <td>{{subscription.plan.price}}원</td>
+                <td>{{subscription.billing.company}}</td>
+                <td>{{subscription.billing.type}}</td>
+                <td></td>
+            </tr>
+            {% endfor %}
             <tr>
                 <td></td>
                 <td></td>
@@ -108,6 +121,17 @@
             </tr>
         </thead>
         <tbody>
+            {% for expire in expire_qs %}
+            <tr>
+                <td>{{expire.plan.service.category}}</td>
+                <td>{{expire.plan.service.name}}</td>
+                <td>{{expire.plan.name}}</td>
+                <td>{{expire.expire_at|date:'Y.m.d'}}</td>
+                <td>{{expire.plan.price}}원</td>
+                <td>{{expire.billing.company}}</td>
+                <td>{{expire.billing.type}}</td>
+            </tr>
+            {% endfor %}
             <tr>
                 <td></td>
                 <td></td>
