@@ -19,7 +19,7 @@
     <!--HEADER-->
     {% include 'header.html' %}
 
-    <main class="content">
+    <main class="content {{request.resolver_match.url_name}}">
         {% block content %}
         {% endblock content %}
     </main>
