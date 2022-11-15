@@ -62,3 +62,53 @@ class MainCreateModalView(FormView):
     form_class = SubscriptionForm
     success_url = "/subscriptions/main/"
 
+    def form_valid(self, form):      
+
+        # 사용자
+        user = self.request.user
+
+        service = form.data.get("service")
+        plan = form.data.get("plan")
+        started_at = form.data.get("started_at")
+        expire_at = form.data.get("expire_at")
+        company = form.data.get("company")
+        type_object = form.data.get("type_object")
+        alarm = form.data.get("alarm")
+        service = Service.objects.get(name=service)
+        plan = Plan.objects.get(service=service, name=plan)
+
+        # billing 데이터 저장
+        company = Company.objects.get(company=company)
+        type = Type.objects.get(method_type=type_object)
+        billing, is_created = Billing.objects.get_or_create(
+            user = user,
+            type = type,
+            company = company,
+        )
+        
+        # subscription 데이터 저장
+        subscription = Subscription.objects.create(
+            user=user,
+            plan=plan, 
+            billing=billing, 
+            started_at=started_at,
+        )
+
+        if expire_at == '':
+            subscription.expire_at = None
+        else:
+            subscription.expire_at=expire_at
+
+        subscription.save()
+
+        # alarm 데이터 저장
+        alarm, is_created = Alarm.objects.get_or_create(
+            d_day = alarm,
+            subscription = subscription,
+            is_active = True,
+        )
+        print(service, plan, started_at, expire_at, company, type_object, alarm)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        return super().form_invalid(form)
