@@ -1,6 +1,7 @@
 {% extends "base.html" %}  
 
 {% block head_css %}
+<link rel="stylesheet" href="/static/css/main_create.css">
 {% endblock head_css %}
 
 {% block content %}
@@ -54,5 +55,30 @@
         </div>
     </div>
 </div>
+
+<script>
+    let idNum = 0;
+    let nowRow = document.getElementById("modal-table-body").lastElementChild;
+    let addRow;
+
+    function add_row()  {
+        addRow = nowRow.cloneNode(true);
+        
+        idNum++;
+        addRow.id = 'modal-table-row-' + idNum;
+
+        nowRow.after(addRow);
+        nowRow =  document.getElementById("modal-table-body").lastElementChild;
+    }
+
+    function delete_row()  {
+        nowRow = document.getElementById("modal-table-body").lastElementChild;
+        if (nowRow.id != 'modal-table-row') {
+            nowRow.remove()
+        }
+        nowRow = document.getElementById("modal-table-body").lastElementChild;
+        idNum--;
+    }
+</script>
 
 {% endblock content %}
