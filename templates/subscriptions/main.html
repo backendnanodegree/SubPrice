@@ -24,79 +24,46 @@
             </tr>
         </thead>
         <tbody>
-            {% for subscription in subscription_qs %}
+            {% for obj in page_obj %}
             <tr>
-                <td>{{subscription.plan.service.category}}</td>
-                <td>{{subscription.plan.service.name}}</td>
-                <td>{{subscription.plan.name}}</td>
-                <td>{{subscription.started_at|date:'Y.m.d'}}</td>
-                <td>{{subscription.expire_at|date:'Y.m.d'}}</td>
-                <td>{{subscription.plan.price}}원</td>
-                <td>{{subscription.billing.company}}</td>
-                <td>{{subscription.billing.type}}</td>
+                <td>{{obj.plan.service.category}}</td>
+                <td>{{obj.plan.service.name}}</td>
+                <td>{{obj.plan.name}}</td>
+                <td>{{obj.started_at|date:'Y.m.d'}}</td>
+                <td>{{obj.expire_at|date:'Y.m.d'}}</td>
+                <td>{{obj.plan.price}}원</td>
+                <td>{{obj.billing.company}}</td>
+                <td>{{obj.billing.type}}</td>
                 <td></td>
             </tr>
             {% endfor %}
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            {% if subscription_empty_row_count != 0 %}
+                {% for i in "x"|rjust:subscription_empty_row_count %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </div>
 <div class="subscription-table-control">
     <div class="pagination">
+        <ul class="page-list">
+            {% for page_num in page_num_list %}
+            <li class="page-item {% if page_obj.number == page_num %}active{% endif %}">
+                <a href="{% url 'main' %}?page={{page_num}}" class="page-link">{{ page_num }}</a>
+            </li>
+            {% endfor %}
+        </ul>
     </div>
     <div>
         <button type="button" class="subscription-table-button" onclick=location.href="{% url 'main_create' %}">구독 등록</button>
@@ -132,51 +99,19 @@
                 <td>{{expire.billing.type}}</td>
             </tr>
             {% endfor %}
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+            {% if expire_qs|length < 5 %}
+                {% for i in "x"|rjust:expire_empty_row_count %}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
         </tbody>
     </table>
 </div>

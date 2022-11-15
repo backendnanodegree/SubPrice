@@ -79,6 +79,32 @@
     text-align: center;
 }
 
+.content.main .subscription-table-control .pagination .page-list {
+    display: flex;
+    margin: 0px;
+    padding-left: 55px;
+}
+
+.content.main .subscription-table-control .pagination .page-list .page-item {
+    list-style: none;
+    line-height: 25px;
+    width: 25px;
+    height: 25px;
+    margin: 0px 1px;
+    border-radius: 4px;
+}
+
+.content.main .subscription-table-control .pagination .page-list .page-item.active {
+    background-color: #EAF6F2;
+    font-weight: bold;
+}
+
+.content.main .subscription-table-control .pagination .page-list .page-item .page-link,
+.content.main .subscription-table-control .pagination .page-list .page-item.active .page-link {
+    text-decoration: none;
+    color: #377E78;
+}
+
 /* BUTTON */
 .content.main .subscription-table-control .subscription-table-button {
     min-width: 110px;
