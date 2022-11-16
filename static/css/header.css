@@ -1,0 +1,92 @@
+html, body {
+    font-family: 'Noto Sans KR';
+    margin:0px;
+}
+
+/* HEADER */
+.header {
+    position: sticky;
+    top:0;
+    margin: auto;
+    background-color: #fff;
+    border-bottom: 1px solid #555555;
+}
+
+.nav {
+    margin: auto;
+    min-width: 820px;
+    max-width: 1128px;
+    width: 100%;
+    padding : 0px 40px 0px 40px;
+    background-color: #fff;
+    display: flex;
+    flex-direction: row;
+}
+
+.header-link:hover {
+    cursor: pointer;
+}
+
+.left-section {
+    margin: auto;
+    display: flex;
+    padding: 0px 40px;
+}
+
+.middle-section {
+    display: flex;
+    width: 100%;
+}
+
+.right-section {
+    margin: auto;
+    display: flex;
+    padding: 0px 40px
+}
+
+.logo-img {
+    margin: auto;
+    width: 180px;
+    height: 40px;
+    padding: 12px 0px 12px 0px;
+}
+
+.main-button {
+    margin: auto;
+    width: 70px;
+    height: 40px;
+    padding: 15px 12px 0px 12px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    color: #377E78;
+}
+
+.history-button {
+    margin: auto;
+    width: 95px;
+    height: 40px;
+    padding: 15px 12px 0px 12px;
+    border: 0;
+    border-radius: 4px;
+    background-color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    color: #377E78;
+}
+
+.profile-img {
+    margin: auto;
+    width: 35px;
+    height: 35px;
+    padding: 8px 12px 8px 12px;
+}
+
+.logout-img {
+    margin: auto;
+    width: 30px;
+    height: 30px;
+    padding: 10px 12px 8px 12px;
+}

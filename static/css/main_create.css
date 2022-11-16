@@ -1,0 +1,159 @@
+/* MODAL */
+.content.main_create .modal {
+    position: absolute;
+    background-color: rgba(0,0,0,0.4);
+    top:0;
+    left:0;
+    height:100%;
+    width: 100%;
+    display: block;
+}
+
+.content.main_create .modal .modal-content {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 10px;
+    max-width: 950px;
+    top: 50%;
+    left: 50%;
+    padding: 30px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    text-align: center;
+    animation: slidefade 0.35s linear;
+}
+
+.content.main_create .modal .modal-content .modal-close-button {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+}
+
+.content.main_create .modal .modal-content .modal-close-button:hover{
+    cursor: pointer;
+}
+
+/* TITLE */
+.content.main_create .modal .modal-content .modal-title {
+    margin: auto;
+    max-width: 1050px;
+    display: flex;
+    padding: 20px 0px 10px 0px;
+}
+
+.content.main_create .modal .modal-content .modal-title .modal-title-text {
+    margin: auto;
+    min-width: 240px;
+    display: flex;
+    color: #555555;
+    font-size: 22px;
+}
+
+.content.main_create .modal .modal-content .modal-title .modal-title-empty {
+    width: 100%;
+    display: flex;
+}
+
+.content.main_create .modal .modal-content .modal-title .modal-table-crud-button {
+    min-width: 30px;
+    height: 30px;
+    margin: 0px 4px;
+    padding: 8px;
+    border: 0;
+    border-radius: 4px;
+    color: #377E78;
+    background-color: #EAF6F2;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.content.main_create .modal .modal-content .modal-title .modal-table-crud-button:hover {
+    cursor: pointer;
+}
+
+/* MODAL DIV TABLE */
+.content.main_create .modal .modal-content .modal-table{
+	display: table;
+	width: 100%;
+    max-width: 1050px;
+    margin: auto;
+    border-top: 2px solid #555555;
+    border-bottom: 2px solid #555555;
+    border-collapse: collapse;
+}
+
+.content.main_create .modal .modal-content .modal-table .modal-table-head {
+    background-color: #81CAB5;
+	display: table-header-group;
+	font-weight: bold;
+}
+
+.content.main_create .modal .modal-content .modal-table .modal-table-body {
+	display: table-row-group;
+}
+
+.content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row,
+.content.main_create .modal .modal-content .modal-table .modal-table-body .modal-table-row {
+	display: table-row;
+}
+
+.content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row .modal-table-th {
+    background-color: #81CAB5;
+}
+
+.content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row .modal-table-th,
+.content.main_create .modal .modal-content .modal-table .modal-table-body .modal-table-row .modal-table-td {
+    height: 20px;
+    border-top: 1px solid #555555;
+	display: table-cell;
+    padding: 8px 5px;
+    border-collapse: collapse;
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+input[type="text"] {
+    width: 80px;
+}
+
+input[type="date"] {
+    max-width: 130px;
+}
+
+/* DIV */
+.content.main_create .modal-table-control {
+    margin: auto;
+    max-width: 1050px;
+    display: flex;
+    padding: 5px 0px 0px 0px;
+}
+
+.content.main_create .modal-table-control .modal-table-control-empty {
+    width: 100%;
+    display: flex;
+}
+
+.content.main_create .modal-table-control .modal-table-error ul{
+    min-width: 180px;
+    margin: 5px;
+    list-style: none;
+    padding-left: 3px;
+    font-size: 14px;
+    color: red;
+}
+
+.content.main_create .modal-table-control .modal-table-button {
+    min-width: 110px;
+    height: 32px;
+    margin: auto;
+    padding: 8px;
+    border: 0;
+    border-radius: 4px;
+    color: #377E78;
+    background-color: #EAF6F2;
+    font-size: 14px;
+    font-weight: bold;
+}

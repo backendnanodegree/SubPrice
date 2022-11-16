@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_css %}
+<link rel="stylesheet" href="/static/css/user.css">
+{% endblock head_css %}
+
+{% block content %}
+<div class="container">
+    <div class="login-logo">
+        <img class="logo-image" src="/static/img/SubPrice.png" alt="">
+    </div>
+    <form class="login-form" action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        <div class="login-title-wrap">
+            <div class="login-title">Login</div>
+            <div class="form-error">
+                <div class="form-item-error error_email" id="errors_email">{{form.email.errors}}</div>
+                <div class="form-item-error error_password" id="errors_password">{{form.password.errors}}</div>
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-email">{{form.email}}</div>
+                
+            </div>
+            <div class="form-item-wrap">
+                <div class="form-item form-password">{{form.password}}</div>
+            </div>
+        </div>
+        <div class="button-submit-wrap">
+            <button class="button-submit" type="submit">로그인</button>
+        </div>
+    </form>
+    <div class="login-bottom">
+        <div class="txt-signup">아직 계정이 없나요?</div>
+        <div class="button-move">
+            <a href="{% url 'sign_up' %}" class="signup-btn">회원가입</a>
+        </div>
+    </div>
+</div>
+{% endblock content %}
