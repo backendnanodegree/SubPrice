@@ -1,0 +1,403 @@
+/* 공통  */
+
+html, body {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+/* 공통 - 페이지 상단 */
+
+.content.myinfo .container,
+.content.sign_up .container,
+.content.login .container {
+    position: absolute;
+    top: calc(50% - 250px);
+    left: calc(50% - 194px);
+    margin: auto;
+    width: 388px;
+    height: 500px;
+    border-top: 10px solid #81CAB5;
+    border-bottom: 10px solid #81CAB5;
+}
+
+.content.sign_up .signup-logo,
+.content.login .login-logo {
+    margin: auto;
+    text-align: center;
+}
+
+.content.sign_up .logo-image,
+.content.login .logo-image {
+    margin-top: 39px;
+    width: 217px;
+    height: 48px;
+}
+
+/* 공통 - 페이지 하단 */
+
+.content.myinfo .button-submit-wrap,
+.content.sign_up .button-submit-wrap,
+.content.login .button-submit-wrap {
+    width: 500px;
+    height: 60px;
+    display: table-cell; 
+    vertical-align: middle;
+    text-align: center;
+}
+
+.content.myinfo .button-submit,
+.content.sign_up .button-submit,
+.content.login .button-submit {
+    border: #555555;
+    width: 354px;
+    height: 41px;
+    background: #555555;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    color: #FFFFFF;
+    font-family: 'Noto Sans KR';
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.content.myinfo .button-submit:hover,
+.content.sign_up .button-submit:hover,
+.content.login .button-submit:hover {
+    background: #81CAB5;
+    cursor: pointer;
+}
+
+.content.sign_up .signup-bottom,
+.content.login .login-bottom {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    height: 50px;
+    align-items: center;
+}
+
+.content.sign_up .txt-login,
+.content.login .txt-signup {
+    font-weight: 300;
+    font-size: 16px;
+    color: #B2B2B2;
+    margin: 0 5px;
+}
+
+.content.sign_up .button-move,
+.content.login .button-move {
+    font-weight: 700;
+    font-size: 16px;
+    margin: 0 5px;
+}
+
+.content.sign_up a.login-btn:link,
+.content.login a.signup-btn:link {
+    color: #008078;
+    text-decoration: none;
+}
+
+.content.sign_up a.login-btn:visited,
+.content.login a.signup-btn:visited {
+    color: #008078;
+    text-decoration: none;
+}
+
+.content.sign_up a.login-btn:hover,
+.content.login a.signup-btn:hover {
+    color: #0000ff;
+    text-decoration: underline;
+}
+
+
+ /*  ---------- 개별 효과 지정 ----------  */
+
+/* 로그인 - 입력 부분 */
+
+.content.login .login-title-wrap {
+    margin-top: 30px;
+    display: grid;
+    align-items: center;
+    grid-template-columns : 100px 144px 144px;
+    grid-template-rows: 40px 60px 60px;
+}
+
+.content.login .login-title {
+    grid-column : 1 / 1;
+    grid-row: 1 / 1;
+    margin-left: 16px;
+    margin-bottom: 5px;
+
+    font-weight: 500;
+    font-size: 24px;
+    text-align: left;
+    height: 29.26px;
+}
+
+.content.login .form-error {
+    grid-column : span 2;
+    grid-row: 1 / 1;
+    text-align: right;
+}
+
+.content.login .form-item-error > ul {
+    list-style: none;
+    margin-right: 16px;
+    padding-left: 0;
+
+    color: red;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.content.login .form-item-wrap {
+    grid-column : span 3;
+    text-align: center;
+}
+
+.content.login .form-item input {
+    border: 1px solid lightgrey;
+    width: 354px;
+    height: 41px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    color: gray;
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    font-size: 16px;
+}
+
+/* 회원가입 - 입력 부분 */
+
+.content.sign_up .signup-title-wrap {
+    margin-top: 15px;
+    display: grid;
+    align-items: center;
+    grid-template-columns : 100px 144px 144px;
+    grid-template-rows: 50px 50px 50px 50px 50px;
+}
+
+.content.sign_up .signup-title {
+    grid-column : 1 / 1;
+    grid-row: 1 / 1;
+    margin-left: 16px;
+    margin-bottom: 5px;
+
+    font-weight: 500;
+    font-size: 24px;
+    text-align: left;
+    height: 29.26px;
+}
+
+.content.sign_up .form-error {
+    grid-column : span 2;
+    grid-row: 1 / 1;
+    text-align: right;
+}
+
+.content.sign_up #errors_email > ul {
+    list-style: none;
+    margin-right: 16px;
+    padding-left: 0;
+
+    color: red;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.content.sign_up #errors_password > ul,
+.content.sign_up #errors_password_confirm > ul {
+    list-style: none;
+    margin-right: 16px;
+
+    color: red;
+    font-weight: 300;
+    font-size: 12px;
+}
+
+.content.sign_up .form-item-wrap {
+    grid-column : span 3;
+    text-align: center;
+}
+
+.content.sign_up .form-item input {
+    border: 1px solid lightgrey;
+    width: 354px;
+    height: 41px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    color: gray;
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    font-size: 16px;
+}
+
+/* --- myinfo --- */
+
+/* 내정보 전체 영역 */
+
+.content.myinfo .container .myinfo-title-wrap {
+    display: grid;
+    align-items: center;
+    grid-template-columns : 100px 288px;
+    grid-template-rows: 60px 90px 50px 50px 50px 50px 50px;
+    margin-top: 10px;
+}
+
+.content.myinfo .myinfo-title {
+    grid-column: 1 / span 2;
+    grid-row: 1 / 1;
+    margin: 0 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content.myinfo .myinfo-word {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content.myinfo .myinfo-en {
+    height: 41px;
+    font-weight: 500;
+    font-size: 24px;
+    text-align: left;
+    height: 29.26px;
+}
+
+.content.myinfo .myinfo-ko {
+    border: #008078;
+    width: 176px;
+    height: 41px;
+    background: #008078;
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    color: #FFFFFF;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+.content.myinfo .myinfo-second {
+    grid-column: 1 / span 2;
+    grid-row: 2 / 2;
+    margin: 0 16px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content.myinfo .logo-image, .profile-picture {
+    width: 70px;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.content.myinfo .profile-picture:hover {
+    cursor: pointer;
+}
+
+.content.myinfo .form-error {
+    display: inline-block;
+    width: 270px;
+    text-align: right;
+}
+
+.content.myinfo #announcement {
+    color: #888787;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.content.myinfo .form-item-error > ul {
+    padding: 0px;
+    float: right;
+    list-style: none;
+    color: red;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+.content.myinfo .form-item-wrap {
+    grid-column : span 2;
+    text-align: center;
+}
+
+.content.myinfo .form-item input {
+    border: 1px solid lightgrey;
+    width: 354px;
+    height: 41px;
+    padding: 10px;
+    box-sizing: border-box;
+
+    color: gray;
+    font-family: 'Noto Sans KR';
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.content.myinfo #id_email {
+    background-color : #f1fffb;
+}
+
+#id_picture {
+    padding: 2% 10px;
+}
+
+input[type="file"]::file-selector-button {
+    width: 150px;
+    height: 22px;
+    color: #000;
+    background: #fff;
+    border: 1px solid #81CAB5;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button:hover {
+    color: #fff;
+    background: #81CAB5;
+}
+
+
+/* 회원 탈퇴 */
+
+.content.myinfo .myinfo-bottom {
+    margin: 0 16px;
+}
+
+.content.myinfo .is_active-btn {
+    float: left;
+    margin-top: 60px;
+
+    color: #b2b2b2;
+    font-weight: 700;
+    font-size: 16px;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.content.myinfo .is_active-btn:hover {
+    cursor: pointer;
+
+    color: #0000ff;
+    text-decoration: underline;
+}
+
+.content.myinfo .success_msg {
+    float: right;
+
+    font-weight: 400;
+    font-size: 13px;
+    color : #008078;
+}

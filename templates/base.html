@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/fabicon.ico">
     <title>SubPrice</title>
 
     <!--CSS-->
@@ -14,11 +15,10 @@
     {% endblock head_css %}
 </head>
 <body>
-    <!--HEADER-->
     {% if show_header == True %}
+        <!--HEADER-->
         {% include 'header.html' %}
     {% endif %}
-
     <main class="content {{request.resolver_match.url_name}}">
         {% block content %}
         {% endblock content %}
