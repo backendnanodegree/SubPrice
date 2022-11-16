@@ -1,22 +1,22 @@
 /* MAIN */
-.content {
+.content.main {
     margin: auto;
-    min-width: 820px;
+    min-width: 1128px;
     max-width: 1128px;
     width: 100%;
     height: 700px;
     padding: 40px;
 }
 
-.subscription-title {
+/* TITLE */
+.content.main .subscription-title {
     margin: auto;
-    min-width: 840px;
     max-width: 1050px;
     display: flex;
     padding: 20px 0px 10px 0px;
 }
 
-.subscription-title-text {
+.content.main .subscription-title .subscription-title-text {
     margin: auto;
     min-width: 240px;
     display: flex;
@@ -24,14 +24,14 @@
     font-size: 22px;
 }
 
-.subscription-title-empty {
+.content.main .subscription-title .subscription-title-empty {
     width: 100%;
     display: flex;
 }
 
-.subscription-table {
+/* TABLE */
+.content.main .subscription-table {
     margin: auto;
-    min-width: 840px;
     max-width: 1050px;
     width: 100%;
     border-collapse: collapse;
@@ -39,14 +39,14 @@
     border-bottom: 2px solid #555555;
 }
 
-.subscription-table thead tr {
+.content.main .subscription-table thead tr {
     background-color: #81CAB5;
     color: #ffffff;
     font-size: 14px;
   }
 
-.subscription-table th,
-.subscription-table td {
+.content.main .subscription-table th,
+.content.main .subscription-table td {
     height: 20px;
     padding: 8px 15px;
     border-top:1px solid #555555;
@@ -55,20 +55,58 @@
     font-size: 14px;
 }
 
-.subscription-table-control {
+.content.main .subscription-table .th-service {
+    width: 90px;
+}
+
+.content.main .subscription-table .th-plan {
+    width: 115px;
+}
+
+/* DIV */
+.content.main .subscription-table-control {
     margin: auto;
-    min-width: 840px;
     max-width: 1050px;
     display: flex;
     padding: 5px 0px 0px 0px;
 }
 
-.subscription-table-paging {
+/* PAGINATION */
+.content.main .subscription-table-control .pagination {
     width: 100%;
     display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
-.subscription-table-button {
+.content.main .subscription-table-control .pagination .page-list {
+    display: flex;
+    margin: 0px;
+    padding-left: 55px;
+}
+
+.content.main .subscription-table-control .pagination .page-list .page-item {
+    list-style: none;
+    line-height: 25px;
+    width: 25px;
+    height: 25px;
+    margin: 0px 1px;
+    border-radius: 4px;
+}
+
+.content.main .subscription-table-control .pagination .page-list .page-item.active {
+    background-color: #EAF6F2;
+    font-weight: bold;
+}
+
+.content.main .subscription-table-control .pagination .page-list .page-item .page-link,
+.content.main .subscription-table-control .pagination .page-list .page-item.active .page-link {
+    text-decoration: none;
+    color: #377E78;
+}
+
+/* BUTTON */
+.content.main .subscription-table-control .subscription-table-button {
     min-width: 110px;
     height: 32px;
     margin: auto;
