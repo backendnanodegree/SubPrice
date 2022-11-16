@@ -3,7 +3,7 @@ from subscriptions.models import (Type, Company, Billing, Category,
                                   Service, Plan, Subscription)
 
 from django.utils import timezone
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date
 from dateutil.relativedelta import relativedelta
 
 
@@ -54,23 +54,40 @@ class subscriptionAdmin(admin.ModelAdmin):
     
     @admin.display(description="카테고리")
     def get_category(self, obj):
-        return obj.plan.service.category
+        try:
+            return obj.plan.service.category
+        except:
+            return None
     
     @admin.display(description="다음 결제 예정일")
     def get_billing_at(self, obj):
         """
         결제 예정일 : 구독 시작일로부터 갱신일자를 추출 후, 현재 날짜와 비교하여 계산
         """
-        renewal_day = obj.started_at.day
-        today = datetime.now() + relativedelta(hours=9)
-        pay_year, pay_month, pay_day = today.year, today.month, renewal_day
         
-        if renewal_day < today.day:
-            if today.month == 12:
-                pay_year += 1
-                pay_month = 1
-            else:
-                pay_month += 1    
-                
-        next_billing_at = datetime(pay_year, pay_month, pay_day).date()
-        return next_billing_at
+        if obj.is_active == False:
+            return None
+        else:
+            renewal_day = obj.started_at.day
+            today = timezone.now()
+            today_day = today.day
+            pay_year, pay_month, pay_day = today.year, today.month, renewal_day
+            
+            if renewal_day < today.day:
+                if today.month == 12:
+                    pay_year += 1
+                    pay_month = 1
+                else:
+                    pay_month += 1    
+            try:        
+                next_billing_at = date(pay_year, pay_month, pay_day)
+            except:
+                try:
+                    next_billing_at = date(pay_year, pay_month, pay_day-1)
+                except:
+                    try:
+                        next_billing_at = date(pay_year, pay_month, pay_day-2)
+                    except:
+                        next_billing_at = date(pay_year, pay_month, pay_day-3)
+                    
+            return next_billing_at
