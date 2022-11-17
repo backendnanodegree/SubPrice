@@ -54,10 +54,11 @@ class subscriptionAdmin(admin.ModelAdmin):
     
     @admin.display(description="카테고리")
     def get_category(self, obj):
-        try:
-            return obj.plan.service.category
-        except:
-            return None
+        return obj.plan.service.category
+        # try:
+        #     return obj.plan.service.category
+        # except:
+        #     return None
     
     @admin.display(description="다음 결제 예정일")
     def get_billing_at(self, obj):
