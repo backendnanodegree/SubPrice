@@ -17,4 +17,4 @@ class UserAdmin(admin.ModelAdmin):
         if obj.picture:
             return format_html(f'<img src="{obj.picture.url}" alt="프로필 사진" style="width:30px; height:20px;">')
         else:
-            return format_html(f'<img src="" alt="프로필 사진" style="width:30px; height:20px;">')
+            return format_html(f'<img src="/static/img/profile.png" alt="프로필 사진" style="width:20px; height:20px;">')
