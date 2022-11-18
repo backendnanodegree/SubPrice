@@ -3,7 +3,7 @@ from django.forms import NumberInput
 from django.forms import ValidationError
 import calendar
 
-from subscriptions.models import Service
+from subscriptions.models import Plan, Service
 
 
 class SubscriptionForm(forms.Form):
@@ -32,7 +32,7 @@ class SubscriptionForm(forms.Form):
         error = {}
 
         # plan validation
-        plan_list = [service.plan_service.all() for service in Service.objects.filter(name=service)]
+        plan_list = [ plan[0] for plan in Service.objects.get(name=service).plan_service.values_list("name") ]
         if plan not in plan_list:
             error['plan'] = ["서비스에 해당 서비스 유형이 존재하지 않습니다."]
 
