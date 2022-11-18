@@ -1,7 +1,10 @@
+from dateutil.relativedelta import relativedelta
 from django.shortcuts import render
 from django.views.generic import FormView
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from alarms.models import Alarm
 
@@ -9,6 +12,7 @@ from subscriptions.forms import SubscriptionForm
 from subscriptions.models import Billing, Company, Plan, Service, Subscription, Type
 
 
+@method_decorator(login_required(login_url="/login/"), name="get")
 class MainListView(TemplateView):
     template_name = "subscriptions/main.html"
 
@@ -56,7 +60,7 @@ class MainListView(TemplateView):
 
         return context
 
-
+@method_decorator(login_required(login_url="/login/"), name="get")
 class MainCreateModalView(FormView):
     template_name = "subscriptions/main_create.html"
     form_class = SubscriptionForm
@@ -64,7 +68,6 @@ class MainCreateModalView(FormView):
 
     def form_valid(self, form):      
 
-        # 사용자
         user = self.request.user
 
         service = form.data.get("service")
@@ -105,9 +108,8 @@ class MainCreateModalView(FormView):
         alarm, is_created = Alarm.objects.get_or_create(
             d_day = alarm,
             subscription = subscription,
-            is_active = True,
         )
-        print(service, plan, started_at, expire_at, company, type_object, alarm)
+
         return super().form_valid(form)
 
     def form_invalid(self, form):
