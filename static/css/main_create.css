@@ -1,4 +1,9 @@
 /* MODAL */
+body {
+    font-family: 'Noto Sans KR';
+    margin:0px;
+}
+
 .content.main_create .modal {
     position: absolute;
     background-color: rgba(0,0,0,0.4);
@@ -13,7 +18,7 @@
     position: absolute;
     background-color: #fff;
     border-radius: 10px;
-    max-width: 950px;
+    min-width: 950px;
     top: 50%;
     left: 50%;
     padding: 30px;
@@ -33,7 +38,7 @@
     cursor: pointer;
 }
 
-/* TITLE */
+/* TITLE WRAP */
 .content.main_create .modal .modal-content .modal-title {
     margin: auto;
     max-width: 1050px;
@@ -54,7 +59,7 @@
     display: flex;
 }
 
-.content.main_create .modal .modal-content .modal-title .modal-table-crud-button {
+/* .content.main_create .modal .modal-content .modal-title .modal-table-crud-button {
     min-width: 30px;
     height: 30px;
     margin: 0px 4px;
@@ -70,7 +75,7 @@
 
 .content.main_create .modal .modal-content .modal-title .modal-table-crud-button:hover {
     cursor: pointer;
-}
+} */
 
 /* MODAL DIV TABLE */
 .content.main_create .modal .modal-content .modal-table{
@@ -104,7 +109,7 @@
 
 .content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row .modal-table-th,
 .content.main_create .modal .modal-content .modal-table .modal-table-body .modal-table-row .modal-table-td {
-    height: 20px;
+    height: 21px;
     border-top: 1px solid #555555;
 	display: table-cell;
     padding: 8px 5px;
@@ -115,6 +120,10 @@
     border-collapse: collapse;
 }
 
+input, select {
+    font-family: 'Noto Sans KR';
+}
+
 input[type="text"] {
     width: 80px;
 }
@@ -123,7 +132,7 @@ input[type="date"] {
     max-width: 130px;
 }
 
-/* DIV */
+/* BOTTOM WRAP */
 .content.main_create .modal-table-control {
     margin: auto;
     max-width: 1050px;
@@ -137,23 +146,31 @@ input[type="date"] {
 }
 
 .content.main_create .modal-table-control .modal-table-error ul{
-    min-width: 180px;
-    margin: 5px;
+    min-width: 300px;
+    margin: 2px;
     list-style: none;
     padding-left: 3px;
-    font-size: 14px;
+    font-size: 11px;
     color: red;
+    text-align: right;
 }
 
 .content.main_create .modal-table-control .modal-table-button {
     min-width: 110px;
     height: 32px;
     margin: auto;
-    padding: 8px;
+    padding: 4px;
     border: 0;
     border-radius: 4px;
     color: #377E78;
     background-color: #EAF6F2;
+    font-family: 'Noto Sans KR';
     font-size: 14px;
     font-weight: bold;
+}
+
+.content.main_create .modal-table-control .modal-table-button:hover {
+    cursor: pointer;
+    background-color: #377E78;
+    color: #EAF6F2;
 }
