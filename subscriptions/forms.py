@@ -3,6 +3,8 @@ from django.forms import NumberInput
 from django.forms import ValidationError
 import calendar
 
+from subscriptions.models import Service
+
 
 class SubscriptionForm(forms.Form):
     METHOD_TYPE = [(1, "신용카드"), (2, "체크카드"), (3, "계좌이체"), (4, "간편결제"), (5, "휴대폰결제")]
@@ -22,10 +24,17 @@ class SubscriptionForm(forms.Form):
 
         cleaned_data = super(SubscriptionForm, self).clean()
 
+        service = cleaned_data.get("service")
+        plan = cleaned_data.get("plan")
         started_at = cleaned_data.get("started_at")
         expire_at = cleaned_data.get("expire_at")
         
         error = {}
+
+        # plan validation
+        plan_list = [service.plan_service.all() for service in Service.objects.filter(name=service)]
+        if plan not in plan_list:
+            error['plan'] = ["서비스에 해당 서비스 유형이 존재하지 않습니다."]
 
         # expire_at validation
         if expire_at:
