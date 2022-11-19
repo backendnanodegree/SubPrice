@@ -123,6 +123,9 @@ class MainCreateModalView(FormView):
 @login_required(login_url="login")
 def subscription_update(request, pk):
 
+    # Assign object to use
+    user = request.user
+
     # subscription table
     subscription = Subscription.objects.get(id=pk)
     # Assign fields to use
@@ -155,12 +158,20 @@ def subscription_update(request, pk):
 
     # Existing data
     data={
-        "category_type":category, "service_name":service_name, "plan_name":plan_name, "started_at":started_at,
-        "expire_at":expire_at, "price":price, "company":company, "method_type":method_type, "d_day":d_day
+        "category_type":category, "service_name":service_name, 
+        "plan_name":plan_name, "price":price, 
+        "started_at":started_at, "expire_at":expire_at, 
+        "company":company, "method_type":method_type, 
+        "d_day":d_day
     }
 
+    # price information setting
+    price_ = format(price,',')+"원" 
+
     if request.method == 'POST':
-        form = SubscriptionUpdateForm(request.POST,initial=data)
+        form = SubscriptionUpdateForm(request.POST,initial=data)\
+        
+        # form : valid
         if form.is_valid():
 
             # Input data
@@ -178,12 +189,14 @@ def subscription_update(request, pk):
             plan = Plan.objects.get(service=service, name=plan_name)
             
             # Query existing data for input data
-            company = Company.objects.get(company=company)
             type_object = Type.objects.get(method_type=method_type)
+            company = Company.objects.get(company=company)
             # Update billing data with input data
-            billing.company = company
-            billing.type = type_object
-            billing.save()
+            billing, is_created = Billing.objects.get_or_create(
+                user = user,
+                type = type_object,
+                company = company,
+            )
 
             # Update subscription data with input data
             subscription.plan = plan
@@ -208,8 +221,13 @@ def subscription_update(request, pk):
             alarm.save()
             
             return redirect("main")
+
+        # form : invalid
+        else:
+            context= {'form': form, 'pk': pk, 'category_type': category_type, 'price_': price_}
+            return render(request, 'subscriptions/main_update.html', context)
+
     else:
         form = SubscriptionUpdateForm(initial=data)
-        price = format(price,',')+"원"
-    context= {'form': form, 'pk': pk, 'category_type': category_type, 'price': price}
+    context= {'form': form, 'pk': pk, 'category_type': category_type, 'price_': price_}
     return render(request, 'subscriptions/main_update.html', context)

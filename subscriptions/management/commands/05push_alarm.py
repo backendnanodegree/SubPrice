@@ -16,8 +16,11 @@ class Command(BaseCommand):
         
     # 알림 정보
 
-        # 구독 정보 조회
-        subscription_list = Subscription.objects.all()
+        # 알람 모델이 없는 구독 정보 조회
+        all_subscription_id = set(Subscription.objects.all().values_list('id', flat=True))
+        has_alarm_subscription_id = set(Alarm.objects.all().values_list('subscription__id', flat=True))
+        no_alarm_subscription_id = all_subscription_id - has_alarm_subscription_id
+        subscription_list = Subscription.objects.filter(id__in=no_alarm_subscription_id)
         
         # D-DAY 선택
         dday_list = [-1, 1, 2, 3, 4, 5, 6, 7]
@@ -31,7 +34,7 @@ class Command(BaseCommand):
         # 알림 정보 데이터 생성
         for idx, subscription in enumerate(subscription_list):
             d_day = choices(dday_list, weights=[7,1,1,1,1,1,1,1], k=1)[0]
-            Alarm.objects.create(d_day=d_day, subscription=subscription)
+            Alarm.objects.get_or_create(d_day=d_day, subscription=subscription)
 
         # 알림 내역 데이터 생성
         alarm_list = Alarm.objects.all()
