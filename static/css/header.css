@@ -23,6 +23,10 @@ html, body {
     flex-direction: row;
 }
 
+.header-link {
+    font-family: 'Noto Sans KR';
+}
+
 .header-link:hover {
     cursor: pointer;
 }

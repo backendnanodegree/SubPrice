@@ -20,13 +20,13 @@
                 <th class="">만료예정일</th>
                 <th class="">결제금액</th>
                 <th class="">결제사</th>
-                <th class="">결제수단</th>
+                <th class="">결제유형</th>
                 <th class="">알림여부</th>
             </tr>
         </thead>
         <tbody>
             {% for obj in page_obj %}
-            <tr>
+            <tr class='subscribing' onclick="location.href='{% url 'main_update' obj.pk%}'">
                 <td>{{obj.plan.service.category}}</td>
                 <td>{{obj.plan.service.name}}</td>
                 <td>{{obj.plan.name}}</td>
@@ -35,7 +35,7 @@
                 <td>{{obj.plan.price}}원</td>
                 <td>{{obj.billing.company}}</td>
                 <td>{{obj.billing.type}}</td>
-                <td></td>
+                <td>{{obj.alarm_subscription.get_d_day_display}}</td>
             </tr>
             {% endfor %}
             {% if subscription_empty_row_count != 0 %}
@@ -85,7 +85,7 @@
                 <th>만료일</th>
                 <th>결제금액</th>
                 <th>결제사</th>
-                <th>결제수단</th>
+                <th>결제유형</th>
             </tr>
         </thead>
         <tbody>
