@@ -3,7 +3,7 @@ from django.forms import NumberInput
 from django.forms import ValidationError
 import calendar
 
-from subscriptions.models import Plan, Service
+from subscriptions.models import Service, Company
 
 
 class SubscriptionForm(forms.Form):
@@ -33,7 +33,7 @@ class SubscriptionForm(forms.Form):
         error = {}
 
         # plan validation
-        plan_list = [ plan[0] for plan in Service.objects.get(name=service).plan_service.values_list("name") ]
+        plan_list = Service.objects.get(name=service).plan_service.values_list("name", flat=True)
         if plan not in plan_list:
             error['plan'] = ["서비스에 해당 서비스 유형이 존재하지 않습니다."]
 
@@ -66,29 +66,71 @@ class SubscriptionUpdateForm(forms.Form):
     plan_name = forms.CharField(label="서비스 유형", widget=forms.TextInput())
     started_at = forms.DateTimeField(label="구독시작일", widget=NumberInput(attrs={'type':'date'}))
     expire_at = forms.DateTimeField(label="만료예정일", widget=NumberInput(attrs={'type':'date'}), required=False)
-    company = forms.CharField(label="결제사", widget=forms.TextInput())
     method_type = forms.ChoiceField(label="결제수단", widget=forms.Select, choices=METHOD_TYPE)
+    company = forms.CharField(label="결제사", widget=forms.TextInput())
     d_day = forms.ChoiceField(label="알람설정", widget=forms.Select, choices=DDAY_TYPE)
 
     def clean(self):
 
         cleaned_data = super(SubscriptionUpdateForm, self).clean()
 
+        service_name = cleaned_data.get("service_name")
+        plan_name = cleaned_data.get("plan_name")
+        method_type = cleaned_data.get("method_type")
+        company = cleaned_data.get("company")
         started_at = cleaned_data.get("started_at")
-        expire_at = cleaned_data.get("expire_at")    
+        expire_at = cleaned_data.get("expire_at")
+ 
+        error = {}
 
+        # plan validation
+        plan_list = Service.objects.get(name=service_name).plan_service.values_list("name", flat=True)
+        if plan_name not in plan_list:
+            error['plan_name'] = ["서비스에 해당 서비스 유형이 존재하지 않습니다."]
+
+        # expire_at validation
         if expire_at:
             sub_last_day = calendar.monthrange(int(started_at.strftime("%Y")), int(started_at.strftime("%m")))[1]
             exp_last_day = calendar.monthrange(int(expire_at.strftime("%Y")), int(expire_at.strftime("%m")))[1]
-            
-            expire_at_error1 = started_at.strftime("%Y%m") >= expire_at.strftime("%Y%m")
-            expire_at_error2 = started_at.strftime("%d") != sub_last_day and started_at.strftime("%d") != expire_at.strftime("%d")
-            expire_at_error3 = int(started_at.strftime("%d")) == sub_last_day and int(expire_at.strftime("%d")) == exp_last_day and sub_last_day >= exp_last_day
 
-            if (expire_at_error1) or (expire_at_error2):
-                if expire_at_error3:
-                    pass
-                else:
-                    raise ValidationError({"expire_at":["만료예정일을 확인해주세요."]})
+            expire_at_error1 = started_at.strftime("%Y%m") >= expire_at.strftime("%Y%m")
+            expire_at_error2 = int(started_at.strftime("%d")) != sub_last_day and started_at.strftime("%d") != expire_at.strftime("%d")
+            expire_at_error3 = int(started_at.strftime("%d")) == sub_last_day and int(expire_at.strftime("%d")) != exp_last_day and sub_last_day != int(expire_at.strftime("%d"))
+            expire_at_error4 = int(started_at.strftime("%d")) == sub_last_day and int(expire_at.strftime("%d")) == exp_last_day and sub_last_day < exp_last_day
+  
+            if (expire_at_error1) or (expire_at_error2) or (expire_at_error3) or (expire_at_error4):
+                error['expire_at'] = ["만료예정일이 올바른 일자가 아닙니다."]
+
+        # billing validation
+        company_list = Company.objects.values_list('company', flat=True)
+        credit_card = company_list[19:38]
+        check_card = company_list[19:37]
+        account = company_list[0:19]
+        easy_payment = company_list[38:52]
+        mobile_payment = list(company_list[45:46]) + list(company_list[52:57])
+        error_company_message = ["결제유형에 해당 결제사가 존재하지 않습니다."]
+
+        # 결제 유형이 '신용카드'인 경우 → '신용카드'에 해당하는 결제사가 아니라면 에러 발생
+        if method_type == '1':
+            if company not in credit_card:
+                error['company'] = error_company_message
+        # 결제 유형이 '체크카드'인 경우 → '체크카드'에 해당하는 결제사가 아니라면 에러 발생
+        elif method_type == '2':
+            if company not in check_card:
+                error['company'] = error_company_message
+        # 결제 유형이 '계좌이체'인 경우 → '계좌이체'에 해당하는 결제사가 아니라면 에러 발생
+        elif method_type == '3':
+            if company not in account:
+                error['company'] = error_company_message
+        # 결제 유형이 '간편결제'인 경우 → '간편결제'에 해당하는 결제사가 아니라면 에러 발생
+        elif method_type == '4':
+            if company not in easy_payment:
+                error['company'] = error_company_message
+        # 결제 유형이 '휴대폰결제'인 경우 → '휴대폰결제'에 해당하는 결제사가 아니라면 에러 발생
+        elif method_type == '5':
+            if company not in mobile_payment:
+                error['company'] = error_company_message
+        if error:
+            raise ValidationError(error)
 
         return cleaned_data
