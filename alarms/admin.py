@@ -12,6 +12,7 @@ class AlarmAdmin(admin.ModelAdmin):
     최선우 : Alarm Model을 Admin Site에 등록
     """
     list_display = ["subscription", "get_started_at", "get_expire_at", "get_billing_at", "get_dday", "get_date"]
+    search_fields = ["subscription__user__email"]
 
     @admin.display(description="최초 구독일")
     def get_started_at(self, obj):

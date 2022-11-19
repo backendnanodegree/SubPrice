@@ -63,6 +63,11 @@
     width: 115px;
 }
 
+.content.main .subscribing:hover {
+    background-color : #f1fffb;
+    cursor: pointer;
+}
+
 /* DIV */
 .content.main .subscription-table-control {
     margin: auto;
@@ -107,6 +112,7 @@
 
 /* BUTTON */
 .content.main .subscription-table-control .subscription-table-button {
+    font-family: 'Noto Sans KR';
     min-width: 110px;
     height: 32px;
     margin: auto;
@@ -117,4 +123,10 @@
     background-color: #EAF6F2;
     font-size: 14px;
     font-weight: bold;
+}
+
+.content.main .subscription-table-control .subscription-table-button:hover {
+    cursor: pointer;
+    background-color: #377E78;
+    color: #EAF6F2;
 }
