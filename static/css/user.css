@@ -1,22 +1,28 @@
 /* 공통  */
 
 html, body {
-    position: relative;
     width: 100%;
     height: 100%;
+    margin: 0;
+
+    font-family: 'Noto Sans KR';
 }
 
 /* 공통 - 페이지 상단 */
+.content.sign_up,
+.content.login {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
 
-.content.myinfo .container,
 .content.sign_up .container,
 .content.login .container {
-    position: absolute;
-    top: calc(50% - 250px);
-    left: calc(50% - 194px);
-    margin: auto;
     width: 388px;
     height: 500px;
+    max-width: 500px;
+    margin-bottom: 100px;
     border-top: 10px solid #81CAB5;
     border-bottom: 10px solid #81CAB5;
 }
@@ -93,22 +99,15 @@ html, body {
     margin: 0 5px;
 }
 
-.content.sign_up a.login-btn:link,
-.content.login a.signup-btn:link {
-    color: #008078;
-    text-decoration: none;
-}
-
-.content.sign_up a.login-btn:visited,
-.content.login a.signup-btn:visited {
+.content.sign_up a.login-btn:link, a.login-btn:visited,
+.content.login a.signup-btn:link, a.signup-btn:visited{
     color: #008078;
     text-decoration: none;
 }
 
 .content.sign_up a.login-btn:hover,
 .content.login a.signup-btn:hover {
-    color: #0000ff;
-    text-decoration: underline;
+    color: #81CAB5;
 }
 
 
@@ -239,6 +238,18 @@ html, body {
 /* --- myinfo --- */
 
 /* 내정보 전체 영역 */
+
+.content.myinfo .container {
+    position: relative;
+    top: 150px;
+    left: calc(50% - 194px);
+    width: 388px;
+    height: 500px;
+    max-width: 500px;
+    margin-bottom: 100px;
+    border-top: 10px solid #81CAB5;
+    border-bottom: 10px solid #81CAB5;
+}
 
 .content.myinfo .container .myinfo-title-wrap {
     display: grid;

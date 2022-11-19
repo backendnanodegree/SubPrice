@@ -1,11 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import FormView
 from django.views.generic import TemplateView
 from django.core.paginator import Paginator
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from alarms.models import Alarm
+from users.models import User
 
-from subscriptions.forms import SubscriptionForm
+from django.utils import timezone
+from datetime import datetime, timedelta, date
+
+from subscriptions.forms import SubscriptionForm, SubscriptionUpdateForm
 from subscriptions.models import Billing, Company, Plan, Service, Subscription, Type
 
 
@@ -107,8 +113,102 @@ class MainCreateModalView(FormView):
             subscription = subscription,
             is_active = True,
         )
-        print(service, plan, started_at, expire_at, company, type_object, alarm)
         return super().form_valid(form)
 
     def form_invalid(self, form):
         return super().form_invalid(form)
+
+
+@login_required(login_url="login")
+def subscription_update(request, pk):
+
+    # subscription table
+    subscription = Subscription.objects.get(id=pk)
+    # Assign fields to use
+    started_at = subscription.started_at
+    expire_at = subscription.expire_at
+
+    # plan table
+    plan = Plan.objects.get(id=subscription.plan.id)
+    # Assign fields to use
+    plan_name = plan.name
+    price = plan.price
+    category = plan.service.category.category_type
+
+    # category table
+    category_type = plan.service.category.get_category_type_display()
+    # Assign fields to use
+    service_name = plan.service
+
+    # billing/company/type table
+    billing = Billing.objects.get(id=subscription.billing.id)
+    company = Company.objects.get(id=billing.company.id)
+    type_object = Type.objects.get(id=billing.type.id)
+    # Assign fields to use
+    method_type = type_object.method_type
+
+    # alarm table
+    alarm = Alarm.objects.get(subscription=subscription)
+    # Assign fields to use
+    d_day = alarm.d_day
+
+    # Existing data
+    data={
+        "category_type":category, "service_name":service_name, "plan_name":plan_name, "started_at":started_at,
+        "expire_at":expire_at, "price":price, "company":company, "method_type":method_type, "d_day":d_day
+    }
+
+    if request.method == 'POST':
+        form = SubscriptionUpdateForm(request.POST,initial=data)
+        if form.is_valid():
+
+            # Input data
+            service_name = form.data.get("service_name")
+            plan_name = form.data.get("plan_name")
+            started_at = form.data.get("started_at")
+            service_name = form.data.get("service_name")
+            expire_at = form.data.get("expire_at")
+            company = form.data.get("company")
+            method_type = form.data.get("method_type")
+            d_day = form.data.get("d_day")
+
+            # Query existing data for input data
+            service = Service.objects.get(name=service_name)
+            plan = Plan.objects.get(service=service, name=plan_name)
+            
+            # Query existing data for input data
+            company = Company.objects.get(company=company)
+            type_object = Type.objects.get(method_type=method_type)
+            # Update billing data with input data
+            billing.company = company
+            billing.type = type_object
+            billing.save()
+
+            # Update subscription data with input data
+            subscription.plan = plan
+            subscription.billing = billing
+            subscription.started_at = started_at
+            if expire_at == '':
+                expire_at = None
+            else:
+                expire_at = date(*map(int,expire_at.split("-")))
+            subscription.expire_at = expire_at
+            if expire_at != None:
+                if expire_at < timezone.now().date():
+                    subscription.is_active = False
+                elif expire_at >= timezone.now().date():
+                    subscription.is_active = True
+            else:
+                subscription.is_active = True
+            subscription.save()
+
+            # Update alarm data with input data
+            alarm.d_day = d_day
+            alarm.save()
+            
+            return redirect("main")
+    else:
+        form = SubscriptionUpdateForm(initial=data)
+        price = format(price,',')+"원"
+    context= {'form': form, 'pk': pk, 'category_type': category_type, 'price': price}
+    return render(request, 'subscriptions/main_update.html', context)
