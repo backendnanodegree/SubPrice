@@ -14,7 +14,7 @@ body {
     display: block;
 }
 
-.content.main_create .modal .modal-content {
+.content.main_create .modal .create-content {
     position: absolute;
     background-color: #fff;
     border-radius: 10px;
@@ -28,25 +28,25 @@ body {
     animation: slidefade 0.35s linear;
 }
 
-.content.main_create .modal .modal-content .modal-close-button {
+.content.main_create .modal .create-content .create-close-button {
     position: absolute;
     top: 15px;
     right: 15px;
 }
 
-.content.main_create .modal .modal-content .modal-close-button:hover{
+.content.main_create .modal .create-content .create-close-button:hover{
     cursor: pointer;
 }
 
 /* TITLE WRAP */
-.content.main_create .modal .modal-content .modal-title {
+.content.main_create .modal .create-content .create-title {
     margin: auto;
     max-width: 1050px;
     display: flex;
     padding: 20px 0px 10px 0px;
 }
 
-.content.main_create .modal .modal-content .modal-title .modal-title-text {
+.content.main_create .modal .create-content .create-title .create-title-text {
     margin: auto;
     min-width: 240px;
     display: flex;
@@ -54,12 +54,12 @@ body {
     font-size: 22px;
 }
 
-.content.main_create .modal .modal-content .modal-title .modal-title-empty {
+.content.main_create .modal .create-content .create-title .create-title-empty {
     width: 100%;
     display: flex;
 }
 
-/* .content.main_create .modal .modal-content .modal-title .modal-table-crud-button {
+/* .content.main_create .modal .create-content .create-title .create-table-crud-button {
     min-width: 30px;
     height: 30px;
     margin: 0px 4px;
@@ -73,12 +73,12 @@ body {
     text-align: center;
 }
 
-.content.main_create .modal .modal-content .modal-title .modal-table-crud-button:hover {
+.content.main_create .modal .create-content .create-title .create-table-crud-button:hover {
     cursor: pointer;
 } */
 
 /* MODAL DIV TABLE */
-.content.main_create .modal .modal-content .modal-table{
+.content.main_create .modal .create-content .create-table{
 	display: table;
 	width: 100%;
     max-width: 1050px;
@@ -88,27 +88,27 @@ body {
     border-collapse: collapse;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-head {
+.content.main_create .modal .create-content .create-table .create-table-head {
     background-color: #81CAB5;
 	display: table-header-group;
 	font-weight: bold;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-body {
+.content.main_create .modal .create-content .create-table .create-table-body {
 	display: table-row-group;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row,
-.content.main_create .modal .modal-content .modal-table .modal-table-body .modal-table-row {
+.content.main_create .modal .create-content .create-table .create-table-head .create-table-row,
+.content.main_create .modal .create-content .create-table .create-table-body .create-table-row {
 	display: table-row;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row .modal-table-th {
+.content.main_create .modal .create-content .create-table .create-table-head .create-table-row .create-table-th {
     background-color: #81CAB5;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row .modal-table-th,
-.content.main_create .modal .modal-content .modal-table .modal-table-body .modal-table-row .modal-table-td {
+.content.main_create .modal .create-content .create-table .create-table-head .create-table-row .create-table-th,
+.content.main_create .modal .create-content .create-table .create-table-body .create-table-row .create-table-td {
     height: 21px;
     border-top: 1px solid #555555;
 	display: table-cell;
@@ -133,19 +133,19 @@ input[type="date"] {
 }
 
 /* BOTTOM WRAP */
-.content.main_create .modal-table-control {
+.content.main_create .create-table-control {
     margin: auto;
     max-width: 1050px;
     display: flex;
     padding: 5px 0px 0px 0px;
 }
 
-.content.main_create .modal-table-control .modal-table-control-empty {
+.content.main_create .create-table-control .create-table-control-empty {
     width: 100%;
     display: flex;
 }
 
-.content.main_create .modal-table-control .modal-table-error ul{
+.content.main_create .create-table-control .create-table-error ul{
     min-width: 300px;
     margin: 2px;
     list-style: none;
@@ -155,7 +155,7 @@ input[type="date"] {
     text-align: right;
 }
 
-.content.main_create .modal-table-control .modal-table-button {
+.content.main_create .create-table-control .create-table-button {
     min-width: 110px;
     height: 32px;
     margin: auto;
@@ -169,7 +169,7 @@ input[type="date"] {
     font-weight: bold;
 }
 
-.content.main_create .modal-table-control .modal-table-button:hover {
+.content.main_create .create-table-control .create-table-button:hover {
     cursor: pointer;
     background-color: #377E78;
     color: #EAF6F2;

@@ -7,49 +7,49 @@
 {% block content %}
 
 <div id="subscription-modal" class="modal"> 
-    <div class="modal-content">
-        <div class="modal-close-button" onclick=location.href="{% url 'main' %}">×</div>
-        <div class="modal-body">
-            <div class="modal-title">
-                <h2 class="modal-title-text">구독 등록</h2>
-                <div class="modal-title-empty"></div>
-                <!-- <button type="button" class="modal-table-crud-button" onclick="add_row()">+</button>
-                <button type="button" class="modal-table-crud-button" onclick="delete_row()">-</button> -->
+    <div class="create-content">
+        <div class="create-close-button" onclick=location.href="{% url 'main' %}">×</div>
+        <div class="create-body">
+            <div class="create-title">
+                <h2 class="create-title-text">구독 등록</h2>
+                <div class="create-title-empty"></div>
+                <!-- <button type="button" class="create-table-crud-button" onclick="add_row()">+</button>
+                <button type="button" class="create-table-crud-button" onclick="delete_row()">-</button> -->
             </div>
             <form method="post" action="{% url 'main_create' %}">
                 {% csrf_token %}
-                <div class="modal-table" id="modal-table">
-                    <div class="modal-table-head">
-                        <div class="modal-table-row">
-                            <div class="modal-table-th">카테고리</div>
-                            <div class="modal-table-th">서비스</div>
-                            <div class="modal-table-th">서비스유형</div>
-                            <div class="modal-table-th">구독시작일</div>
-                            <div class="modal-table-th">만료예정일</div>
-                            <div class="modal-table-th">결제금액</div>
-                            <div class="modal-table-th">결제사</div>
-                            <div class="modal-table-th">결제유형</div>
-                            <div class="modal-table-th">알람설정</div>
+                <div class="create-table" id="create-table">
+                    <div class="create-table-head">
+                        <div class="create-table-row">
+                            <div class="create-table-th">카테고리</div>
+                            <div class="create-table-th">서비스</div>
+                            <div class="create-table-th">서비스유형</div>
+                            <div class="create-table-th">구독시작일</div>
+                            <div class="create-table-th">만료예정일</div>
+                            <div class="create-table-th">결제금액</div>
+                            <div class="create-table-th">결제사</div>
+                            <div class="create-table-th">결제유형</div>
+                            <div class="create-table-th">알람설정</div>
                         </div>
                     </div>
-                    <div class="modal-table-body" id="modal-table-body">
-                        <div class="modal-table-row" id="modal-table-row">
-                            <div class="modal-table-td">{{form.category}}</div>
-                            <div class="modal-table-td">{{form.service}}</div>
-                            <div class="modal-table-td">{{form.plan}}</div>
-                            <div class="modal-table-td">{{form.started_at}}</div>
-                            <div class="modal-table-td">{{form.expire_at}}</div>
-                            <div class="modal-table-td">{{form.price}}</div>
-                            <div class="modal-table-td">{{form.company}}</div>
-                            <div class="modal-table-td">{{form.type_object}}</div>
-                            <div class="modal-table-td">{{form.alarm}}</div>
+                    <div class="create-table-body" id="create-table-body">
+                        <div class="create-table-row" id="create-table-row">
+                            <div class="create-table-td">{{form.category}}</div>
+                            <div class="create-table-td">{{form.service}}</div>
+                            <div class="create-table-td">{{form.plan}}</div>
+                            <div class="create-table-td">{{form.started_at}}</div>
+                            <div class="create-table-td">{{form.expire_at}}</div>
+                            <div class="create-table-td">{{form.price}}</div>
+                            <div class="create-table-td">{{form.company}}</div>
+                            <div class="create-table-td">{{form.type_object}}</div>
+                            <div class="create-table-td">{{form.alarm}}</div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-table-control">
-                    <div class="modal-table-control-empty"></div>
-                    <div class="modal-table-error">{{form.plan.errors}}{{form.expire_at.errors}}</div>
-                    <button type="submit" class="modal-table-button">완료</button>
+                <div class="create-table-control">
+                    <div class="create-table-control-empty"></div>
+                    <div class="create-table-error">{{form.plan.errors}}{{form.expire_at.errors}}</div>
+                    <button type="submit" class="create-table-button">완료</button>
                 </div>
             </form>
         </div>
@@ -58,15 +58,15 @@
 
 <!-- <script>
     let idNum = 0;
-    let nowRow = document.getElementById("modal-table-row");
-    let innerRow = document.getElementById("modal-table-row").innerHTML;
+    let nowRow = document.getElementById("create-table-row");
+    let innerRow = document.getElementById("create-table-row").innerHTML;
     let addRow;
 
     function add_row()  {
         addRow = nowRow.cloneNode();
         
         idNum++;
-        addRow.id = 'modal-table-row-' + idNum;
+        addRow.id = 'create-table-row-' + idNum;
 
         addRow.innerHTML = innerRow
 
@@ -75,8 +75,8 @@
     }
 
     function delete_row()  {
-        nowRow = document.getElementById("modal-table-body").lastElementChild;
-        if (nowRow.id != 'modal-table-row') {
+        nowRow = document.getElementById("create-table-body").lastElementChild;
+        if (nowRow.id != 'create-table-row') {
             nowRow.remove()
         }
 
