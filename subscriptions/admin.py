@@ -51,7 +51,8 @@ class subscriptionAdmin(admin.ModelAdmin):
     최선우 : Subscription Model을 Admin Site에 등록
     """
     list_display = ["user", "get_category", "plan", "billing", "started_at", "get_billing_at", "expire_at", "is_active"]
-    
+    search_fields = ["user__email"]
+
     @admin.display(description="카테고리")
     def get_category(self, obj):
         return obj.plan.service.category
