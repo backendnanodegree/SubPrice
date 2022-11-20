@@ -15,6 +15,19 @@ from datetime import datetime, timedelta, date
 from subscriptions.forms import SubscriptionForm, SubscriptionUpdateForm
 from subscriptions.models import Billing, Company, Plan, Service, Subscription, Type
 
+# custom decorator
+def check_permissions(function):
+    def decorator_func(request, pk):
+        if request.user.is_anonymous:
+            return redirect("login")
+        else:
+            subscription_user = Subscription.objects.get(id=pk).user
+            if request.user!= subscription_user:
+                return redirect("main")
+        return function(request, pk)
+
+    return decorator_func
+
 
 @method_decorator(login_required(login_url="/login/"), name="get")
 class MainListView(TemplateView):
@@ -120,7 +133,8 @@ class MainCreateModalView(FormView):
         return super().form_invalid(form)
 
 
-@login_required(login_url="login")
+# @login_required(login_url="login")
+@check_permissions
 def subscription_update(request, pk):
 
     # Assign object to use
