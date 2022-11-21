@@ -2,9 +2,7 @@ from django.contrib import admin
 from subscriptions.models import (Type, Company, Billing, Category, 
                                   Service, Plan, Subscription)
 
-from django.utils import timezone
-from datetime import datetime, timedelta, date
-from dateutil.relativedelta import relativedelta
+from datetime import datetime, date
 
 
 # Register your models here.
@@ -71,7 +69,7 @@ class subscriptionAdmin(admin.ModelAdmin):
             return None
         else:
             renewal_day = obj.started_at.day
-            today = timezone.now()
+            today = datetime.now()
             today_day = today.day
             pay_year, pay_month, pay_day = today.year, today.month, renewal_day
             
