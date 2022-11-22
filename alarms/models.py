@@ -21,7 +21,7 @@ class Alarm(Baseclass):
     ]
     d_day = models.SmallIntegerField(verbose_name='메일발송 D-DAY', choices=DDAY_TYPE, help_text='선택 시, 해당 일자에 메일이 발송됩니다.', null=True)
     subscription = models.OneToOneField(Subscription, verbose_name='구독정보', on_delete=models.CASCADE, null=True, related_name='alarm_subscription')
-    delete_on = models.BooleanField(verbose_name="삭제 여부", default=False)
+    is_active = models.BooleanField(verbose_name="활성 여부", default=True)
 
     def __str__(self):
         return f"({self.subscription})의 {self.get_d_day_display()} 알림"

@@ -47,7 +47,6 @@ class Billing(Baseclass):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='사용자', related_name="type_user")
     type = models.ForeignKey(Type, on_delete=models.CASCADE, verbose_name="결제수단", related_name="billing_type")
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="결제사", related_name="billing_company")
-    delete_on = models.BooleanField(verbose_name="삭제 여부", default=False)
 
     def __str__(self):
         return f"{self.company} - {self.type}"
@@ -121,7 +120,6 @@ class Subscription(Baseclass):
     started_at = models.DateField(verbose_name='최초 구독일')
     expire_at = models.DateField(verbose_name='구독 만료일', null=True, blank=True)
     is_active = models.BooleanField(verbose_name="활성 여부", default=True)
-    delete_on = models.BooleanField(verbose_name="삭제 여부", default=False)
     
     def __str__(self):
         return f"{self.user} - {self.plan}"
