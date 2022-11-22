@@ -37,24 +37,24 @@
                     <div class="update-table-body" id="update-table-body">
                         <div class="update-table-row" id="update-table-row">
                             <div class="update-table-td">{{category_type}}</div>
-                            <div class="update-table-td">{{form.service_name}}</div>
-                            <div class="update-table-td">{{form.plan_name}}</div>
+                            <div class="update-table-td">{{form.service_type}}</div>
+                            <div class="update-table-td">{{form.plan_type}}</div>
                             <div class="update-table-td">{{form.started_at}}</div>
                             <div class="update-table-td">{{form.expire_at}}</div>
                             <div class="update-table-td">{{price_}}</div>
                             <div class="update-table-td">{{form.method_type}}</div>
-                            <div class="update-table-td">{{form.company}}</div>
+                            <div class="update-table-td">{{form.company_type}}</div>
                             <div class="update-table-td">{{form.d_day}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="update-table-control">
                     <div class="update-table-error">
-                        {{form.plan_name.errors}}
+                        {{form.plan_type.errors}}
                         {{form.expire_at.errors}}
-                        {{form.company.errors}}
+                        {{form.company_type.errors}}
                         <!-- 서비스유형 혹은 결제수단에서 오류가 발생하는 경우, 아래 문구 출력   -->
-                        {% if form.plan_name.errors or form.company.errors %}
+                        {% if form.plan_type.errors or form.company_type.errors %}
                             <div class="error_announce">서비스유형 및 결제수단 정보는 우측 상단의 링크를 통해 확인해주세요.</div>
                         {% endif %}
                     </div>
