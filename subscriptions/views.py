@@ -1,4 +1,3 @@
-from dateutil.relativedelta import relativedelta
 from django.shortcuts import render, redirect
 from django.views.generic import FormView
 from django.views.generic import TemplateView
@@ -7,10 +6,8 @@ from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
 from alarms.models import Alarm
-from users.models import User
 
-from django.utils import timezone
-from datetime import datetime, timedelta, date
+from datetime import datetime,  date
 
 from subscriptions.forms import SubscriptionForm, SubscriptionUpdateForm
 from subscriptions.models import Billing, Company, Plan, Service, Subscription, Type
@@ -222,9 +219,9 @@ def subscription_update(request, pk):
                 expire_at = date(*map(int,expire_at.split("-")))
             subscription.expire_at = expire_at
             if expire_at != None:
-                if expire_at < timezone.now().date():
+                if expire_at < datetime.now().date():
                     subscription.is_active = False
-                elif expire_at >= timezone.now().date():
+                elif expire_at >= datetime.now().date():
                     subscription.is_active = True
             else:
                 subscription.is_active = True
