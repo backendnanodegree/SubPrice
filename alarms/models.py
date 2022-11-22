@@ -3,9 +3,6 @@ from users.models import Baseclass
 from subscriptions.models import Subscription
 
 class Alarm(Baseclass):
-    """
-    최선우 : 구독정보 알림 모델 추가
-    """
     NO = -1
     ONE = 1
     TWO = 2
@@ -30,9 +27,6 @@ class Alarm(Baseclass):
         verbose_name_plural = "알림 정보 목록"
         
 class AlarmHistory(Baseclass):
-    """
-    최선우 : 구독정보 알림 내역 모델 추가
-    """
     alarm = models.ForeignKey(Alarm, verbose_name='알림', on_delete=models.CASCADE, null=True)
     content = models.TextField(verbose_name='알림 내역', default='', null=True, blank=True, help_text='발송시 메일 내용을 그대로 넣어줍니다.')
     is_success = models.BooleanField(verbose_name='발송 성공 여부', default=False)

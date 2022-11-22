@@ -38,10 +38,6 @@ class SignUpForm(forms.Form):
         return cleaned_data
 
 class LoginForm(forms.Form):
-    """
-    최선우 : forms.Form을 상속받아 로그인 입력 폼 생성.
-            - clean 함수를 통한 검증 진행
-    """
     email = forms.EmailField(label="이메일", widget=forms.EmailInput(attrs={"placeholder": "이메일"}))
     password = forms.CharField(label="비밀번호", widget=forms.PasswordInput(attrs={"placeholder": "비밀번호", "autocomplete": "new-password"}))
 

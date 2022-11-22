@@ -6,9 +6,6 @@ from users.models import User
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    """
-    최선우 : User Model을 Admin Site에 등록
-    """
     list_display = ["email", "fullname", "phone", "is_active", "is_admin", "get_picture"]
     search_fields = ["email", "fullname", "phone", "is_active"]
     

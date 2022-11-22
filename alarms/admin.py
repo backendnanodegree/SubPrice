@@ -1,15 +1,12 @@
 from django.contrib import admin
 from alarms.models import Alarm, AlarmHistory
-from datetime import datetime, timedelta, date
+from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 
 # Register your models here.
 
 @admin.register(Alarm)
 class AlarmAdmin(admin.ModelAdmin):
-    """
-    최선우 : Alarm Model을 Admin Site에 등록
-    """
     list_display = ["subscription", "get_started_at", "get_expire_at", "get_billing_at", "get_dday", "get_date"]
     search_fields = ["subscription__user__email"]
 
@@ -23,10 +20,6 @@ class AlarmAdmin(admin.ModelAdmin):
 
     @admin.display(description="다음 결제 예정일")
     def get_billing_at(self, obj):
-        """
-        결제 예정일 : 구독 시작일로부터 갱신일자를 추출 후, 현재 날짜와 비교하여 계산
-                      - 발송 예정일 계산을 위해 'next_billing_at'을 전역 변수로 선언
-        """
         global next_billing_at
         if obj.subscription.is_active == False:
             return None
@@ -73,9 +66,6 @@ class AlarmAdmin(admin.ModelAdmin):
 
 @admin.register(AlarmHistory)
 class AlarmHistoryAdmin(admin.ModelAdmin):
-    """
-    최선우 : AlarmHistory Model을 Admin Site에 등록
-    """
     list_display = ["alarm", "get_date", "get_content", "is_success", "traceback"]
     
     
