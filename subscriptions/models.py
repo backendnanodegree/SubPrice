@@ -4,9 +4,6 @@ from users.models import Baseclass, User
 # Create your models here.
 
 class Type(Baseclass):
-    """
-    최선우 : 결제유형 모델 생성 -> 관리자가 데이터 관리 예정
-    """
     CREDIT = 1
     CHECK = 2
     ACCOUNT = 3
@@ -27,9 +24,6 @@ class Type(Baseclass):
         verbose_name_plural = "결제유형 목록"
 
 class Company(Baseclass):
-    """
-    최선우 : 결제사 모델 생성 -> 관리자가 데이터 관리 예정
-    """
     type = models.ManyToManyField('subscriptions.Type', through='Billing', verbose_name="결제수단", related_name="company_type")
     company = models.CharField(verbose_name='결제사', max_length=50)
     
@@ -41,9 +35,6 @@ class Company(Baseclass):
         verbose_name_plural = "결제사 목록"
         
 class Billing(Baseclass):
-    """
-    최선우 : 결제수단 모델 생성 -> 관리자가 데이터 관리 예정
-    """
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='사용자', related_name="type_user")
     type = models.ForeignKey(Type, on_delete=models.CASCADE, verbose_name="결제수단", related_name="billing_type")
     company = models.ForeignKey(Company, on_delete=models.CASCADE, verbose_name="결제사", related_name="billing_company")
@@ -58,9 +49,6 @@ class Billing(Baseclass):
 
     
 class Category(Baseclass):
-    """
-    최선우 : 카테고리 모델 생성 -> 관리자가 데이터 관리 예정
-    """
     OTT = 1
     MUSIC = 2
     BOOK = 3
@@ -82,9 +70,6 @@ class Category(Baseclass):
         verbose_name_plural = "카테고리 목록"
         
 class Service(Baseclass):
-    """
-    최선우 : 서비스 모델 생성 -> 관리자가 데이터 관리 예정
-    """
     category = models.ForeignKey(Category, verbose_name='서비스', on_delete=models.CASCADE, related_name='service_category')
     name = models.CharField(verbose_name='서비스명', max_length=50, unique=True)
     
@@ -96,9 +81,6 @@ class Service(Baseclass):
         verbose_name_plural = "서비스 목록"
         
 class Plan(Baseclass):
-    """
-    최선우 : 플랜 모델 생성 -> 관리자가 데이터 관리 예정
-    """
     service = models.ForeignKey(Service, verbose_name='서비스', on_delete=models.CASCADE, related_name='plan_service')
     name = models.CharField(verbose_name='구독플랜', max_length=50)
     price = models.PositiveIntegerField(verbose_name='가격')
@@ -112,9 +94,6 @@ class Plan(Baseclass):
 
 
 class Subscription(Baseclass):
-    """
-    최선우 : 구독 정보 모델 생성 -> 유저가 직접 등록
-    """
     user = models.ForeignKey('users.User', verbose_name='사용자', on_delete=models.CASCADE, null=True, related_name='subscription_user')
     plan = models.ForeignKey(Plan, verbose_name='구독플랜', on_delete=models.CASCADE, null=True, related_name='subscription_plan')
     billing = models.ForeignKey(Billing, verbose_name='결제 정보', on_delete=models.CASCADE, null=True, related_name='subscription_billing')
