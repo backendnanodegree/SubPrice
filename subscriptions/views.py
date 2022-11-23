@@ -243,3 +243,7 @@ def subscription_update(request, pk):
         print(billing.company.id)
     context= {'form': form, 'pk': pk, 'category_type': category_type, 'price_': price_}
     return render(request, 'subscriptions/main_update.html', context)
+
+@method_decorator(login_required(login_url="/login/"), name="get")
+class HistoryListlView(TemplateView):
+    template_name = "subscriptions/history.html"
