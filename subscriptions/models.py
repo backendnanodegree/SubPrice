@@ -102,7 +102,7 @@ class Subscription(Baseclass):
     started_at = models.DateField(verbose_name='최초 구독일')
     expire_at = models.DateField(verbose_name='구독 만료일', null=True, blank=True)
     is_active = models.BooleanField(verbose_name="활성 여부", default=True)
-    delete_on = models.BooleanField(verbose_name="삭제 여부", default=True)
+    delete_on = models.BooleanField(verbose_name="삭제 여부", default=False)
     
     def __str__(self):
         return f"{self.user} - {self.plan}"
