@@ -29,11 +29,11 @@
             {% for obj in page_obj %}
             <tr class='subscribing' onclick="location.href='{% url 'main_update' obj.pk%}'">
                 <td>{{obj.plan.service.category}}</td>
-                <td>{{obj.plan.service.name}}</td>
-                <td>{{obj.plan.name}}</td>
+                <td>{{obj.plan.service.name|set_size}}</td>
+                <td>{{obj.plan.name|set_size}}</td>
                 <td>{{obj.next_billing_at|date:'Y.m.d'}}</td>
                 <td>{{obj.expire_at|date:'Y.m.d'}}</td>
-                <td>{{obj.plan.price|set_format}}</td>
+                <td>{{obj.plan.price}}</td>
                 <td>{{obj.billing.company}}</td>
                 <td>{{obj.billing.type}}</td>
                 <td>{{obj.alarm_subscription.get_d_day_display}}</td>
