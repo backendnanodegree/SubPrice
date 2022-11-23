@@ -132,7 +132,6 @@ class MainCreateModalView(FormView):
         return super().form_invalid(form)
 
 
-# @login_required(login_url="login")
 @check_permissions
 def subscription_update(request, pk):
 
