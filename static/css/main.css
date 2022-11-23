@@ -55,12 +55,18 @@
     font-size: 14px;
 }
 
-.content.main .subscription-table .th-service {
-    width: 90px;
+.content.main .subscription-table .th-category,
+.content.main .subscription-table .th-service,
+.content.main .subscription-table .th-next-billing-at,
+.content.main .subscription-table .th-started-at,
+.content.main .subscription-table .th-expire-at,
+.content.main .subscription-table .th-company,
+.content.main .subscription-table .th-method-type {
+    width: 85px;
 }
 
 .content.main .subscription-table .th-plan {
-    width: 115px;
+    width: 130px;
 }
 
 .content.main .subscribing:hover {

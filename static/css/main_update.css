@@ -1,4 +1,4 @@
-/* MODAL */
+/* UPDATE MODAL */
 body {    
     position: absolute;
     background-color: rgba(0,0,0,0.4);
@@ -13,7 +13,7 @@ body {
     position: absolute;
     background-color: #fff;
     border-radius: 10px;
-    width: 1000px;
+    min-width: 1050px;
     top: 50%;
     left: 50%;
     padding: 30px;
@@ -35,7 +35,7 @@ body {
     font-weight: 700;
 }
 
-/* TITLE */
+/* TITLE WRAP */
 .content.main_update .update-title-wrap {
     margin: 20px 0 10px;
     display: flex;
@@ -66,7 +66,7 @@ body {
     margin: 0 10px;
 }
 
-/* MODAL DIV TABLE */
+/* TABLE */
 .content.main_update .update-table{
 	display: table;
     margin: auto;
@@ -146,7 +146,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     cursor: pointer;
 }
 
-/* DIV */
+/* BOTTOM WRAP */
 .content.main_update .update-table-control {
     max-width: 1050px;
     padding: 5px 0px 0px 0px;
@@ -164,12 +164,12 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     margin: 0 0 2px;
     padding: 0;
     list-style: none;
-    font-size: 14px;
+    font-size: 11px;
     color: red;
 }
 
 .content.main_update .error_announce{
-    font-size: 14px;
+    font-size: 11px;
     color: #00f;
 }
 

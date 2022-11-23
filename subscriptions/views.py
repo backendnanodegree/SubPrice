@@ -37,7 +37,7 @@ class MainListView(TemplateView):
         context['show_header'] = True
 
         user = self.request.user
-        
+
         # subscription table
         subscription = list(Subscription.objects.filter(user=user, is_active=1, delete_on=0))
         subscription.sort(key=lambda x: x.next_billing_at(), reverse=True)
@@ -91,14 +91,14 @@ class MainCreateModalView(FormView):
         started_at = form.data.get("started_at")
         expire_at = form.data.get("expire_at")
         company = form.data.get("company")
-        type_object = form.data.get("type_object")
+        method_type = form.data.get("method_type")
         alarm = form.data.get("alarm")
         service = Service.objects.get(name=service)
         plan = Plan.objects.get(service=service, name=plan)
 
         # billing 데이터 저장
         company = Company.objects.get(company=company)
-        type = Type.objects.get(method_type=type_object)
+        type = Type.objects.get(method_type=method_type)
         billing, is_created = Billing.objects.get_or_create(
             user = user,
             type = type,
