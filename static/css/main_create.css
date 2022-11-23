@@ -1,4 +1,4 @@
-/* MODAL */
+/* CREATE MODAL */
 body {
     font-family: 'Noto Sans KR';
     margin:0px;
@@ -18,7 +18,7 @@ body {
     position: absolute;
     background-color: #fff;
     border-radius: 10px;
-    min-width: 950px;
+    min-width: 1050px;
     top: 50%;
     left: 50%;
     padding: 30px;
@@ -59,6 +59,24 @@ body {
     display: flex;
 }
 
+.content.main_create .modal .create-content .create-title .show_list-wrap {
+    display: flex;
+}
+
+.content.main_create .modal .create-content .create-title .show_list-wrap .show_list:link,
+.content.main_create .modal .create-content .create-title .show_list-wrap .show_list:visited {
+    min-width: 80px;
+    color: #008078;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.content.main_create .modal .create-content .create-title .show_list-wrap .show_list:hover {
+    min-width: 80px;
+    color: #81CAB5;
+    text-decoration: underline;
+}
+
 /* .content.main_create .modal .create-content .create-title .create-table-crud-button {
     min-width: 30px;
     height: 30px;
@@ -77,7 +95,7 @@ body {
     cursor: pointer;
 } */
 
-/* MODAL DIV TABLE */
+/* TABLE */
 .content.main_create .modal .create-content .create-table{
 	display: table;
 	width: 100%;
@@ -124,7 +142,7 @@ input, select {
     font-family: 'Noto Sans KR';
 }
 
-input[type="text"] {
+input[type="text"], select {
     width: 80px;
 }
 
@@ -144,9 +162,11 @@ input[type="date"] {
     width: 100%;
     display: flex;
 }
-
+.content.main_create .create-table-control .create-table-error {
+    margin: 0px 20px;
+}
 .content.main_create .create-table-control .create-table-error ul{
-    min-width: 300px;
+    min-width: 320px;
     margin: 2px;
     list-style: none;
     padding-left: 3px;
@@ -155,10 +175,15 @@ input[type="date"] {
     text-align: right;
 }
 
+.content.main_create .create-table-control .create-table-error .error_announce{
+    min-width: 320px;
+    font-size: 11px;
+    color: #00f;
+}
+
 .content.main_create .create-table-control .create-table-button {
     min-width: 110px;
     height: 32px;
-    margin: auto;
     padding: 4px;
     border: 0;
     border-radius: 4px;

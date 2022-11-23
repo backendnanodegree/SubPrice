@@ -11,8 +11,12 @@
         <div class="create-close-button" onclick=location.href="{% url 'main' %}">×</div>
         <div class="create-body">
             <div class="create-title">
-                <h2 class="create-title-text">구독 등록</h2>
+                <h2 class="create-title-text">구독정보 등록</h2>
                 <div class="create-title-empty"></div>
+                <div class="show_list-wrap">
+                    <a href="https://docs.google.com/spreadsheets/d/1MYBc6fn0Xbw7vbK2jpcBYu02jukmI-8emvralamyyW8/edit?usp=share_link/edit#gid=1831498595" target="_blank" class="show_list plan">서비스유형</a>
+                    <a href="https://docs.google.com/spreadsheets/d/1MYBc6fn0Xbw7vbK2jpcBYu02jukmI-8emvralamyyW8/edit?usp=share_link/edit#gid=1341123862" target="_blank" class="show_list type">결제수단</a>
+                </div>
                 <!-- <button type="button" class="create-table-crud-button" onclick="add_row()">+</button>
                 <button type="button" class="create-table-crud-button" onclick="delete_row()">-</button> -->
             </div>
@@ -41,14 +45,22 @@
                             <div class="create-table-td">{{form.expire_at}}</div>
                             <div class="create-table-td">{{form.price}}</div>
                             <div class="create-table-td">{{form.company}}</div>
-                            <div class="create-table-td">{{form.type_object}}</div>
+                            <div class="create-table-td">{{form.method_type}}</div>
                             <div class="create-table-td">{{form.alarm}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="create-table-control">
                     <div class="create-table-control-empty"></div>
-                    <div class="create-table-error">{{form.plan.errors}}{{form.expire_at.errors}}</div>
+                    <div class="create-table-error">
+                        {{form.plan.errors}}
+                        {{form.expire_at.errors}}
+                        {{form.company.errors}}
+                        <!-- 서비스유형 혹은 결제수단에서 오류가 발생하는 경우, 아래 문구 출력   -->
+                        {% if form.plan.errors or form.company.errors %}
+                            <div class="error_announce">서비스유형 및 결제수단 정보는 우측 상단의 링크를 통해 확인해주세요.</div>
+                        {% endif %}
+                    </div>
                     <button type="submit" class="create-table-button">완료</button>
                 </div>
             </form>
