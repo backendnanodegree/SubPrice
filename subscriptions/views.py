@@ -40,7 +40,7 @@ class MainListView(TemplateView):
         
          # subscription table
         subscription = list(Subscription.objects.filter(user=user, is_active=1))
-        subscription.sort(key=lambda x: x.next_at(), reverse=True)
+        subscription.sort(key=lambda x: x.next_billing_at(), reverse=True)
 
         context['subscription_qs'] = subscription
 
@@ -132,7 +132,6 @@ class MainCreateModalView(FormView):
         return super().form_invalid(form)
 
 
-# @login_required(login_url="login")
 @check_permissions
 def subscription_update(request, pk):
 
@@ -148,20 +147,20 @@ def subscription_update(request, pk):
     # plan table
     plan = Plan.objects.get(id=subscription.plan.id)
     # Assign fields to use
-    plan_name = plan.name
+    plan_type = plan.id
     price = plan.price
     category = plan.service.category.category_type
 
     # category table
     category_type = plan.service.category.get_category_type_display()
     # Assign fields to use
-    service_name = plan.service
+    service_type = plan.service.id
 
     # billing/company/type table
     billing = Billing.objects.get(id=subscription.billing.id)
-    company = Company.objects.get(id=billing.company.id)
     type_object = Type.objects.get(id=billing.type.id)
     # Assign fields to use
+    company_type = billing.company.id
     method_type = type_object.method_type
 
     # alarm table
@@ -171,10 +170,10 @@ def subscription_update(request, pk):
 
     # Existing data
     data={
-        "category_type":category, "service_name":service_name, 
-        "plan_name":plan_name, "price":price, 
+        "category_type":category, "service_type":service_type, 
+        "plan_type":plan_type, "price":price, 
         "started_at":started_at, "expire_at":expire_at, 
-        "company":company, "method_type":method_type, 
+        "company_type":company_type, "method_type":method_type, 
         "d_day":d_day
     }
 
@@ -188,22 +187,21 @@ def subscription_update(request, pk):
         if form.is_valid():
 
             # Input data
-            service_name = form.data.get("service_name")
-            plan_name = form.data.get("plan_name")
+            service_type = form.data.get("service_type")
+            plan_type = form.data.get("plan_type")
             started_at = form.data.get("started_at")
-            service_name = form.data.get("service_name")
             expire_at = form.data.get("expire_at")
-            company = form.data.get("company")
+            company_type = form.data.get("company_type")
             method_type = form.data.get("method_type")
             d_day = form.data.get("d_day")
 
             # Query existing data for input data
-            service = Service.objects.get(name=service_name)
-            plan = Plan.objects.get(service=service, name=plan_name)
+            service = Service.objects.get(id=service_type)
+            plan = Plan.objects.get(service=service, id=plan_type)
             
             # Query existing data for input data
             type_object = Type.objects.get(method_type=method_type)
-            company = Company.objects.get(company=company)
+            company = Company.objects.get(id=company_type)
             # Update billing data with input data
             billing, is_created = Billing.objects.get_or_create(
                 user = user,
@@ -242,5 +240,6 @@ def subscription_update(request, pk):
 
     else:
         form = SubscriptionUpdateForm(initial=data)
+        print(billing.company.id)
     context= {'form': form, 'pk': pk, 'category_type': category_type, 'price_': price_}
     return render(request, 'subscriptions/main_update.html', context)

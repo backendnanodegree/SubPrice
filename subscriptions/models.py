@@ -102,9 +102,30 @@ class Subscription(Baseclass):
     started_at = models.DateField(verbose_name='최초 구독일')
     expire_at = models.DateField(verbose_name='구독 만료일', null=True, blank=True)
     is_active = models.BooleanField(verbose_name="활성 여부", default=True)
+    delete_on = models.BooleanField(verbose_name="삭제 여부", default=False)
     
     def __str__(self):
         return f"{self.user} - {self.plan}"
+
+    def next_billing_at(self):
+        # 매 월의 마지막 일자
+        last_day_list = {1:31, 2:28, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+
+        # 오늘 일자
+        now = datetime.now().date()
+
+        # 구독 시작일
+        started_day = self.started_at.day
+
+        # 기준 월 계산
+        the_month = now if started_day >= now.day else now + relativedelta(months=1)
+        the_month_last_day = 29 if the_month.year % 4 == 0 and the_month.month == 2 else last_day_list[the_month.month]
+
+        # 일 계산
+        the_day = started_day if started_day <= the_month_last_day else the_month_last_day
+
+        # 해당 월의 해당 일자 출력
+        return the_month.replace(day=the_day)
 
     class Meta:
         verbose_name = '사용자 구독 정보'
