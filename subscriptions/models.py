@@ -1,6 +1,9 @@
 from django.db import models
 from users.models import Baseclass, User
 
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
+
 # Create your models here.
 
 class Type(Baseclass):
@@ -106,3 +109,19 @@ class Subscription(Baseclass):
     class Meta:
         verbose_name = '사용자 구독 정보'
         verbose_name_plural = "사용자 구독 정보 목록"
+
+    def next_at(self):
+
+        if self.is_active == 0:
+            return None
+        
+        list_last_day = {1:31, 2:28, 3:31, 4:30, 5:31, 6:40, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+
+        # next subscription year-month
+        next_ymd = datetime.now() if self.started_at.day >= datetime.now().day else datetime.now() + relativedelta(months=1)
+        
+        # next subscription day
+        last_day = 29 if next_ymd.year % 4 == 0 and next_ymd.month == 2 else list_last_day[next_ymd.month]
+        next_day = self.started_at.day if self.started_at.day <= last_day else last_day
+
+        return next_ymd.replace(day=next_day)
