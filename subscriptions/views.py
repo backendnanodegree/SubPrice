@@ -38,8 +38,8 @@ class MainListView(TemplateView):
 
         user = self.request.user
         
-         # subscription table
-        subscription = list(Subscription.objects.filter(user=user, is_active=1))
+        # subscription table
+        subscription = list(Subscription.objects.filter(user=user, is_active=1, delete_on=1))
         subscription.sort(key=lambda x: x.next_billing_at(), reverse=True)
 
         context['subscription_qs'] = subscription
@@ -243,3 +243,56 @@ def subscription_update(request, pk):
         print(billing.company.id)
     context= {'form': form, 'pk': pk, 'category_type': category_type, 'price_': price_}
     return render(request, 'subscriptions/main_update.html', context)
+
+@method_decorator(login_required(login_url="/login/"), name="get")
+class HistoryListlView(TemplateView):
+    template_name = "subscriptions/history.html"
+
+    def get_context_data(self, **kwargs):
+
+        # display none header.html
+        context = {}
+        context['show_header'] = True
+
+        user = self.request.user
+
+        # history table
+        subscription = list(Subscription.objects.filter(user=user, is_active=1, delete_on=1))
+        subscription.sort(key=lambda x: x.next_billing_at(), reverse=True)
+        
+        expire = list(Subscription.objects.filter(user=user, is_active=0, delete_on=1))
+        expire.sort(key=lambda x: x.expire_at, reverse=True)
+        
+        history = list(subscription) + list(expire)
+
+        # Pagination
+        paginator = Paginator(object_list=history, per_page=10)
+        page = self.request.GET.get("page", 1)
+        page_obj = paginator.get_page(page)
+        page_num_list = [num for num in range(1, page_obj.paginator.num_pages + 1)]
+
+        history_empty_row_count = 10-len(history)%10
+        if not len(history)%10 and len(history)!=0:
+            history_empty_row_count = 0
+
+        context["page"] = page
+        context["page_obj"] = page_obj
+        context["page_num_list"] = page_num_list
+        
+        if int(page) == page_num_list[-1]:
+            context['history_empty_row_count'] = history_empty_row_count
+        else:
+            context['history_empty_row_count'] = 0
+        
+        return context
+
+    def post(self, request):
+
+        # delete subscription id list
+        list_selected = request.POST.getlist('selected')
+        
+        # delete subscription info
+        subscription = Subscription.objects.filter(id__in=list_selected)
+        subscription.update(delete_on=0)
+        
+        return redirect('history')
