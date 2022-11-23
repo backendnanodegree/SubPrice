@@ -247,3 +247,11 @@ def subscription_update(request, pk):
 @method_decorator(login_required(login_url="/login/"), name="get")
 class HistoryListlView(TemplateView):
     template_name = "subscriptions/history.html"
+
+    def get_context_data(self, **kwargs):
+
+        # display none header.html
+        context = {}
+        context['show_header'] = True
+        
+        return context
