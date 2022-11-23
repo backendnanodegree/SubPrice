@@ -27,6 +27,8 @@ class SubscriptionForm(forms.Form):
 
         service = cleaned_data.get("service")
         plan = cleaned_data.get("plan")
+        method_type = cleaned_data.get("method_type")
+        company = cleaned_data.get("company")
         started_at = cleaned_data.get("started_at")
         expire_at = cleaned_data.get("expire_at")
         
@@ -50,6 +52,35 @@ class SubscriptionForm(forms.Form):
             if (expire_at_error1) or (expire_at_error2) or (expire_at_error3) or (expire_at_error4):
                 error['expire_at'] = ["만료예정일이 올바른 일자가 아닙니다."]
                 
+        # billing validation
+        company_list = Company.objects.values_list('company', flat=True)
+        credit_card = company_list[19:38]
+        check_card = company_list[19:37]
+        account = company_list[0:19]
+        easy_payment = company_list[38:52]
+        mobile_payment = list(company_list[45:46]) + list(company_list[52:57])
+        error_company_message = ["결제유형에 해당 결제사가 존재하지 않습니다."]
+
+        # 결제 유형이 '신용카드'인 경우 → '신용카드'에 해당하는 결제사가 아니라면 에러 발생
+        if method_type == '1':
+            if company not in credit_card:
+                error['company'] = error_company_message
+        # 결제 유형이 '체크카드'인 경우 → '체크카드'에 해당하는 결제사가 아니라면 에러 발생
+        elif method_type == '2':
+            if company not in check_card:
+                error['company'] = error_company_message
+        # 결제 유형이 '계좌이체'인 경우 → '계좌이체'에 해당하는 결제사가 아니라면 에러 발생
+        elif method_type == '3':
+            if company not in account:
+                error['company'] = error_company_message
+        # 결제 유형이 '간편결제'인 경우 → '간편결제'에 해당하는 결제사가 아니라면 에러 발생
+        elif method_type == '4':
+            if company not in easy_payment:
+                error['company'] = error_company_message
+        # 결제 유형이 '휴대폰결제'인 경우 → '휴대폰결제'에 해당하는 결제사가 아니라면 에러 발생
+        elif method_type == '5':
+            if company not in mobile_payment:
+                error['company'] = error_company_message
         if error:
             raise ValidationError(error)
 
