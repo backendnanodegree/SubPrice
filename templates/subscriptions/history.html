@@ -1,4 +1,5 @@
-{% extends "base.html" %}  
+{% extends "base.html" %}
+{% load static custom_tag %}
 
 {% block head_css %}
 <link rel="stylesheet" href="/static/css/history.css">
@@ -39,7 +40,7 @@
                         <td>{{obj.started_at|date:'Y.m.d'}}</td>
                         <td>{{obj.next_billing_at|date:'Y.m.d'}}</td>
                         <td>{{obj.expire_at|date:'Y.m.d'}}</td>
-                        <td>{{obj.plan.price}}원</td>
+                        <td>{{obj.plan.price|set_format}}</td>
                         <td>{{obj.billing.company}}</td>
                         <td>{{obj.billing.type}}</td>
                         <td>{{obj.alarm_subscription.get_d_day_display}}</td>
