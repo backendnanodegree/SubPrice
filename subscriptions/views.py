@@ -38,8 +38,8 @@ class MainListView(TemplateView):
 
         user = self.request.user
         
-         # subscription table
-        subscription = list(Subscription.objects.filter(user=user, is_active=1))
+        # subscription table
+        subscription = list(Subscription.objects.filter(user=user, is_active=1, delete_on=1))
         subscription.sort(key=lambda x: x.next_billing_at(), reverse=True)
 
         context['subscription_qs'] = subscription
@@ -257,10 +257,10 @@ class HistoryListlView(TemplateView):
         user = self.request.user
 
         # history table
-        subscription = list(Subscription.objects.filter(user=user, is_active=1))
+        subscription = list(Subscription.objects.filter(user=user, is_active=1, delete_on=1))
         subscription.sort(key=lambda x: x.next_billing_at(), reverse=True)
         
-        expire = list(Subscription.objects.filter(user=user, is_active=0))
+        expire = list(Subscription.objects.filter(user=user, is_active=0, delete_on=1))
         expire.sort(key=lambda x: x.expire_at, reverse=True)
         
         history = list(subscription) + list(expire)
