@@ -1,8 +1,8 @@
 /* HISTORY */
 .content.history {
     margin: auto;
-    min-width: 1128px;
-    max-width: 1128px;
+    min-width: 1250px;
+    max-width: 1250px;
     width: 100%;
     height: 700px;
     padding: 40px;
@@ -11,7 +11,7 @@
 /* TITLE DIV WRAP */
 .content.history .history-title {
     margin: auto;
-    max-width: 1050px;
+    max-width: 1250px;
     display: flex;
     padding: 20px 0px 10px 0px;
 }
@@ -32,7 +32,7 @@
 /* TABLE */
 .content.history .history-table {
     margin: auto;
-    max-width: 1050px;
+    min-width: 1250px;
     width: 100%;
     border-collapse: collapse;
     border-top:2px solid #555555;
@@ -63,15 +63,24 @@
     width: 115px;
 }
 
-.content.history .subscribing:hover {
-    background-color : #f1fffb;
-    cursor: pointer;
+.content.history .history-table .th-category,
+.content.history .history-table .th-service,
+.content.history .history-table .th-next-billing-at,
+.content.history .history-table .th-started-at,
+.content.history .history-table .th-expire-at,
+.content.history .history-table .th-company,
+.content.history .history-table .th-method-type {
+    width: 85px;
+}
+
+.content.history .history-table .th-plan {
+    width: 130px;
 }
 
 /* BOTTOM DIV WRAP*/
 .content.history .history-table-control {
     margin: auto;
-    max-width: 1050px;
+    max-width: 1250px;
     display: flex;
     padding: 5px 0px 0px 0px;
 }
