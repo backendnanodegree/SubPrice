@@ -38,33 +38,13 @@ class subscriptionAdmin(admin.ModelAdmin):
     @admin.display(description="카테고리")
     def get_category(self, obj):
         return obj.plan.service.category
+
+    def check_target(self, obj):
+        if obj.user.is_active == False or obj.is_active == False:
+            return "발송 대상 제외" 
     
     @admin.display(description="다음 결제 예정일")
     def get_billing_at(self, obj):
-        
-        if obj.is_active == False:
+        if self.check_target(obj) == "발송 대상 제외":
             return None
-        else:
-            renewal_day = obj.started_at.day
-            today = datetime.now()
-            today_day = today.day
-            pay_year, pay_month, pay_day = today.year, today.month, renewal_day
-            
-            if renewal_day < today.day:
-                if today.month == 12:
-                    pay_year += 1
-                    pay_month = 1
-                else:
-                    pay_month += 1    
-            try:        
-                next_billing_at = date(pay_year, pay_month, pay_day)
-            except:
-                try:
-                    next_billing_at = date(pay_year, pay_month, pay_day-1)
-                except:
-                    try:
-                        next_billing_at = date(pay_year, pay_month, pay_day-2)
-                    except:
-                        next_billing_at = date(pay_year, pay_month, pay_day-3)
-                    
-            return next_billing_at
+        return obj.next_billing_at()
