@@ -177,9 +177,6 @@ def subscription_update(request, pk):
         "d_day":d_day
     }
 
-    # price information setting
-    price_ = format(price,',')+"원" 
-
     if request.method == 'POST':
         form = SubscriptionUpdateForm(request.POST,initial=data)\
         
@@ -235,13 +232,13 @@ def subscription_update(request, pk):
 
         # form : invalid
         else:
-            context= {'form': form, 'pk': pk, 'category_type': category_type, 'price_': price_}
+            context= {'form': form, 'pk': pk, 'category_type': category_type, 'price': price}
             return render(request, 'subscriptions/main_update.html', context)
 
     else:
         form = SubscriptionUpdateForm(initial=data)
         print(billing.company.id)
-    context= {'form': form, 'pk': pk, 'category_type': category_type, 'price_': price_}
+    context= {'form': form, 'pk': pk, 'category_type': category_type, 'price': price}
     return render(request, 'subscriptions/main_update.html', context)
 
 @method_decorator(login_required(login_url="/login/"), name="get")

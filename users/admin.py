@@ -26,13 +26,19 @@ class UserAdmin(admin.ModelAdmin):
         deactivate_cnt = 0
 
         for item in queryset:
+            # 유저 활성 여부 변경
             active_status = item.is_active
             item.is_active = 1-active_status
             item.save()
+            # 해당 유저의 구독 정보 삭제/사용 처리
+            subscription_list = item.subscription_user.all()
+
             if active_status == 1:
                 activate_cnt += 1
+                subscription_list.update(delete_on=False)
             else:
                 deactivate_cnt += 1
+                subscription_list.update(delete_on=True)
 
         if activate_cnt and deactivate_cnt:
             message = f"{activate_cnt} 명의 계정을 비활성화 / {deactivate_cnt} 명의 계정을 활성화 하였습니다."

@@ -33,15 +33,13 @@ class Command(BaseCommand):
     # 데이터 생성
         # 알림 정보 데이터 생성
         for idx, subscription in enumerate(subscription_list):
-            d_day = choices(dday_list, weights=[7,1,1,1,1,1,1,1], k=1)[0]
+            d_day = choices(dday_list, weights=[3,1,1,1,1,1,1,1], k=1)[0]
             Alarm.objects.get_or_create(d_day=d_day, subscription=subscription)
 
         # 알림 내역 데이터 생성
         alarm_list = Alarm.objects.all()
 
         for idx, alarm in enumerate(alarm_list):
-
-           
 
             # 유저 정보 확인
             user_name = alarm.subscription.user.fullname
@@ -57,8 +55,10 @@ class Command(BaseCommand):
             price = alarm.subscription.plan.price
             
             if alarm.d_day > 0:
-                next_billing_at = subscription.started_at + relativedelta(months=1)
+                n = 1
                 while True:
+                    next_billing_at = alarm.subscription.started_at + relativedelta(months=n)
+
                      # 발송 성공 여부
                     is_success = choices(success_list, weights=[1,9], k=1)[0]
 
@@ -93,5 +93,5 @@ class Command(BaseCommand):
                         alarmhistory.traceback = traceback
                         alarmhistory.save()
 
-                    next_billing_at += relativedelta(months=1)
+                    n += 1
 
