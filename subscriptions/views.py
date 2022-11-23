@@ -285,3 +285,14 @@ class HistoryListlView(TemplateView):
             context['history_empty_row_count'] = 0
         
         return context
+
+    def post(self, request):
+
+        # delete subscription id list
+        list_selected = request.POST.getlist('selected')
+        
+        # delete subscription info
+        subscription = Subscription.objects.filter(id__in=list_selected)
+        subscription.update(delete_on=0)
+        
+        return redirect('history')

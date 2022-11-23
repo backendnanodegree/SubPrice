@@ -10,6 +10,8 @@
     <div class="history-title-empty"></div>
 </div>
 <div>
+    <form action="{% url 'history' %}" method="post">
+        {% csrf_token %}
         <div>
             <table class="history-table">
                 <thead>
@@ -77,5 +79,6 @@
                 <button type="submit" class="history-table-button" onclick="">삭제</button>
             </div>
         </div>
+    </form>
 </div>
 {% endblock content %}
