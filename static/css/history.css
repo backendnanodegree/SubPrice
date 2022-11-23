@@ -1,5 +1,5 @@
-/* MAIN */
-.content.main {
+/* HISTORY */
+.content.history {
     margin: auto;
     min-width: 1128px;
     max-width: 1128px;
@@ -8,15 +8,15 @@
     padding: 40px;
 }
 
-/* TITLE WRAP */
-.content.main .subscription-title {
+/* TITLE DIV WRAP */
+.content.history .history-title {
     margin: auto;
     max-width: 1050px;
     display: flex;
     padding: 20px 0px 10px 0px;
 }
 
-.content.main .subscription-title .subscription-title-text {
+.content.history .history-title .history-title-text {
     margin: auto;
     min-width: 240px;
     display: flex;
@@ -24,13 +24,13 @@
     font-size: 22px;
 }
 
-.content.main .subscription-title .subscription-title-empty {
+.content.history .history-title .history-title-empty {
     width: 100%;
     display: flex;
 }
 
 /* TABLE */
-.content.main .subscription-table {
+.content.history .history-table {
     margin: auto;
     max-width: 1050px;
     width: 100%;
@@ -39,14 +39,14 @@
     border-bottom: 2px solid #555555;
 }
 
-.content.main .subscription-table thead tr {
+.content.history .history-table thead tr {
     background-color: #81CAB5;
     color: #ffffff;
     font-size: 14px;
   }
 
-.content.main .subscription-table th,
-.content.main .subscription-table td {
+.content.history .history-table th,
+.content.history .history-table td {
     height: 20px;
     padding: 8px 15px;
     border-top:1px solid #555555;
@@ -55,21 +55,21 @@
     font-size: 14px;
 }
 
-.content.main .subscription-table .th-service {
+.content.history .history-table .th-service {
     width: 90px;
 }
 
-.content.main .subscription-table .th-plan {
+.content.history .history-table .th-plan {
     width: 115px;
 }
 
-.content.main .subscribing:hover {
+.content.history .subscribing:hover {
     background-color : #f1fffb;
     cursor: pointer;
 }
 
-/* BOTTOM WRAP */
-.content.main .subscription-table-control {
+/* BOTTOM DIV WRAP*/
+.content.history .history-table-control {
     margin: auto;
     max-width: 1050px;
     display: flex;
@@ -77,20 +77,20 @@
 }
 
 /* PAGINATION */
-.content.main .subscription-table-control .pagination {
+.content.history .history-table-control .pagination {
     width: 100%;
     display: flex;
     justify-content: center;
     text-align: center;
 }
 
-.content.main .subscription-table-control .pagination .page-list {
+.content.history .history-table-control .pagination .page-list {
     display: flex;
     margin: 0px;
     padding-left: 55px;
 }
 
-.content.main .subscription-table-control .pagination .page-list .page-item {
+.content.history .history-table-control .pagination .page-list .page-item {
     list-style: none;
     line-height: 25px;
     width: 25px;
@@ -99,19 +99,19 @@
     border-radius: 4px;
 }
 
-.content.main .subscription-table-control .pagination .page-list .page-item.active {
+.content.history .history-table-control .pagination .page-list .page-item.active {
     background-color: #EAF6F2;
     font-weight: bold;
 }
 
-.content.main .subscription-table-control .pagination .page-list .page-item .page-link,
-.content.main .subscription-table-control .pagination .page-list .page-item.active .page-link {
+.content.history .history-table-control .pagination .page-list .page-item .page-link,
+.content.history .history-table-control .pagination .page-list .page-item.active .page-link {
     text-decoration: none;
     color: #377E78;
 }
 
 /* BUTTON */
-.content.main .subscription-table-control .subscription-table-button {
+.content.history .history-table-control .history-table-button {
     font-family: 'Noto Sans KR';
     min-width: 110px;
     height: 32px;
@@ -125,7 +125,7 @@
     font-weight: bold;
 }
 
-.content.main .subscription-table-control .subscription-table-button:hover {
+.content.history .history-table-control .history-table-button:hover {
     cursor: pointer;
     background-color: #377E78;
     color: #EAF6F2;

@@ -10,8 +10,8 @@
         <div class="middle-section"></div>
         <div class="right-section">
             <button class="main-button header-link" onclick="location.href='{% url 'main' %}'">MAIN</button>
-            <button class="history-button header-link" onclick="location.href=''">HISTORY</button>
-            <img class="profile-img header-link" src="/static/img/profile.png" onclick="location.href=''" alt="profile">
+            <button class="history-button header-link" onclick="location.href='{% url 'history' %}'">HISTORY</button>
+            <img class="profile-img header-link" src="/static/img/profile.png" onclick="location.href='{% url 'myinfo' %}'" alt="profile">
             <img class="logout-img header-link" src="/static/img/logout.png" onclick="location.href='{% url 'logout' %}'" alt="logout">
         </div>
     </nav>
