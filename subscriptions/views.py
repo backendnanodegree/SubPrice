@@ -38,8 +38,10 @@ class MainListView(TemplateView):
 
         user = self.request.user
         
-        # subscription table
-        subscription = Subscription.objects.filter(user=user, is_active=1).order_by("-started_at")
+         # subscription table
+        subscription = list(Subscription.objects.filter(user=user, is_active=1))
+        subscription.sort(key=lambda x: x.next_at(), reverse=True)
+
         context['subscription_qs'] = subscription
 
         # Pagination
@@ -47,9 +49,9 @@ class MainListView(TemplateView):
         page = self.request.GET.get("page", 1)
         page_obj = paginator.get_page(page)
         page_num_list = [num for num in range(1, page_obj.paginator.num_pages + 1)]
-        
-        subscription_empty_row_count = 5-(subscription.count())%5
-        if not subscription.count()%5 and subscription.count()!=0:
+
+        subscription_empty_row_count = 5-len(subscription)%5
+        if not len(subscription)%5 and len(subscription)!=0:
             subscription_empty_row_count = 0
 
         context["page"] = page
