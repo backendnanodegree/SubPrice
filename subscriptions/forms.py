@@ -11,13 +11,17 @@ class SubscriptionForm(forms.Form):
     METHOD_TYPE = [(1, "신용카드"), (2, "체크카드"), (3, "계좌이체"), (4, "간편결제"), (5, "휴대폰결제")]
     DDAY_TYPE = [(-1, '미지정'), (1, '1일전'), (2, '2일전'), (3, '3일전'), (4, '4일전'), (5, '5일전'), (6, '6일전'), (7, '7일전')]
 
+    service_list = sorted(Service.objects.all().values_list('id', 'name'))
+    plan_list = sorted(Plan.objects.all().values_list('id', 'name'))
+    company_list = sorted(Company.objects.all().values_list('id', 'company'))
+
     category = forms.CharField(label="카테고리", widget=forms.TextInput(), disabled=True, required=False)
-    service = forms.CharField(label="서비스", widget=forms.TextInput())
-    plan = forms.CharField(label="서비스 유형", widget=forms.TextInput())
+    service = forms.ChoiceField(label="서비스", widget=forms.Select, choices=service_list)
+    plan = forms.ChoiceField(label="서비스 유형", widget=forms.Select, choices=plan_list)
     started_at = forms.DateTimeField(label="구독시작일", widget=NumberInput(attrs={'type':'date'}))
     expire_at = forms.DateTimeField(label="만료예정일", widget=NumberInput(attrs={'type':'date'}), required=False)
     price = forms.CharField(label="결제금액", widget=forms.TextInput(), disabled=True, required=False)
-    company = forms.CharField(label="결제사", widget=forms.TextInput())
+    company = forms.ChoiceField(label="결제사", widget=forms.Select, choices=company_list)
     method_type = forms.ChoiceField(label="결제수단", widget=forms.Select, choices=METHOD_TYPE)
     alarm = forms.ChoiceField(label="알람설정", widget=forms.Select, choices=DDAY_TYPE)
 
@@ -26,16 +30,16 @@ class SubscriptionForm(forms.Form):
         cleaned_data = super(SubscriptionForm, self).clean()
 
         service = cleaned_data.get("service")
-        plan = cleaned_data.get("plan")
+        plan = int(cleaned_data.get("plan"))
         method_type = cleaned_data.get("method_type")
-        company = cleaned_data.get("company")
+        company = int(cleaned_data.get("company"))
         started_at = cleaned_data.get("started_at")
         expire_at = cleaned_data.get("expire_at")
-        
+
         error = {}
 
         # plan validation
-        plan_list = Service.objects.get(name=service).plan_service.values_list("name", flat=True)
+        plan_list = Service.objects.get(id=service).plan_service.values_list("id", flat=True)
         if plan not in plan_list:
             error['plan'] = ["서비스에 해당 서비스 유형이 존재하지 않습니다."]
 
@@ -53,12 +57,11 @@ class SubscriptionForm(forms.Form):
                 error['expire_at'] = ["만료예정일이 올바른 일자가 아닙니다."]
                 
         # billing validation
-        company_list = Company.objects.values_list('company', flat=True)
-        credit_card = company_list[19:38]
-        check_card = company_list[19:37]
-        account = company_list[0:19]
-        easy_payment = company_list[38:52]
-        mobile_payment = list(company_list[45:46]) + list(company_list[52:57])
+        credit_card = list(range(20,39))
+        check_card = list(range(20,38))
+        account = list(range(1,20))
+        easy_payment = list(range(39,53))
+        mobile_payment = [46] + list(range(53,58))
         error_company_message = ["결제유형에 해당 결제사가 존재하지 않습니다."]
 
         # 결제 유형이 '신용카드'인 경우 → '신용카드'에 해당하는 결제사가 아니라면 에러 발생

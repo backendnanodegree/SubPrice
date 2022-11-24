@@ -93,11 +93,11 @@ class MainCreateModalView(FormView):
         company = form.data.get("company")
         method_type = form.data.get("method_type")
         alarm = form.data.get("alarm")
-        service = Service.objects.get(name=service)
-        plan = Plan.objects.get(service=service, name=plan)
+        service = Service.objects.get(id=service)
+        plan = Plan.objects.get(id=plan)
 
         # billing 데이터 저장
-        company = Company.objects.get(company=company)
+        company = Company.objects.get(id=company)
         type = Type.objects.get(method_type=method_type)
         billing, is_created = Billing.objects.get_or_create(
             user = user,

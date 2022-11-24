@@ -35,8 +35,8 @@
                     <tr>
                         <td><input type="checkbox" name="selected" value="{{obj.id}}"></td>
                         <td>{{obj.plan.service.category}}</td>
-                        <td>{{obj.plan.service.name}}</td>
-                        <td>{{obj.plan.name}}</td>
+                        <td>{{obj.plan.service.name|set_size}}</td>
+                        <td>{{obj.plan.name|set_size}}</td>
                         <td>{{obj.started_at|date:'Y.m.d'}}</td>
                         <td>{{obj.next_billing_at|date:'Y.m.d'}}</td>
                         <td>{{obj.expire_at|date:'Y.m.d'}}</td>
