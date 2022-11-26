@@ -1,3 +1,6 @@
+import csv
+import pandas as pd
+
 from django import forms
 from django.forms import NumberInput
 from django.forms import ValidationError
@@ -5,23 +8,45 @@ import calendar
 
 from subscriptions.models import Service, Company, Plan
 
+class MyBaseForm(forms.Form):
 
-class SubscriptionForm(forms.Form):
+    # csv 파일로부터 company, service, plan 리스트를 불러와 아래에서 생성할 폼에 사용하기 위해 부모 클래스 폼을 생성
+    BASE_DIR = './static/csv/'
+
+    company_csv = BASE_DIR + 'company.csv'
+    service_csv = BASE_DIR + 'service.csv'
+    plan_csv = BASE_DIR + 'plan.csv'
+
+    csv_list = [company_csv, service_csv, plan_csv]
+    data_list = [None, None, None, None]
+
+    for i in range(3):
+        with open(csv_list[i], 'rt', encoding='UTF8') as f:
+            dr = csv.DictReader(f)
+            data_list[i] = pd.DataFrame(dr)
+
+    company_data, service_data, plan_data = data_list[0], data_list[1], data_list[2]
+
+    company_list = company_data.to_records(index=False).tolist()
+    service_list = service_data.iloc[:,[0,1]].to_records(index=False).tolist()
+    plan_list = plan_data.iloc[:,[0,1]].to_records(index=False).tolist()
+
+    class Meta:
+        abstract = True
+
+
+class SubscriptionForm(MyBaseForm):
     
     METHOD_TYPE = [(1, "신용카드"), (2, "체크카드"), (3, "계좌이체"), (4, "간편결제"), (5, "휴대폰결제")]
     DDAY_TYPE = [(-1, '미지정'), (1, '1일전'), (2, '2일전'), (3, '3일전'), (4, '4일전'), (5, '5일전'), (6, '6일전'), (7, '7일전')]
 
-    service_list = sorted(Service.objects.all().values_list('id', 'name'))
-    plan_list = sorted(Plan.objects.all().values_list('id', 'name'))
-    company_list = sorted(Company.objects.all().values_list('id', 'company'))
-
     category = forms.CharField(label="카테고리", widget=forms.TextInput(), disabled=True, required=False)
-    service = forms.ChoiceField(label="서비스", widget=forms.Select, choices=service_list)
-    plan = forms.ChoiceField(label="서비스 유형", widget=forms.Select, choices=plan_list)
+    service = forms.ChoiceField(label="서비스", widget=forms.Select, choices=MyBaseForm().service_list)
+    plan = forms.ChoiceField(label="서비스 유형", widget=forms.Select, choices=MyBaseForm().plan_list)
     started_at = forms.DateTimeField(label="구독시작일", widget=NumberInput(attrs={'type':'date'}))
     expire_at = forms.DateTimeField(label="만료예정일", widget=NumberInput(attrs={'type':'date'}), required=False)
     price = forms.CharField(label="결제금액", widget=forms.TextInput(), disabled=True, required=False)
-    company = forms.ChoiceField(label="결제사", widget=forms.Select, choices=company_list)
+    company = forms.ChoiceField(label="결제사", widget=forms.Select, choices=MyBaseForm().company_list)
     method_type = forms.ChoiceField(label="결제수단", widget=forms.Select, choices=METHOD_TYPE)
     alarm = forms.ChoiceField(label="알람설정", widget=forms.Select, choices=DDAY_TYPE)
 
@@ -90,22 +115,17 @@ class SubscriptionForm(forms.Form):
         return cleaned_data
 
 
-class SubscriptionUpdateForm(forms.Form):
-
+class SubscriptionUpdateForm(MyBaseForm):
     
     METHOD_TYPE = [(1, "신용카드"), (2, "체크카드"), (3, "계좌이체"), (4, "간편결제"), (5, "휴대폰결제")]
     DDAY_TYPE = [(-1, '미설정'), (1, '1일전'), (2, '2일전'), (3, '3일전'), (4, '4일전'), (5, '5일전'), (6, '6일전'), (7, '7일전')]
 
-    service_list = sorted(Service.objects.all().values_list('id', 'name'))
-    plan_list = sorted(Plan.objects.all().values_list('id', 'name'))
-    company_list = sorted(Company.objects.all().values_list('id', 'company'))
-
-    service_type = forms.ChoiceField(label="서비스", widget=forms.Select, choices=service_list)
-    plan_type = forms.ChoiceField(label="서비스 유형", widget=forms.Select, choices=plan_list)
+    service_type = forms.ChoiceField(label="서비스", widget=forms.Select, choices=MyBaseForm().service_list)
+    plan_type = forms.ChoiceField(label="서비스 유형", widget=forms.Select, choices=MyBaseForm().plan_list)
     started_at = forms.DateTimeField(label="구독시작일", widget=NumberInput(attrs={'type':'date'}))
     expire_at = forms.DateTimeField(label="만료예정일", widget=NumberInput(attrs={'type':'date'}), required=False)
     method_type = forms.ChoiceField(label="결제수단", widget=forms.Select, choices=METHOD_TYPE)
-    company_type = forms.ChoiceField(label="결제사", widget=forms.Select, choices=company_list)
+    company_type = forms.ChoiceField(label="결제사", widget=forms.Select, choices=MyBaseForm().company_list)
     d_day = forms.ChoiceField(label="알람설정", widget=forms.Select, choices=DDAY_TYPE)
 
     def clean(self):
