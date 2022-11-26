@@ -242,7 +242,7 @@ def subscription_update(request, pk):
     return render(request, 'subscriptions/main_update.html', context)
 
 @method_decorator(login_required(login_url="/login/"), name="get")
-class HistoryListlView(TemplateView):
+class HistoryListView(TemplateView):
     template_name = "subscriptions/history.html"
 
     def get_context_data(self, **kwargs):
