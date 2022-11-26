@@ -13,7 +13,7 @@ class Command(BaseCommand):
         
         # 폴더 경로 지정
         #   manage.py 파일 위치 기준으로 절대경로 지정
-        BASE_DIR = './subscriptions/management/csv/'
+        BASE_DIR = '/static/csv/'
         
         # Type 모델 데이터
         with open(BASE_DIR + 'type.csv', 'rt', encoding='UTF8') as f:
