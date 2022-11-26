@@ -1,0 +1,193 @@
+/* UPDATE MODAL */
+body {    
+    position: absolute;
+    background-color: rgba(0,0,0,0.4);
+    height:100%;
+    width: 100%;
+    margin: 0;
+
+    font-family: 'Noto Sans KR';
+}
+
+.content.main_update .update-content {
+    position: absolute;
+    background-color: #fff;
+    border-radius: 10px;
+    min-width: 1050px;
+    top: 50%;
+    left: 50%;
+    padding: 30px;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 15px rgba(0,0,0,0.15);
+    text-align: center;
+    animation: slidefade 0.35s linear;
+}
+
+.content.main_update .update-close-button {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+}
+
+.content.main_update .update-close-button:hover{
+    color: #81CAB5;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+/* TITLE WRAP */
+.content.main_update .update-title-wrap {
+    margin: 20px 0 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.content.main_update .update-title {
+    margin: 0;
+    display: flex;
+    color: #555555;
+    font-size: 22px;
+}
+
+.content.main_update a.show_list:link,
+.content.main_update a.show_list:visited {
+    color: #008078;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.content.main_update a.show_list:hover {
+    color: #81CAB5;
+    text-decoration: underline;
+}
+
+.content.main_update a.type{
+    margin: 0 10px;
+}
+
+/* TABLE */
+.content.main_update .update-table{
+	display: table;
+    margin: auto;
+    border-top: 2px solid #555555;
+    border-bottom: 2px solid #555555;
+    border-collapse: collapse;
+}
+
+.content.main_update .update-table-head {
+    background-color: #81CAB5;
+	display: table-header-group;
+	font-weight: 500;
+}
+
+.content.main_update .update-table-body {
+	display: table-row-group;
+}
+
+.content.main_update .update-table-row {
+    display: table-row;
+}
+
+.content.main_update .update-table-th {
+    width: 100px;
+    background-color: #81CAB5;
+}
+
+.content.main_update .update-table-th,
+.content.main_update .update-table-td {
+    width: 110px;
+    height: 20px;
+    border-top: 1px solid #555555;
+	display: table-cell;
+    padding: 8px 5px;
+    border-collapse: collapse;
+    color: #ffffff;
+    font-size: 14px;
+    text-align: center;
+    border-collapse: collapse;
+}
+
+.content.main_update .update-table-td {
+    color: #000000;
+}
+
+input[type="text"], select {
+    width: 80px;
+    text-align: center;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 2px;
+    font-family: 'Noto Sans KR';
+}
+
+input[type="date"] {
+    max-width: 130px;
+    font-family: 'Noto Sans KR';
+    position: relative;
+    padding: 0 5px;
+    background: url(/static/img/calendar.svg) no-repeat right 5px center / 10px auto;
+    border: 1px solid rgb(118, 118, 118);
+    border-radius: 2px;
+}
+
+input[type="date"]::-webkit-clear-button,
+input[type="date"]::-webkit-inner-spin-button {
+    display: none;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+}
+
+/* BOTTOM WRAP */
+.content.main_update .update-table-control {
+    max-width: 1050px;
+    padding: 5px 0px 0px 0px;
+    display: grid;
+    grid-template-columns: 87% 13%;
+    justify-items: end;
+    align-items: top;
+}
+
+.content.main_update .update-table-error {
+    text-align: right;
+}
+
+.content.main_update .update-table-error ul{
+    margin: 0 0 2px;
+    padding: 0;
+    list-style: none;
+    font-size: 11px;
+    color: red;
+}
+
+.content.main_update .error_announce{
+    font-size: 11px;
+    color: #00f;
+}
+
+.content.main_update .update-table-button {
+    min-width: 110px;
+    height: 32px;
+    padding-bottom: 2px;;
+    border: 0;
+    border-radius: 4px;
+    color: #377E78;
+    background-color: #EAF6F2;
+    font-size: 14px;
+	font-weight: 500;
+    font-family: 'Noto Sans KR';
+}
+
+.content.main_update .update-table-button:hover {
+    cursor: pointer;
+    background-color: #377E78;
+    color: #EAF6F2;
+}

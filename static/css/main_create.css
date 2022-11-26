@@ -1,4 +1,9 @@
-/* MODAL */
+/* CREATE MODAL */
+body {
+    font-family: 'Noto Sans KR';
+    margin:0px;
+}
+
 .content.main_create .modal {
     position: absolute;
     background-color: rgba(0,0,0,0.4);
@@ -9,11 +14,11 @@
     display: block;
 }
 
-.content.main_create .modal .modal-content {
+.content.main_create .modal .create-content {
     position: absolute;
     background-color: #fff;
     border-radius: 10px;
-    max-width: 950px;
+    min-width: 1050px;
     top: 50%;
     left: 50%;
     padding: 30px;
@@ -23,25 +28,25 @@
     animation: slidefade 0.35s linear;
 }
 
-.content.main_create .modal .modal-content .modal-close-button {
+.content.main_create .modal .create-content .create-close-button {
     position: absolute;
     top: 15px;
     right: 15px;
 }
 
-.content.main_create .modal .modal-content .modal-close-button:hover{
+.content.main_create .modal .create-content .create-close-button:hover{
     cursor: pointer;
 }
 
-/* TITLE */
-.content.main_create .modal .modal-content .modal-title {
+/* TITLE WRAP */
+.content.main_create .modal .create-content .create-title {
     margin: auto;
     max-width: 1050px;
     display: flex;
     padding: 20px 0px 10px 0px;
 }
 
-.content.main_create .modal .modal-content .modal-title .modal-title-text {
+.content.main_create .modal .create-content .create-title .create-title-text {
     margin: auto;
     min-width: 240px;
     display: flex;
@@ -49,12 +54,30 @@
     font-size: 22px;
 }
 
-.content.main_create .modal .modal-content .modal-title .modal-title-empty {
+.content.main_create .modal .create-content .create-title .create-title-empty {
     width: 100%;
     display: flex;
 }
 
-.content.main_create .modal .modal-content .modal-title .modal-table-crud-button {
+.content.main_create .modal .create-content .create-title .show_list-wrap {
+    display: flex;
+}
+
+.content.main_create .modal .create-content .create-title .show_list-wrap .show_list:link,
+.content.main_create .modal .create-content .create-title .show_list-wrap .show_list:visited {
+    min-width: 80px;
+    color: #008078;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.content.main_create .modal .create-content .create-title .show_list-wrap .show_list:hover {
+    min-width: 80px;
+    color: #81CAB5;
+    text-decoration: underline;
+}
+
+/* .content.main_create .modal .create-content .create-title .create-table-crud-button {
     min-width: 30px;
     height: 30px;
     margin: 0px 4px;
@@ -68,12 +91,12 @@
     text-align: center;
 }
 
-.content.main_create .modal .modal-content .modal-title .modal-table-crud-button:hover {
+.content.main_create .modal .create-content .create-title .create-table-crud-button:hover {
     cursor: pointer;
-}
+} */
 
-/* MODAL DIV TABLE */
-.content.main_create .modal .modal-content .modal-table{
+/* TABLE */
+.content.main_create .modal .create-content .create-table{
 	display: table;
 	width: 100%;
     max-width: 1050px;
@@ -83,28 +106,28 @@
     border-collapse: collapse;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-head {
+.content.main_create .modal .create-content .create-table .create-table-head {
     background-color: #81CAB5;
 	display: table-header-group;
 	font-weight: bold;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-body {
+.content.main_create .modal .create-content .create-table .create-table-body {
 	display: table-row-group;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row,
-.content.main_create .modal .modal-content .modal-table .modal-table-body .modal-table-row {
+.content.main_create .modal .create-content .create-table .create-table-head .create-table-row,
+.content.main_create .modal .create-content .create-table .create-table-body .create-table-row {
 	display: table-row;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row .modal-table-th {
+.content.main_create .modal .create-content .create-table .create-table-head .create-table-row .create-table-th {
     background-color: #81CAB5;
 }
 
-.content.main_create .modal .modal-content .modal-table .modal-table-head .modal-table-row .modal-table-th,
-.content.main_create .modal .modal-content .modal-table .modal-table-body .modal-table-row .modal-table-td {
-    height: 20px;
+.content.main_create .modal .create-content .create-table .create-table-head .create-table-row .create-table-th,
+.content.main_create .modal .create-content .create-table .create-table-body .create-table-row .create-table-td {
+    height: 21px;
     border-top: 1px solid #555555;
 	display: table-cell;
     padding: 8px 5px;
@@ -115,7 +138,11 @@
     border-collapse: collapse;
 }
 
-input[type="text"] {
+input, select {
+    font-family: 'Noto Sans KR';
+}
+
+input[type="text"], select {
     width: 80px;
 }
 
@@ -123,37 +150,52 @@ input[type="date"] {
     max-width: 130px;
 }
 
-/* DIV */
-.content.main_create .modal-table-control {
+/* BOTTOM WRAP */
+.content.main_create .create-table-control {
     margin: auto;
     max-width: 1050px;
     display: flex;
     padding: 5px 0px 0px 0px;
 }
 
-.content.main_create .modal-table-control .modal-table-control-empty {
+.content.main_create .create-table-control .create-table-control-empty {
     width: 100%;
     display: flex;
 }
-
-.content.main_create .modal-table-control .modal-table-error ul{
-    min-width: 180px;
-    margin: 5px;
+.content.main_create .create-table-control .create-table-error {
+    margin: 0px 20px;
+}
+.content.main_create .create-table-control .create-table-error ul{
+    min-width: 320px;
+    margin: 2px;
     list-style: none;
     padding-left: 3px;
-    font-size: 14px;
+    font-size: 11px;
     color: red;
+    text-align: right;
 }
 
-.content.main_create .modal-table-control .modal-table-button {
+.content.main_create .create-table-control .create-table-error .error_announce{
+    min-width: 320px;
+    font-size: 11px;
+    color: #00f;
+}
+
+.content.main_create .create-table-control .create-table-button {
     min-width: 110px;
     height: 32px;
-    margin: auto;
-    padding: 8px;
+    padding: 4px;
     border: 0;
     border-radius: 4px;
     color: #377E78;
     background-color: #EAF6F2;
+    font-family: 'Noto Sans KR';
     font-size: 14px;
     font-weight: bold;
+}
+
+.content.main_create .create-table-control .create-table-button:hover {
+    cursor: pointer;
+    background-color: #377E78;
+    color: #EAF6F2;
 }

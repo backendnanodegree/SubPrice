@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static custom_tag %}
+
+{% block head_css %}
+<link rel="stylesheet" href="{% static 'css/history.css' %}">
+{% endblock head_css %}
+
+{% block content %}
+<div class="history-title">
+    <h2 class="history-title-text">전체 구독 내역</h2>
+    <div class="history-title-empty"></div>
+</div>
+<div>
+    <form action="{% url 'history' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <table class="history-table">
+                <thead>
+                    <tr>
+                        <th class="">삭제</th>
+                        <th class="th-category">카테고리</th>
+                        <th class="th-service">서비스</th>
+                        <th class="th-plan">서비스 유형</th>
+                        <th class="th-started-at">결제시작일</th>
+                        <th class="th-next-billing-at">결제예정일</th>
+                        <th class="th-started-at">만료예정일</th>
+                        <th class="th-expire-at">결제금액</th>
+                        <th class="th-company">결제사</th>
+                        <th class="th-method-type">결제유형</th>
+                        <th class="th-alarm">알림여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for obj in page_obj %}
+                    <tr>
+                        <td><input type="checkbox" name="selected" value="{{obj.id}}"></td>
+                        <td>{{obj.plan.service.category}}</td>
+                        <td>{{obj.plan.service.name|set_size}}</td>
+                        <td>{{obj.plan.name|set_size}}</td>
+                        <td>{{obj.started_at|date:'Y.m.d'}}</td>
+                        <td>{{obj.next_billing_at|date:'Y.m.d'}}</td>
+                        <td>{{obj.expire_at|date:'Y.m.d'}}</td>
+                        <td>{{obj.plan.price|set_format}}</td>
+                        <td>{{obj.billing.company}}</td>
+                        <td>{{obj.billing.type}}</td>
+                        <td>{{obj.alarm_subscription.get_d_day_display}}</td>
+                    </tr>
+                    {% endfor %}
+                    {% if history_empty_row_count != 0 %}
+                        {% for i in "x"|rjust:history_empty_row_count %}
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+        <div class="history-table-control">
+            <div class="pagination">
+                <ul class="page-list">
+                    {% for page_num in page_num_list %}
+                    <li class="page-item {% if page_obj.number == page_num %}active{% endif %}">
+                        <a href="{% url 'history' %}?page={{page_num}}" class="page-link">{{ page_num }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div>
+                <button type="submit" class="history-table-button" onclick="">삭제</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

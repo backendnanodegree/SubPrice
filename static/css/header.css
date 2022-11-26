@@ -14,13 +14,17 @@ html, body {
 
 .nav {
     margin: auto;
-    min-width: 820px;
+    min-width: 1128px;
     max-width: 1128px;
     width: 100%;
     padding : 0px 40px 0px 40px;
     background-color: #fff;
     display: flex;
     flex-direction: row;
+}
+
+.header-link {
+    font-family: 'Noto Sans KR';
 }
 
 .header-link:hover {

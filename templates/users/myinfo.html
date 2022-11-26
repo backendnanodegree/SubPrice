@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block head_css %}
-<link rel="stylesheet" href="/static/css/user.css">
+<link rel="stylesheet" href="{% static 'css/user.css' %}">
 {% endblock head_css %}
 
 {% block content %}
@@ -19,7 +19,7 @@
                     {% if request.user.picture %}
                     <img class="profile-picture" onclick="location.href='{% url 'remove_picture' %}'" src="{{request.user.picture.url}}" alt="" title="클릭 시 이미지가 제거됩니다.">
                     {% else %}
-                    <img class="logo-image" src="/static/img/profile.png" alt="">
+                    <img class="logo-image" src="{% static 'img/profile.png' %}" alt="">
                     {% endif %}
                 </div>
                 <div class="form-error">

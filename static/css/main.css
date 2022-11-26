@@ -8,7 +8,7 @@
     padding: 40px;
 }
 
-/* TITLE */
+/* TITLE WRAP */
 .content.main .subscription-title {
     margin: auto;
     max-width: 1050px;
@@ -55,15 +55,26 @@
     font-size: 14px;
 }
 
-.content.main .subscription-table .th-service {
-    width: 90px;
+.content.main .subscription-table .th-category,
+.content.main .subscription-table .th-service,
+.content.main .subscription-table .th-next-billing-at,
+.content.main .subscription-table .th-started-at,
+.content.main .subscription-table .th-expire-at,
+.content.main .subscription-table .th-company,
+.content.main .subscription-table .th-method-type {
+    width: 85px;
 }
 
 .content.main .subscription-table .th-plan {
-    width: 115px;
+    width: 130px;
 }
 
-/* DIV */
+.content.main .subscribing:hover {
+    background-color : #f1fffb;
+    cursor: pointer;
+}
+
+/* BOTTOM WRAP */
 .content.main .subscription-table-control {
     margin: auto;
     max-width: 1050px;
@@ -107,14 +118,21 @@
 
 /* BUTTON */
 .content.main .subscription-table-control .subscription-table-button {
+    font-family: 'Noto Sans KR';
     min-width: 110px;
     height: 32px;
     margin: auto;
-    padding: 8px;
+    padding: 4px;
     border: 0;
     border-radius: 4px;
     color: #377E78;
     background-color: #EAF6F2;
     font-size: 14px;
     font-weight: bold;
+}
+
+.content.main .subscription-table-control .subscription-table-button:hover {
+    cursor: pointer;
+    background-color: #377E78;
+    color: #EAF6F2;
 }

@@ -2,9 +2,6 @@ from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
 class UserManager(BaseUserManager):
-    """
-    최선우 : 일반유저 및 슈퍼유저의 생성 방식을 정의
-    """    
     def create_user(self, email, fullname, password=None):
         if not email:
             raise ValueError("Users must have an email address")
@@ -27,10 +24,6 @@ class UserManager(BaseUserManager):
 
 
 class Baseclass(models.Model):
-    """
-    최선우 : 공통으로 사용되는 필드에 대해 Baseclass로 생성 
-            -> 추후 모델 생성 시 해당 클래스를 상속받아 생성
-    """    
     created_at = models.DateTimeField(verbose_name="생성일", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="갱신일", auto_now=True)
     
@@ -38,9 +31,6 @@ class Baseclass(models.Model):
         abstract = True
 
 class User(Baseclass, AbstractBaseUser):
-    """
-    최선우 : CUSTOM USER MODEL 생성
-    """
     email = models.EmailField(verbose_name="이메일", max_length=100, unique=True)
     fullname = models.CharField(verbose_name="이름", max_length=20)
     password = models.CharField(verbose_name="비밀번호", max_length=255)
