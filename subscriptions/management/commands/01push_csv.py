@@ -1,5 +1,8 @@
 import csv
 import pandas as pd
+import boto3
+import io
+from django.conf import settings
 
 from subscriptions.models import Type, Company, Category, Service, Plan
 from django.core.management.base import BaseCommand
@@ -10,15 +13,17 @@ class Command(BaseCommand):
     help = "PUSH CSV DB"
 
     def handle(self, *args, **options):
-        
-        # 폴더 경로 지정
-        #   manage.py 파일 위치 기준으로 절대경로 지정
-        BASE_DIR = '/static/csv/'
+
+        # AMAZON S3 경로 지정
+        aws_access_key_id = settings.AWS_ACCESS_KEY_ID
+        aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY
+        region_name = settings.AWS_REGION
+
+        s3_client = boto3.client(service_name="s3", aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=region_name)
         
         # Type 모델 데이터
-        with open(BASE_DIR + 'type.csv', 'rt', encoding='UTF8') as f:
-            dr = csv.DictReader(f)
-            data = pd.DataFrame(dr)
+        obj = s3_client.get_object(Bucket="subprice", Key="static/csv/type.csv")
+        data = pd.read_csv(io.BytesIO(obj["Body"].read()))
 
         for row in data.itertuples():
             try:
@@ -27,9 +32,8 @@ class Command(BaseCommand):
                 continue
         
         # Company 모델 데이터    
-        with open(BASE_DIR + 'company.csv', 'rt', encoding='UTF8') as f:
-            dr = csv.DictReader(f)
-            data = pd.DataFrame(dr)
+        obj = s3_client.get_object(Bucket="subprice", Key="static/csv/company.csv")
+        data = pd.read_csv(io.BytesIO(obj["Body"].read()))
         
         for row in data.itertuples():
             try:
@@ -38,9 +42,8 @@ class Command(BaseCommand):
                 continue
             
         # Category 모델 데이터    
-        with open(BASE_DIR + 'category.csv', 'rt', encoding='UTF8') as f:
-            dr = csv.DictReader(f)
-            data = pd.DataFrame(dr)
+        obj = s3_client.get_object(Bucket="subprice", Key="static/csv/category.csv")
+        data = pd.read_csv(io.BytesIO(obj["Body"].read()))
         
         for row in data.itertuples():
             try:
@@ -49,9 +52,8 @@ class Command(BaseCommand):
                 continue
             
         # Service 모델 데이터    
-        with open(BASE_DIR + 'service.csv', 'rt', encoding='UTF8') as f:
-            dr = csv.DictReader(f)
-            data = pd.DataFrame(dr)
+        obj = s3_client.get_object(Bucket="subprice", Key="static/csv/service.csv")
+        data = pd.read_csv(io.BytesIO(obj["Body"].read()))
         
         for row in data.itertuples():
             try:
@@ -60,9 +62,8 @@ class Command(BaseCommand):
                 continue
             
         # Plan 모델 데이터    
-        with open(BASE_DIR + 'plan.csv', 'rt', encoding='UTF8') as f:
-            dr = csv.DictReader(f)
-            data = pd.DataFrame(dr)
+        obj = s3_client.get_object(Bucket="subprice", Key="static/csv/plan.csv")
+        data = pd.read_csv(io.BytesIO(obj["Body"].read()))
         
         for row in data.itertuples():
             try:
