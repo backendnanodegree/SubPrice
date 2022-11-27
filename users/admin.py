@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from django.core.checks import messages
+from django.conf import settings
 
 from users.models import User
 
@@ -17,7 +18,10 @@ class UserAdmin(admin.ModelAdmin):
         if obj.picture:
             return format_html(f'<img src="{obj.picture.url}" alt="프로필 사진" style="width:30px; height:20px;">')
         else:
-            return format_html(f'<img src="/static/img/profile.png" alt="프로필 사진" style="width:20px; height:20px;">')
+            try:
+                return format_html(f'<img src="{settings.S3_STATIC_URL+"img/profile.png"}" alt="프로필 사진" style="width:20px; height:20px;">')
+            except:
+                return format_html(f'<img src="{settings.STATIC_URL+"img/profile.png"}" alt="프로필 사진" style="width:20px; height:20px;">')
 
     @admin.display(description="사용자 활성 여부 변경")
     def activate_change(self, request, queryset):
