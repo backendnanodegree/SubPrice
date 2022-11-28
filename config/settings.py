@@ -162,15 +162,18 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # 사용자 인증 등을 진행할 때 사용할 모델 선언
 AUTH_USER_MODEL = 'users.User'
 
-# # S3 설정 (주석 처리 시, 프로젝트 폴더에서 static, media 로드)
-# AWS_ACCESS_KEY_ID = "AKIAVKHAW77QW5Q4ZAVC"
-# AWS_SECRET_ACCESS_KEY = "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"
-# AWS_REGION = "ap-northeast-2"
-# AWS_STORAGE_BUCKET_NAME = "subprice"
-# AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com"
-# AWS_DEFAULT_ACL = "public-read"
-# DEFAULT_FILE_STORAGE = "config.storages.S3DefaultStorage"
-# STATICFILES_STORAGE = "config.storages.S3StaticStorage"
+# S3 설정 (주석 처리 시, 프로젝트 폴더에서 static, media 로드)
+AWS_ACCESS_KEY_ID = "AKIAVKHAW77QW5Q4ZAVC"
+AWS_SECRET_ACCESS_KEY = "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"
+AWS_REGION = "ap-northeast-2"
+AWS_STORAGE_BUCKET_NAME = "subprice"
+AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com"
+AWS_DEFAULT_ACL = "public-read"
+DEFAULT_FILE_STORAGE = "config.storages.S3DefaultStorage"
+STATICFILES_STORAGE = "config.storages.S3StaticStorage"
 
-# # S3 관련 추가 설정 (admin 페이지에서 사용)
-# S3_STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+# S3 관련 추가 설정 (admin 페이지에서 사용)
+S3_STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
+
+# csv 파일을 읽어오는 경로
+CSV_READ_FROM = "here"
