@@ -237,7 +237,6 @@ def subscription_update(request, pk):
 
     else:
         form = SubscriptionUpdateForm(initial=data)
-        print(billing.company.id)
     context= {'form': form, 'pk': pk, 'category_type': category_type, 'price': price}
     return render(request, 'subscriptions/main_update.html', context)
 
