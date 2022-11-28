@@ -32,7 +32,7 @@ class Alarm(BaseModel):
         verbose_name = "알림 정보"
         verbose_name_plural = "알림 정보 목록"
 
-class AlarmHistory(Baseclass):
+class AlarmHistory(BaseModel):
     alarm = models.ForeignKey(Alarm, verbose_name='알림', on_delete=models.CASCADE, null=True)
     content = models.TextField(verbose_name='알림 내역', default='', null=True, blank=True, help_text='발송시 메일 내용을 그대로 넣어줍니다.')
     
