@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.core.checks import messages
 
 from alarms.models import Alarm, AlarmHistory
-from datetime import datetime, date
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 import re

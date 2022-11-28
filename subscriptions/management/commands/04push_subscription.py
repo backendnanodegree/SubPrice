@@ -1,8 +1,7 @@
-from subscriptions.models import Type, Company, Billing, Category, Service, Plan, Subscription
+from subscriptions.models import Billing, Plan, Subscription
 from users.models import User
 from django.core.management.base import BaseCommand
-from datetime import datetime, timedelta, date
-from django.utils import timezone
+from datetime import datetime, date
 from dateutil.relativedelta import relativedelta
 from random import *
 
@@ -18,9 +17,6 @@ class Command(BaseCommand):
         
         # 현재 일자 계산
         now = datetime.now().date()
-        now_year = now.year
-        now_month = now.month
-        now_day = now.day
         
         # 유저, 구독플랜 리스트 작성
         user_list = User.objects.all()
