@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
 
+
 class UserManager(BaseUserManager):
     def create_user(self, email, fullname, password=None):
         if not email:
@@ -23,14 +24,15 @@ class UserManager(BaseUserManager):
         return user
 
 
-class Baseclass(models.Model):
+class BaseModel(models.Model):
     created_at = models.DateTimeField(verbose_name="생성일", auto_now_add=True)
     updated_at = models.DateTimeField(verbose_name="갱신일", auto_now=True)
-    
+
     class Meta:
         abstract = True
 
-class User(Baseclass, AbstractBaseUser):
+
+class User(BaseModel, AbstractBaseUser):
     email = models.EmailField(verbose_name="이메일", max_length=100, unique=True)
     fullname = models.CharField(verbose_name="이름", max_length=20)
     password = models.CharField(verbose_name="비밀번호", max_length=255)
@@ -46,17 +48,17 @@ class User(Baseclass, AbstractBaseUser):
 
     def __str__(self):
         return self.email
- 
+
     def has_perm(self, perm, obj=None):
-           return self.is_admin
+        return self.is_admin
 
     def has_module_perms(self, app_label):
-       return self.is_admin
-   
+        return self.is_admin
+
     @property
     def is_staff(self):
         return self.is_admin
-    
+
     class Meta:
-        verbose_name = '사용자'
+        verbose_name = "사용자"
         verbose_name_plural = "사용자 목록"

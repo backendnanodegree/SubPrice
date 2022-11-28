@@ -33,7 +33,7 @@
                 <td>{{obj.plan.name|set_size:'7,T'}}</td>
                 <td>{{obj.next_billing_at|date:'Y.m.d'}}</td>
                 <td>{{obj.expire_at|date:'Y.m.d'}}</td>
-                <td>{{obj.plan.price}}</td>
+                <td>{{obj.plan.price|set_format}}</td>
                 <td>{{obj.billing.company.company|set_size:'7,F'}}</td>
                 <td>{{obj.billing.type}}</td>
                 <td>{{obj.alarm_subscription.get_d_day_display}}</td>
@@ -96,7 +96,7 @@
                 <td>{{expire.plan.service.name}}</td>
                 <td>{{expire.plan.name}}</td>
                 <td>{{expire.expire_at|date:'Y.m.d'}}</td>
-                <td>{{expire.plan.price}}원</td>
+                <td>{{expire.plan.price|set_format}}</td>
                 <td>{{expire.billing.company}}</td>
                 <td>{{expire.billing.type}}</td>
             </tr>
