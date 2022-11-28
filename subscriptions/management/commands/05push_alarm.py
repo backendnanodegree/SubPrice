@@ -1,9 +1,7 @@
 from alarms.models import Alarm, AlarmHistory
-from subscriptions.models import Type, Company, Billing, Category, Service, Plan, Subscription
-from users.models import User
+from subscriptions.models import Subscription
 from django.core.management.base import BaseCommand
-from datetime import datetime, timedelta, date
-from django.utils import timezone
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from random import *
 
@@ -43,7 +41,6 @@ class Command(BaseCommand):
 
             # 유저 정보 확인
             user_name = alarm.subscription.user.fullname
-            user_email = alarm.subscription.user.email
 
             # 구독 정보 확인
             service_name = alarm.subscription.plan.service.name
@@ -59,39 +56,16 @@ class Command(BaseCommand):
                 while True:
                     next_billing_at = alarm.subscription.started_at + relativedelta(months=n)
 
-                     # 발송 성공 여부
-                    is_success = choices(success_list, weights=[1,9], k=1)[0]
-
                     # 메일 발송일
                     send_email_at = next_billing_at - relativedelta(days=alarm.d_day)
 
-                    # 메일 발송 시각
-                    year = send_email_at.year
-                    month = send_email_at.month
-                    day = send_email_at.day
-                    hour = 0
-                    minute = choice(range(0,6))
-                    second = choice(range(0,60))
-                    send_email_time = datetime(year, month, day, hour, minute, second)
-
-                    if send_email_at > timezone.now().date():
+                    if send_email_at > datetime.now().date():
                         break
 
-                    if is_success:
-                        # 메일 발송 내용
-                        content = f"안녕하세요, {user_name}님.\n\n현재 구독 중인 {service_name} {plan_name} 서비스에 대해\n{next_billing_at}에 {company_name} {type_name}를 통해 {price}원 결제 예정입니다.\n참고하시기 바랍니다.\n\n저희 서비스를 이용해주셔서 감사합니다.\n오늘도 좋은 하루 되세요."
-                        # 데이터 생성
-                        AlarmHistory.objects.create(alarm=alarm, content=content, is_success=is_success)
-                    else:
-                        # 메일 발송 내용
-                        content = ""
-                        alarmhistory = AlarmHistory.objects.create(created_at=send_email_time, alarm=alarm)
-                        send_email_time1 = send_email_time.strftime("%Y년 %m월 %d일 %I시 %M분 %S초 (%a)")
-                        content = f"{send_email_time1}에 {user_name}에게 보낸 알림 메일이 발송에 실패하였습니다.\n\n■ 사용자 구독 정보\n   - 사용자명 : {user_name}\n   - 이메일 주소 : {user_email}\n   - 서비스 : {service_name} / {plan_name}\n   - 결제 예정일 : {next_billing_at}\n   - 결제 수단 : {company_name} {type_name}\n   - 결제 금액 : {price}원"
-                        traceback = "추후 갱신 예정"
-                        alarmhistory.content = content
-                        alarmhistory.traceback = traceback
-                        alarmhistory.save()
+                    # 메일 발송 내용
+                    content = f"안녕하세요, {user_name}님.\n\n현재 구독 중인 {service_name} {plan_name} 서비스에 대해\n{next_billing_at}에 {company_name} {type_name}를 통해 {price}원 결제 예정입니다.\n참고하시기 바랍니다.\n\n저희 서비스를 이용해주셔서 감사합니다.\n오늘도 좋은 하루 되세요."
+                    # 데이터 생성
+                    AlarmHistory.objects.create(alarm=alarm, content=content)
 
                     n += 1
 
