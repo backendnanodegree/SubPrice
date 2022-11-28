@@ -1,5 +1,8 @@
 import csv
 import pandas as pd
+import boto3
+import io
+from django.conf import settings
 
 from django import forms
 from django.forms import NumberInput
@@ -11,19 +14,39 @@ from subscriptions.models import Service, Company, Plan
 class MyBaseForm(forms.Form):
 
     # csv 파일로부터 company, service, plan 리스트를 불러와 아래에서 생성할 폼에 사용하기 위해 부모 클래스 폼을 생성
-    BASE_DIR = './static/csv/'
+    # - csv 파일 읽어오는 'static' 경로 : config/settings.py에서 설정
 
-    company_csv = BASE_DIR + 'company.csv'
-    service_csv = BASE_DIR + 'service.csv'
-    plan_csv = BASE_DIR + 'plan.csv'
+    target_list = ["company.csv", "service.csv", "plan.csv"]
+    data_list = []
 
-    csv_list = [company_csv, service_csv, plan_csv]
-    data_list = [None, None, None, None]
+    # 'here' : 프로젝트 폴더 내에서 읽어오기
+    if settings.CSV_READ_FROM == 'here':
+    
+        BASE_DIR = './static/csv/'
+        
+        csv_list = []
 
-    for i in range(3):
-        with open(csv_list[i], 'rt', encoding='UTF8') as f:
-            dr = csv.DictReader(f)
-            data_list[i] = pd.DataFrame(dr)
+        for target in target_list:
+            csv_path = BASE_DIR + target
+            csv_list.append(csv_path)
+
+        for csv_file in csv_list:
+            with open(csv_file, 'rt', encoding='UTF8') as f:
+                dr = csv.DictReader(f)
+                data_list.append(pd.DataFrame(dr))
+
+    # AMAZON S3 에서 읽어오기
+    elif settings.CSV_READ_FROM == 's3':
+
+        aws_access_key_id = settings.AWS_ACCESS_KEY_ID
+        aws_secret_access_key = settings.AWS_SECRET_ACCESS_KEY
+        region_name = settings.AWS_REGION
+
+        s3_client = boto3.client(service_name="s3", aws_access_key_id=aws_access_key_id, aws_secret_access_key=aws_secret_access_key, region_name=region_name)
+
+        for i in range(3):
+            obj = s3_client.get_object(Bucket="subprice", Key="static/csv/" + target_list[i])
+            data_list.append(pd.read_csv(io.BytesIO(obj["Body"].read())))
 
     company_data, service_data, plan_data = data_list[0], data_list[1], data_list[2]
 
