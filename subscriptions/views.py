@@ -70,9 +70,9 @@ class MainListView(TemplateView):
             expire = expire[:5]
         else:
             expire_empty_row_count = 5 - expire.count()
+            context['expire_empty_row_count'] = expire_empty_row_count
 
         context['expire_qs'] = expire
-        context['expire_empty_row_count'] = expire_empty_row_count
 
         return context
 
