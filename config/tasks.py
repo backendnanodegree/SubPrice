@@ -55,3 +55,20 @@ def send_mail_task():
 
     # 리턴문은 터미널에서 작업이 완료되었는지 확인하기위해 작성        
     return "Mail has been sent..."
+
+
+# 구독정보가 만료되었는지 확인하는 함수
+@shared_task
+def check_expired_task():
+    print("Check subscription list...")
+
+    # 어제가 구독 만료일이었던 구독정보 쿼리셋을 가져옴
+    # 어제날짜 선언
+    yesterday = datetime.date.today() - datetime.timedelta(days=1)
+    # 구독 만료일이 어제였던 (오늘 만료된) 쿼리셋 호출
+    expired_subs = Subscription.objects.filter(expire_at=yesterday)
+
+    # 만료된 각각의 구독정보 테이블의 is_active = 0 으로 변경 후 저장
+    for sub in expired_subs:
+        sub.is_active = 0
+        sub.save()
