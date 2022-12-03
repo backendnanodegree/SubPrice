@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  web:
+    build: ./SubPrice
+    command: python manage.py runserver 0:8000
+    volumes:
+      - ./SubPrice/:/usr/src/app/
+    ports:
+      - 8000:8000
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    depends_on:
+      - redis
+  redis:
+    image: redis:alpine
+    expose:
+      - '6379'
+  celery:
+    build: ./SubPrice
+    command: celery -A config worker -l info
+    volumes:
+      - ./SubPrice/:/usr/src/app/
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    depends_on:
+      - redis
+  celery-beat:
+    build: ./SubPrice
+    command: celery -A config beat -l info
+    volumes:
+      - ./SubPrice/:/usr/src/app/
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=localhost 127.0.0.1 [::1]
+    depends_on:
+      - redis
