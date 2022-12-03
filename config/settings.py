@@ -58,7 +58,11 @@ INSTALLED_APPS = [
     'subscriptions',
     'alarms',
     'django_extensions',
-    'storages'
+    'storages',
+    
+    # Celery
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -177,3 +181,5 @@ S3_STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
 
 # csv 파일을 읽어오는 경로
 CSV_READ_FROM = "here"
+
+
