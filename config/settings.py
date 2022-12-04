@@ -58,7 +58,11 @@ INSTALLED_APPS = [
     'subscriptions',
     'alarms',
     'django_extensions',
-    'storages'
+    'storages',
+    
+    # Celery
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 MIDDLEWARE = [
@@ -177,3 +181,26 @@ S3_STATIC_URL = f"https://{AWS_S3_CUSTOM_DOMAIN}/static/"
 
 # csv 파일을 읽어오는 경로
 CSV_READ_FROM = "here"
+
+# Celery settings
+CELERY_TIMEZONE = "Asia/Seoul"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+
+#CELERY_RESULT_BACKEND = 'django-db'
+CELERY_CACHE_BACKEND = 'django-cache'
+CELERY_BROKER_URL = 'redis://redis:6379'
+CELERY_RESULT_BACKEND = 'redis://redis:6379'
+
+# celery beat settings
+CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
+
+# email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'batmantwo7233@gmail.com'
+EMAIL_HOST_PASSWORD = secrets["GMAIL_SECRET_KEY"]
