@@ -32,16 +32,16 @@
                 </thead>
                 <tbody>
                     {% for obj in page_obj %}
-                    <tr>
-                        <td><input type="checkbox" name="selected" value="{{obj.id}}"></td>
+                    <tr class='subscribing_row'>
+                        <td class='subscribing'><input type="checkbox" name="selected" value="{{obj.id}}"></td>
                         <td>{{obj.plan.service.category}}</td>
-                        <td>{{obj.plan.service.name|set_size:'7,T'}}</td>
-                        <td>{{obj.plan.name|set_size:'7,T'}}</td>
+                        <td>{{obj.plan.service.name|set_size:'4,T'}}</td>
+                        <td class='subscribing' onclick="location.href='{% url 'history_detail' obj.pk%}'">{{obj.plan.name|set_size:'7,T'}}</td>
                         <td>{{obj.started_at|date:'Y.m.d'}}</td>
                         <td>{{obj.next_billing_at|date:'Y.m.d'}}</td>
                         <td>{{obj.expire_at|date:'Y.m.d'}}</td>
                         <td>{{obj.plan.price|set_format}}</td>
-                        <td>{{obj.billing.company.company|set_size:'5,T'}}</td>
+                        <td>{{obj.billing.company.company|set_size:'4,T'}}</td>
                         <td>{{obj.billing.type}}</td>
                         <td>{{obj.alarm_subscription.get_d_day_display}}</td>
                     </tr>
