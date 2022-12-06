@@ -8,12 +8,14 @@ from dateutil.relativedelta import relativedelta
 
 
 class Type(BaseModel):
+    DEFAULT = 0
     CREDIT = 1
     CHECK = 2
     ACCOUNT = 3
     EASY = 4
     MOBILE = 5
     METHOD_TYPE = [
+        (DEFAULT, "-- 선택 --"),
         (CREDIT, "신용카드"),
         (CHECK, "체크카드"),
         (ACCOUNT, "계좌이체"),
@@ -57,6 +59,7 @@ class Billing(BaseModel):
 
 
 class Category(BaseModel):
+    DEFAULT = 0
     OTT = 1
     MUSIC = 2
     BOOK = 3
@@ -65,6 +68,7 @@ class Category(BaseModel):
     DELIEVERY = 6
     RENTAL = 7
     CATEGORY_TYPE = [
+        (DEFAULT, "-- 선택 --"),
         (OTT, "OTT"),
         (MUSIC, "음악"),
         (BOOK, "도서"),
