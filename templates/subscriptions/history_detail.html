@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% load static custom_tag %}
+
+{% block head_css %}
+<link rel="stylesheet" href="{% static 'css/update.css' %}">
+{% endblock head_css %}
+
+{% block content %}
+
+<div id="subscription-update" class="subscription-update"> 
+    <div class="update-content">
+        <div class="update-close-button" onclick="location.href='{% url 'history' %}'">×</div>
+        <div class="update-body">
+            <div class="update-title-wrap">
+                <h2 class="update-title">구독정보 확인</h2>
+                </div>
+                <div class="update-table" id="update-table">
+                    <div class="update-table-head">
+                        <div class="update-table-row">
+                            <div class="update-table-th">카테고리</div>
+                            <div class="update-table-th">서비스</div>
+                            <div class="update-table-th">서비스유형</div>
+                            <div class="update-table-th">구독시작일</div>
+                            <div class="update-table-th">만료예정일</div>
+                            <div class="update-table-th">결제금액</div>
+                            <div class="update-table-th">결제유형</div>
+                            <div class="update-table-th">결제사</div>
+                            <div class="update-table-th">알람설정</div>
+                        </div>
+                    </div>
+                    <div class="update-table-body" id="update-table-body">
+                        <div class="update-table-row" id="update-table-row">
+                            <div class="update-table-td">{{data.0}}</div>
+                            <div class="update-table-td">{{data.1}}</div>
+                            <div class="update-table-td">{{data.2}}</div>
+                            <div class="update-table-td">{{data.3|date:'Y.m.d'}}</div>
+                            <div class="update-table-td">{{data.4|date:'Y.m.d'}}</div>
+                            <div class="update-table-td">{{data.5}}</div>
+                            <div class="update-table-td">{{data.6}}</div>
+                            <div class="update-table-td">{{data.7}}</div>
+                            <div class="update-table-td">{{data.8}}</div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
