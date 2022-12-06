@@ -2,8 +2,12 @@
 {% load static custom_tag %}
 
 {% block head_css %}
-<link rel="stylesheet" href="{% static 'css/main_update.css' %}">
+<link rel="stylesheet" href="{% static 'css/update.css' %}">
 {% endblock head_css %}
+
+{% block head_js %}
+<script defer src="{% static 'js/detail.js' %}"></script>
+{% endblock head_js %}
 
 {% block content %}
 
@@ -36,12 +40,12 @@
                     </div>
                     <div class="update-table-body" id="update-table-body">
                         <div class="update-table-row" id="update-table-row">
-                            <div class="update-table-td">{{category_type}}</div>
+                            <div class="update-table-td">{{form.category_type}}</div>
                             <div class="update-table-td">{{form.service_type}}</div>
                             <div class="update-table-td">{{form.plan_type}}</div>
                             <div class="update-table-td">{{form.started_at}}</div>
                             <div class="update-table-td">{{form.expire_at}}</div>
-                            <div class="update-table-td">{{price|set_format}}</div>
+                            <div class="update-table-td">{{form.price}}</div>
                             <div class="update-table-td">{{form.method_type}}</div>
                             <div class="update-table-td">{{form.company_type}}</div>
                             <div class="update-table-td">{{form.d_day}}</div>
@@ -50,6 +54,7 @@
                 </div>
                 <div class="update-table-control">
                     <div class="update-table-error">
+                        {{form.category_type.errors}}
                         {{form.plan_type.errors}}
                         {{form.expire_at.errors}}
                         {{form.company_type.errors}}
