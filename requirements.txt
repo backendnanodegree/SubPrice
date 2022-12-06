@@ -17,6 +17,7 @@ django-celery-results==2.4.0
 django-extensions==3.2.1
 django-storages==1.13.1
 django-timezone-field==5.0
+django_debug_toolbar==3.8.1
 jmespath==1.0.1
 kombu==5.2.4
 mypy-extensions==0.4.3
