@@ -1,53 +1,54 @@
 ﻿id,name,category_id
-1,넷플릭스,1
-2,Youtube,1
-3,Tving,1
-4,Wave,1
-5,Watcha,1
-6,Disney +,1
-7,Apple TV+,1
-8,FLO,2
-9,Melon,2
-10,genie,2
-11,bugs,2
-12,Vibe,2
-13,Apple Music,2
-14,밀리의 서재,3
-15,플라이북,3
-16,YES24 북클럽,3
-17,RIDI SELECT,3
-18,교보문고 SAM,3
-19,윌라,3
-20,스토리텔,3
-21,쿠팡,4
-22,티몬,4
-23,네이버,4
-24,11번가,4
-25,토스,4
-26,요기요,4
-27,폴라리스오피스,5
-28,Microsoft365,5
-29,한컴독스,5
-30,XBOX,5
-31,PlayStationPlus,5
-32,Adobe,5
-33,네이버 MyBox,5
-34,iCloud,5
-35,Google One,5
-36,OneDrive,5
-37,카카오,5
-38,Discord,6
-39,goormIDE,6
-40,꾸까,6
-41,술담화,6
-42,나물투데이,6
-43,미하이삭스,6
-44,SWEET BALANCE,6
-45,롯데 스위트몰,6
-46,월간 금지옥엽,6
-47,톤28,6
-48,레고라운드,7
-49,better B life,7
-50,OPEN GALLERY,7
-51,클로젯셰어,7
-52,Spotify,2
+1,-- 선택 --,1
+2,넷플릭스,2
+3,Youtube,2
+4,Tving,2
+5,Wave,2
+6,Watcha,2
+7,Disney +,2
+8,Apple TV+,2
+9,FLO,3
+10,Melon,3
+11,genie,3
+12,bugs,3
+13,Vibe,3
+14,Apple Music,3
+15,밀리의 서재,4
+16,플라이북,4
+17,YES24 북클럽,4
+18,RIDI SELECT,4
+19,교보문고 SAM,4
+20,윌라,4
+21,스토리텔,4
+22,쿠팡,5
+23,티몬,5
+24,네이버,5
+25,11번가,5
+26,토스,5
+27,요기요,5
+28,폴라리스오피스,6
+29,Microsoft365,6
+30,한컴독스,6
+31,XBOX,6
+32,PlayStationPlus,6
+33,Adobe,6
+34,네이버 MyBox,6
+35,iCloud,6
+36,Google One,6
+37,OneDrive,6
+38,카카오,6
+39,Discord,7
+40,goormIDE,7
+41,꾸까,7
+42,술담화,7
+43,나물투데이,7
+44,미하이삭스,7
+45,SWEET BALANCE,7
+46,롯데 스위트몰,7
+47,월간 금지옥엽,7
+48,톤28,7
+49,레고라운드,8
+50,better B life,8
+51,OPEN GALLERY,8
+52,클로젯셰어,8
+53,Spotify,3
