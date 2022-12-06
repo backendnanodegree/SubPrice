@@ -69,6 +69,16 @@
     width: 110px;
 }
 
+input[type="checkbox"],
+.content.history .subscribing:hover {
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.content.history .subscribing_row:hover {
+    background-color : #f1fffb;
+}
+
 /* BOTTOM DIV WRAP*/
 .content.history .history-table-control {
     margin: auto;
