@@ -140,6 +140,7 @@ body {
 
 input, select {
     font-family: 'Noto Sans KR';
+    text-align: center;
 }
 
 input[type="text"], select {
