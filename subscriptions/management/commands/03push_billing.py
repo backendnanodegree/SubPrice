@@ -14,29 +14,29 @@ class Command(BaseCommand):
     # 각 유저별 5개씩의 결제수단 등록
         
         # 결제유형, 결제사 id 리스트
-        pay_type = list(map(str, list(range(1,6))))
-        pay_company = list(map(str, list(range(1,58))))
+        pay_type = list(map(str, list(range(2,7))))
+        pay_company = list(map(str, list(range(2,59))))
         
         
         # 결제유형별 등록 가능한 결제사 id 리스트
         credit_card = pay_company[19:38]
         check_card = pay_company[19:37]
-        account = pay_company[0:19]
+        account = pay_company[1:20]
         easy_payment = pay_company[38:52]
         mobile_payment = pay_company[52:57]
         
         
         # 결제유형 및 결제사 id 랜덤 추출
         def get_company_id(type_id):
-            if type_id == '1':
+            if type_id == '2':
                 company_id = choice(credit_card)
-            elif type_id == '2':
-                company_id = choice(check_card)
             elif type_id == '3':
-                company_id = choice(account)
+                company_id = choice(check_card)
             elif type_id == '4':
-                company_id = choice(easy_payment)
+                company_id = choice(account)
             elif type_id == '5':
+                company_id = choice(easy_payment)
+            elif type_id == '6':
                 company_id = choice(mobile_payment)
             return company_id
         

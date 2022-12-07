@@ -4,12 +4,13 @@ from django.views.generic import TemplateView
 from django.core.paginator import Paginator
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 from alarms.models import Alarm
 
 from datetime import datetime,  date
 
-from subscriptions.forms import SubscriptionForm, SubscriptionUpdateForm
+from subscriptions.forms import SubscriptionForm
 from subscriptions.models import Billing, Company, Plan, Service, Subscription, Type
 
 # custom decorator
@@ -86,18 +87,19 @@ class MainCreateModalView(FormView):
 
         user = self.request.user
 
-        service = form.data.get("service")
-        plan = form.data.get("plan")
+        category_type = form.data.get('category_type')
+        service_type = form.data.get("service_type")
+        plan_type = form.data.get("plan_type")
         started_at = form.data.get("started_at")
         expire_at = form.data.get("expire_at")
-        company = form.data.get("company")
+        company_type = form.data.get("company_type")
         method_type = form.data.get("method_type")
-        alarm = form.data.get("alarm")
-        service = Service.objects.get(id=service)
-        plan = Plan.objects.get(id=plan)
+        d_day = form.data.get("d_day")
+        service = Service.objects.get(id=service_type)
+        plan = Plan.objects.get(id=plan_type)
 
         # billing 데이터 저장
-        company = Company.objects.get(id=company)
+        company = Company.objects.get(id=company_type)
         type = Type.objects.get(method_type=method_type)
         billing, is_created = Billing.objects.get_or_create(
             user = user,
@@ -122,7 +124,7 @@ class MainCreateModalView(FormView):
 
         # alarm 데이터 저장
         alarm, is_created = Alarm.objects.get_or_create(
-            d_day = alarm,
+            d_day = d_day,
             subscription = subscription,
         )
         
@@ -149,10 +151,8 @@ def subscription_update(request, pk):
     # Assign fields to use
     plan_type = plan.id
     price = plan.price
-    category = plan.service.category.category_type
+    category_type = plan.service.category.category_type
 
-    # category table
-    category_type = plan.service.category.get_category_type_display()
     # Assign fields to use
     service_type = plan.service.id
 
@@ -170,7 +170,7 @@ def subscription_update(request, pk):
 
     # Existing data
     data={
-        "category_type":category, "service_type":service_type, 
+        "category_type":category_type, "service_type":service_type, 
         "plan_type":plan_type, "price":price, 
         "started_at":started_at, "expire_at":expire_at, 
         "company_type":company_type, "method_type":method_type, 
@@ -178,12 +178,13 @@ def subscription_update(request, pk):
     }
 
     if request.method == 'POST':
-        form = SubscriptionUpdateForm(request.POST,initial=data)\
+        form = SubscriptionForm(request.POST,initial=data)
         
         # form : valid
         if form.is_valid():
 
             # Input data
+            category_type = form.data.get('category_type')
             service_type = form.data.get("service_type")
             plan_type = form.data.get("plan_type")
             started_at = form.data.get("started_at")
@@ -228,17 +229,26 @@ def subscription_update(request, pk):
             alarm.d_day = d_day
             alarm.save()
             
-            return redirect("main")
+            if 'main' in request.resolver_match.url_name:
+                return redirect("main")
+            else:
+                return redirect("history")
 
         # form : invalid
         else:
-            context= {'form': form, 'pk': pk, 'category_type': category_type, 'price': price}
-            return render(request, 'subscriptions/main_update.html', context)
+            context= {'form': form, 'pk': pk}
+            if 'main' in request.resolver_match.url_name:
+                return render(request, 'subscriptions/main_update.html', context)
+            else:
+                return render(request, 'subscriptions/history_update.html', context)
 
     else:
-        form = SubscriptionUpdateForm(initial=data)
-    context= {'form': form, 'pk': pk, 'category_type': category_type, 'price': price}
-    return render(request, 'subscriptions/main_update.html', context)
+        form = SubscriptionForm(initial=data)
+    context= {'form': form, 'pk': pk}
+    if 'main' in request.resolver_match.url_name:
+        return render(request, 'subscriptions/main_update.html', context)
+    else:
+        return render(request, 'subscriptions/history_update.html', context)
 
 @method_decorator(login_required(login_url="/login/"), name="get")
 class HistoryListView(TemplateView):
@@ -292,3 +302,59 @@ class HistoryListView(TemplateView):
         subscription.update(delete_on=1)
         
         return redirect('history')
+
+@check_permissions
+def history_detail(request, pk):
+
+    # Assign object to use
+    user = request.user
+
+    # subscription table
+    subscription = Subscription.objects.select_related('user', 'plan', 'billing', 'alarm_subscription').get(id=pk)
+    # Assign fields to use
+    started_at = subscription.started_at
+    expire_at = subscription.expire_at
+    plan_name = subscription.plan.name
+    plan_price = format(subscription.plan.price,',')+"원"
+
+    # service table
+    service = Service.objects.select_related('category').get(id=subscription.plan.service_id)
+    # Assign fields to use
+    service_name = service.name
+    category_name = service.category.get_category_type_display()
+
+    # billing table
+    billing = Billing.objects.select_related('type', 'company').get(id=subscription.billing_id)
+    # Assign fields to use
+    method_type = billing.type.get_method_type_display()
+    company_name = billing.company.company
+
+    # Assign fields to use
+    d_day = subscription.alarm_subscription.get_d_day_display()
+
+    # Existing data
+    data=[category_name, service_name, plan_name, started_at, expire_at, 
+          plan_price, method_type, company_name, d_day]
+
+    context= {'data': data, 'pk': pk}
+    return render(request, 'subscriptions/history_detail.html', context)
+
+def process_ajax(request) -> JsonResponse:
+    if request.GET.get('category_val'):
+        category = request.GET.get('category_val')
+        result = list(Service.objects.filter(category__category_type=category).values_list('id', 'name'))
+    elif request.GET.get('service_val'):
+        service = request.GET.get('service_val')
+        result = list(Plan.objects.filter(service=service).values_list('id', 'name'))
+    elif request.GET.get('plan_val'):
+        plan_id = request.GET.get('plan_val')
+        result = Plan.objects.get(id=plan_id).price
+    elif request.GET.get('method_val'):
+        company_list = list(Company.objects.all().values_list('id', 'company'))
+        DEFAULT, CREDIT_CARD, CHECK_CARD, ACCOUNT, EASY_PAYMENT, MOBILE_PAYMENT = 0, 1, 2, 3, 4, 5
+        company_type = {DEFAULT:company_list[0:1], CREDIT_CARD:company_list[20:39],CHECK_CARD:company_list[20:38],
+                        ACCOUNT:company_list[1:20], EASY_PAYMENT:company_list[39:53], 
+                        MOBILE_PAYMENT:company_list[46:47] + company_list[53:58]}
+        method_val = int(request.GET.get('method_val'))
+        result = company_type[method_val]
+    return JsonResponse(result, safe=False)

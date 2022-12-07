@@ -5,6 +5,10 @@
 <link rel="stylesheet" href="{% static 'css/main_create.css' %}">
 {% endblock head_css %}
 
+{% block head_js %}
+<script defer src="{% static 'js/detail.js' %}"></script>
+{% endblock head_js %}
+
 {% block content %}
 
 <div id="subscription-modal" class="modal"> 
@@ -39,26 +43,27 @@
                     </div>
                     <div class="create-table-body" id="create-table-body">
                         <div class="create-table-row" id="create-table-row">
-                            <div class="create-table-td">{{form.category}}</div>
-                            <div class="create-table-td">{{form.service}}</div>
-                            <div class="create-table-td">{{form.plan}}</div>
+                            <div class="create-table-td">{{form.category_type}}</div>
+                            <div class="create-table-td">{{form.service_type}}</div>
+                            <div class="create-table-td">{{form.plan_type}}</div>
                             <div class="create-table-td">{{form.started_at}}</div>
                             <div class="create-table-td">{{form.expire_at}}</div>
                             <div class="create-table-td">{{form.price}}</div>
                             <div class="create-table-td">{{form.method_type}}</div>
-                            <div class="create-table-td">{{form.company}}</div>
-                            <div class="create-table-td">{{form.alarm}}</div>
+                            <div class="create-table-td">{{form.company_type}}</div>
+                            <div class="create-table-td">{{form.d_day}}</div>
                         </div>
                     </div>
                 </div>
                 <div class="create-table-control">
                     <div class="create-table-control-empty"></div>
                     <div class="create-table-error">
-                        {{form.plan.errors}}
+                        {{form.category_type.errors}}
+                        {{form.plan_type.errors}}
                         {{form.expire_at.errors}}
-                        {{form.company.errors}}
+                        {{form.company_type.errors}}
                         <!-- 서비스유형 혹은 결제수단에서 오류가 발생하는 경우, 아래 문구 출력   -->
-                        {% if form.plan.errors or form.company.errors %}
+                        {% if form.plan_type.errors or form.company_type.errors %}
                             <div class="error_announce">서비스유형 및 결제수단 정보는 우측 상단의 링크를 통해 확인해주세요.</div>
                         {% endif %}
                     </div>
