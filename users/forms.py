@@ -52,6 +52,9 @@ class LoginForm(forms.Form):
         if not user:
             raise ValidationError({"email": "올바른 이메일 주소를 입력해주세요."})
 
+        elif not user.is_active:
+            raise ValidationError({"email": "탈퇴한 회원입니다."})
+
         elif not check_password(password, user.password):
             raise ValidationError({"password": "잘못된 비밀번호입니다. 다시 확인하세요."})
 
