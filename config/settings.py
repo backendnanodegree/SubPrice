@@ -114,15 +114,15 @@ DATABASES = {
     }
 }
 
-# AWS RDS - postgreSQL 설정
+# # AWS RDS - postgreSQL 설정
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql_psycopg2",
-#         "HOST": "csw-django-rds.ceretzrqt2im.ap-northeast-2.rds.amazonaws.com",
-#         "NAME": "postgres",
+#         "HOST": secrets["DATABASES"]["default"]["HOST"],
+#         "NAME": secrets["DATABASES"]["default"]["NAME"],
 #         "PORT": "5432",
-#         "USER": "csw",
-#         "PASSWORD": "jsnd1234",
+#         "USER": secrets["DATABASES"]["default"]["USER"],
+#         "PASSWORD": secrets["DATABASES"]["default"]["PASSWORD"],
 #     }
 # }
 
@@ -174,10 +174,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.User'
 
 # # S3 설정 (주석 처리 시, 프로젝트 폴더에서 static, media 로드)
-# AWS_ACCESS_KEY_ID = "AKIAVKHAW77QW5Q4ZAVC"
-# AWS_SECRET_ACCESS_KEY = "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"
-# AWS_REGION = "ap-northeast-2"
-# AWS_STORAGE_BUCKET_NAME = "subprice"
+# AWS_ACCESS_KEY_ID = secrets["AWS_S3"]["default"]["AWS_ACCESS_KEY_ID"]
+# AWS_SECRET_ACCESS_KEY = secrets["AWS_S3"]["default"]["AWS_SECRET_ACCESS_KEY"]
+# AWS_REGION = secrets["AWS_S3"]["default"]["AWS_REGION"]
+# AWS_STORAGE_BUCKET_NAME = secrets["AWS_S3"]["default"]["AWS_STORAGE_BUCKET_NAME"]
 # AWS_S3_CUSTOM_DOMAIN = f"{AWS_STORAGE_BUCKET_NAME}.s3.{AWS_REGION}.amazonaws.com"
 # AWS_DEFAULT_ACL = "public-read"
 # DEFAULT_FILE_STORAGE = "config.storages.S3DefaultStorage"
@@ -206,8 +206,8 @@ CELERY_BEAT_SCHEDULER = 'django_celery_beat.schedulers:DatabaseScheduler'
 
 # email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = secrets["GMAIL"]["default"]["EMAIL_HOST"]
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'batmantwo7233@gmail.com'
-EMAIL_HOST_PASSWORD = secrets["GMAIL_SECRET_KEY"]
+EMAIL_HOST_USER = secrets["GMAIL"]["default"]["EMAIL_HOST_USER"]
+EMAIL_HOST_PASSWORD = secrets["GMAIL"]["default"]["EMAIL_HOST_PASSWORD"]
