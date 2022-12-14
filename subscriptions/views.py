@@ -65,7 +65,7 @@ class MainListView(TemplateView):
             context['subscription_empty_row_count'] = 0
 
         # expire model
-        expire = Subscription.objects.filter(user=user, is_active=0).order_by("-expire_at")
+        expire = Subscription.objects.filter(user=user, is_active=0, delete_on=0).order_by("-expire_at")
 
         if expire.count() >= 5 :
             expire = expire[:5]
