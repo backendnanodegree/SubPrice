@@ -63,7 +63,7 @@ class Command(BaseCommand):
                         break
 
                     # 메일 발송 내용
-                    content = f"안녕하세요, {user_name}님.\n\n현재 구독 중인 {service_name} {plan_name} 서비스에 대해\n{next_billing_at}에 {company_name} {type_name}를 통해 {price}원 결제 예정입니다.\n참고하시기 바랍니다.\n\n저희 서비스를 이용해주셔서 감사합니다.\n오늘도 좋은 하루 되세요."
+                    content = f"\n안녕하세요, SubPrice입니다.\n\n{user_name}님.\n현재 구독 중인 {service_name} {plan_name} 서비스에 대해\n{next_billing_at}에 {company_name} {type_name}를 통해 {price}원 결제 예정입니다.\n참고하시기 바랍니다.\n\n저희 서비스를 이용해주셔서 감사합니다.\n오늘도 좋은 하루 되세요.\n감사합니다."
                     # 데이터 생성
                     AlarmHistory.objects.create(alarm=alarm, content=content)
 
