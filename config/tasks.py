@@ -21,18 +21,18 @@ def send_mail_task():
 
     # 알람이 설정된 각각의 쿼리를 조회
     for need_alarm_sub in alarm_sub_queryset:
-        # 구독 만료일
-        expired_day = need_alarm_sub.subscription.expire_at
+        # 결제 예정일
+        next_billing_day = need_alarm_sub.subscription.next_billing_at()
 
-        # 만료일이 입력되지 않은경우 패스
-        if expired_day == None:
+        # 결제 예정일이 없는 경우는 패스
+        if next_billing_day == None:
             continue
 
-        # 만료일이 설정된 유저의 d_day (n일 전)
+        # 알람 설정한 유저의 d_day (n일 전)
         dday = int(need_alarm_sub.d_day)
 
-        # 만료일에서 dday를 뺀 알람발송 목표일
-        target_day = expired_day - datetime.timedelta(days=dday)
+        # 결제예정일에서 dday를 뺀 알람발송 목표일
+        target_day = next_billing_day - datetime.timedelta(days=dday)
 
         # 메일발송 목표일이 오늘인경우 메일 발송
         if target_day == today:
@@ -40,17 +40,25 @@ def send_mail_task():
             target_sub = need_alarm_sub.subscription
 
             # 구독정보의 데이터를 이용해서 send_mail의 파라미터로 넣어서 메일발송
+            
             # 메일을 받는 유저의 이메일을 리스트안엔 넣음 (하나인데 리스트인 이유는 send_mail함수가 이 값을 리스트로 받아야함)
             recipient_list = [target_sub.user.email]
+            
             # 이메일 제목 설정
             subject = f'{target_sub.user.fullname}님의 구독결제 예정 알람메일 입니다.'
+            
             # 이메일 내용 설정
-            message = f'안녕하세요, SubPrice 입니다. 회원님의 {target_sub.plan.service.name} - {target_sub.plan.name} / {target_sub.plan.price}원이 {expired_day}에 결제 >예정입니다.'
+            day = {0:"(일)", 1:"(월)", 2:"(화)", 3:"(수)", 4:"(목)", 5:"(금)", 6:"(토)"}
+            next_billing_day = next_billing_day.strftime('%Y년 %m월 %d일 ') + day[next_billing_day.weekday()]
+            price = format(target_sub.plan.price,',')
+
+            message = f"안녕하세요, {target_sub.user.fullname}님.\n\n현재 구독 중인 {target_sub.plan} 서비스에 대해\n{next_billing_day} 에 {target_sub.billing} (을)를 통해 {price}원 결제 예정입니다.\n참고하시기 바랍니다.\n\n저희 서비스를 이용해주셔서 감사합니다.\n오늘도 좋은 하루 되세요."
+            
             # 메일발송 함수(장고 코어의 내장함수)
             send_mail(subject, message, email_from, recipient_list)
 
             # 메일을 보냈다면 보낸 내용을 alarmhistory에 데이터 저장
-            history = AlarmHistory.objects.create(alarm=need_alarm_sub, content=message, is_success=True, traceback = '')
+            history = AlarmHistory.objects.create(alarm=need_alarm_sub, content=message)
             history.save()
 
     # 리턴문은 터미널에서 작업이 완료되었는지 확인하기위해 작성        

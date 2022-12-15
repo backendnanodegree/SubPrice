@@ -86,33 +86,41 @@ class Command(BaseCommand):
 
         subscription = Subscription.objects.select_related('plan', 'billing', 'alarm_subscription').get(id=1)
         # Assign fields to use
-        started_at = subscription.started_at
-        expire_at = subscription.expire_at
-        plan_name = subscription.plan.name
-        plan_price = subscription.plan.price
+        # started_at = subscription.started_at
+        # expire_at = subscription.expire_at
+        # plan_name = subscription.plan.name
+        # plan_price = subscription.plan.price
 
-        # service table
-        service = Service.objects.select_related('category').get(id=subscription.plan.service_id)
-        # Assign fields to use
-        service_name = service.name
-        category_name = service.category.get_category_type_display()
+        # # service table
+        # service = Service.objects.select_related('category').get(id=subscription.plan.service_id)
+        # # Assign fields to use
+        # service_name = service.name
+        # category_name = service.category.get_category_type_display()
 
-        # billing table
-        billing = Billing.objects.select_related('type', 'company').get(id=subscription.billing_id)
-        # Assign fields to use
-        method_type = billing.type.get_method_type_display()
-        company_name = billing.company.company
+        # # billing table
+        # billing = Billing.objects.select_related('type', 'company').get(id=subscription.billing_id)
+        # # Assign fields to use
+        # method_type = billing.type.get_method_type_display()
+        # company_name = billing.company.company
 
-        # Assign fields to use
-        d_day = subscription.alarm_subscription.get_d_day_display()
+        # # Assign fields to use
+        # d_day = subscription.alarm_subscription.get_d_day_display()
 
-        print(category_name)
-        print(service_name)
-        print(plan_name)
-        print(started_at)
-        print(expire_at)
-        print(plan_price)
-        print(method_type)
-        print(company_name)
-        print(d_day)
+        # print(category_name)
+        # print(service_name)
+        # print(plan_name)
+        # print(started_at)
+        # print(expire_at)
+        # print(plan_price)
+        # print(method_type)
+        # print(company_name)
+        # print(d_day)
+
+        plan = subscription.plan
         
+        billing = subscription.billing
+        company = billing.company
+
+        print(plan)
+        print(billing)
+        print(company)
