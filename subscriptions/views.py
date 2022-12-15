@@ -118,7 +118,8 @@ class MainCreateModalView(FormView):
         if expire_at == '':
             subscription.expire_at = None
         else:
-            subscription.expire_at=expire_at
+            if datetime.strptime(expire_at, "%Y-%m-%d").date() < datetime.now().date():
+                subscription.is_active = False
 
         subscription.save()
 
